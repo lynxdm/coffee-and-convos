@@ -29,8 +29,7 @@ function Navbar() {
   }, [pathname]);
 
   useEffect(() => {
-    if(isMenuOpen)
-    {
+    if (isMenuOpen) {
       document.body.addEventListener("click", handleMenu);
     }
 
@@ -40,7 +39,7 @@ function Navbar() {
   }, [isMenuOpen]);
 
   return (
-    <nav className='flex justify-between py-2 pt-4 px-4 text-primary bg-background border-b-2 border-primary items-center'>
+    <nav className='flex justify-between py-3 pt-4 px-4 text-primary bg-background border-b-2 border-primary items-center mb-8'>
       <Link to={"/"} className='text-xl font-semibold'>
         Coffee & Convos
       </Link>
@@ -73,8 +72,8 @@ function Navbar() {
           <ul
             className={
               isMenuOpen
-                ? "flex flex-col gap-y-4 *:capitalize *:*:capitalize absolute right-0 top-12 border border-primary w-72 py-2 rounded-sm *:*:flex *:*:gap-2 *:*:items-center bg-inherit z-10 visible"
-                : "flex flex-col gap-y-4 *:capitalize *:*:capitalize absolute right-0 top-12 border border-primary w-72 py-2 rounded-sm *:*:flex *:*:gap-2 *:*:items-center bg-inherit z-10 invisible"
+                ? "flex flex-col gap-y-4 *:capitalize *:*:capitalize absolute right-0 top-12 border border-primary w-72 py-2 rounded-sm *:*:flex *:*:gap-2 *:*:items-center z-10 bg-background visible"
+                : "flex flex-col gap-y-4 *:capitalize *:*:capitalize absolute right-0 top-12 border border-primary w-72 py-2 rounded-sm *:*:flex *:*:gap-2 *:*:items-center z-10 bg-background invisible"
             }
             ref={userMenu}
           >
@@ -94,11 +93,17 @@ function Navbar() {
               </Link>
             </li>
             <li className='px-2'>
+              <Link to={"/login"}>
+                <LuBell className='size-5' />
+                <p>Login</p>
+              </Link>
+            </li>
+            {/* <li className='px-2'>
               <button>
                 <TbLogout2 className='size-5' />
                 <p>logout</p>
               </button>
-            </li>
+            </li> */}
             <li className='px-2'>
               <button>
                 <LuMoonStar className='size-5' />

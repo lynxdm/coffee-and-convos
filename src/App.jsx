@@ -6,9 +6,14 @@ import About from "./pages/About";
 import Notifications from "./pages/Notifications";
 import Editor from "./pages/Editor";
 import Article from "./pages/Article";
+import Login from "./pages/Login";
+import Error from "./pages/Error";
 import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 
 function App() {
+  const [isAuth, setIsAuth] = useState(false);
+
   return (
     <Router>
       <Navbar />
@@ -16,9 +21,13 @@ function App() {
         <Route path='/' element={<Blog />} />
         <Route path='/about' element={<About />} />
         <Route path='/notifications' element={<Notifications />} />
-        <Route path='/signIn' element={<SignIn />} />
+        <Route path='/login' element={<Login />}>
+          <Route path='' element={<SignIn />} />
+          <Route path='signup' element={<SignUp />} />
+        </Route>
         <Route path='/editor' element={<Editor />} />
-        <Route path='/:id' element={<SignIn />} />
+        <Route path='/:id' element={<Article />} />
+        <Route path='*' element={<Error />} />
       </Routes>
     </Router>
   );
