@@ -6,8 +6,11 @@ import { IoIosSunny } from "react-icons/io";
 import { FaUserCircle } from "react-icons/fa";
 import { TbLogout2 } from "react-icons/tb";
 import { CiUser, CiBellOn, CiLogout, CiDark, CiLight } from "react-icons/ci";
+import { useGlobalContext } from "../context";
 
 function Navbar() {
+  const { admin, isAdmin, user, signUserOut } = useGlobalContext();
+
   const { pathname } = useLocation();
   const [currentPage, setCurrentPage] = useState(pathname.slice(1));
 
@@ -24,6 +27,9 @@ function Navbar() {
     }
   };
 
+  const handleMenuOnMouseUp = () => {
+    setIsMenuOpen(false);
+  };
   useEffect(() => {
     setCurrentPage(pathname.slice(1));
   }, [pathname]);
@@ -78,32 +84,39 @@ function Navbar() {
             ref={userMenu}
           >
             <li className='w-full text-center pb-1 border-b border-b-primary'>
-              adefunke adesegun
+              {isAdmin ? admin.displayName : user.displayName}
             </li>
-            <li className='px-2'>
-              <Link to={"/editor"}>
-                <SlNote className='size-5' />
-                <p>write</p>
-              </Link>
-            </li>
-            <li className='px-2'>
-              <Link to={"/notifications"}>
-                <LuBell className='size-5' />
-                <p>notifications</p>
-              </Link>
-            </li>
-            <li className='px-2'>
-              <Link to={"/login"}>
-                <LuBell className='size-5' />
-                <p>Login</p>
-              </Link>
-            </li>
-            {/* <li className='px-2'>
-              <button>
-                <TbLogout2 className='size-5' />
-                <p>logout</p>
-              </button>
-            </li> */}
+            {isAdmin && (
+              <li className='px-2' onMouseUp={handleMenuOnMouseUp}>
+                <Link to={"/editor"}>
+                  <SlNote className='size-5' />
+                  <p>write</p>
+                </Link>
+              </li>
+            )}
+            {user.email && (
+              <li className='px-2' onMouseUp={handleMenuOnMouseUp}>
+                <Link to={"/notifications"}>
+                  <LuBell className='size-5' />
+                  <p>notifications</p>
+                </Link>
+              </li>
+            )}
+            {user.email ? (
+              <li className='px-2' onMouseUp={handleMenuOnMouseUp}>
+                <button type='button' onClick={signUserOut}>
+                  <TbLogout2 className='size-5' />
+                  <p>logout</p>
+                </button>
+              </li>
+            ) : (
+              <li className='px-2' onMouseUp={handleMenuOnMouseUp}>
+                <Link to={"/login"}>
+                  <LuBell className='size-5' />
+                  <p>Login</p>
+                </Link>
+              </li>
+            )}
             <li className='px-2'>
               <button>
                 <LuMoonStar className='size-5' />

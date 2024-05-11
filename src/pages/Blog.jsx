@@ -5,22 +5,26 @@ import { getDoc, getDocs } from "firebase/firestore";
 function Blog() {
   const [articles, setArticles] = useState([]);
 
-  // const getArticles = async () => {
-  //   const snapshot = await getDocs(articlesRef);
-  //   // const data = snapshot.docs;
-  //   console.log(snapshot);
-  //   // if(data){
-  //   //   let articlesArr = []
-  //   //   data.forEach( (doc)=> articlesArr.push({...doc.data(), id:doc.id})
-  //   //   )
-  //   //   console.log(articlesArr)
-  //   //   setArticles(articlesArr)
-  //   // }.
-  // };
+  const getArticles = async () => {
+    try {
+      const snapshot = await getDocs(articlesRef);
+      const data = snapshot.docs;
+      if (data) {
+        let articlesArr = [];
+        data.forEach((doc) => articlesArr.push({ ...doc.data(), id: doc.id }));
+        setArticles(
+          articlesArr.sort((a, b) => new Date(b.date) - new Date(a.date))
+        );
+        console.log(articles);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  // useEffect(() => {
-  //   getArticles();
-  // }, []);
+  useEffect(() => {
+    getArticles();
+  }, []);
 
   return <div>Blog</div>;
 }
