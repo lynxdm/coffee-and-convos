@@ -12,7 +12,6 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useGlobalContext } from "../context";
 
 function SignUp() {
-  const { user, setUser } = useGlobalContext();
   const [userInfo, setUserInfo] = useState({
     email: "",
     firstName: "",
@@ -42,10 +41,6 @@ function SignUp() {
           displayName: `${userInfo.firstName} ${userInfo.lastName}`,
         });
         navigate("/");
-        setUser({
-          displayName: `${userInfo.firstName} ${userInfo.lastName}`,
-          email: user.email,
-        });
         console.log(user);
       })
       .catch((error) => console.log(error));
@@ -61,10 +56,6 @@ function SignUp() {
   const signUpWithGoogle = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        setUser({
-          displayName: result.user.displayName,
-          email: result.user.email,
-        });
         navigate("/");
         console.log(result.user);
       })

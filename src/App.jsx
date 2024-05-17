@@ -10,10 +10,9 @@ import Login from "./pages/Login";
 import Error from "./pages/Error";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import Footer from "./components/Footer";
 
 function App() {
-  const [isAuth, setIsAuth] = useState(false);
-
   return (
     <Router>
       <Navbar />
@@ -29,6 +28,7 @@ function App() {
         <Route path='/:id' element={<Article />} />
         <Route path='*' element={<Error />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }

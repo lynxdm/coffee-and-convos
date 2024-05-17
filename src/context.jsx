@@ -1,17 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import { signOut } from "firebase/auth";
-import { auth } from "./Utilis/firebase";
+import { signOut, onAuthStateChanged } from "firebase/auth";
+import { auth, storage } from "./Utilis/firebase";
+import { ref, getDownloadURL } from "firebase/storage";
 
 const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
-  const [user, setUser] = useState(
-    localStorage.getItem("user")
-      ? JSON.parse(localStorage.getItem("user"))
-      : {
-          displayName: "Guest User",
-          email: "",
-        }
-  );
+  const [user, setUser] = useState({
+    displayName: "Guest User",
+    email: "",
+  });
 
   const admin = { displayName: "Ajayi Ayobami", email: "lynxdm32@gmail.com" };
   const [isAdmin, setIsAdmin] = useState(false);
@@ -23,28 +20,96 @@ const AppProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { displayName, email } = user;
+        setUser({ displayName, email });
+        console.log("user logged in");
+      } else {
+        setUser({
+          displayName: "Guest User",
+          email: "",
+        });
+        console.log("no user logged in");
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const { displayName, email } = user;
+      // setUser({ displayName, email });
+      console.log(user);
+      console.log({ displayName, email });
+      console.log("user logged in");
+    } else {
+      setUser({
+        displayName: "Guest User",
+        email: "",
+      });
+      console.log("no user logged in");
+    }
+  });
+
+  useEffect(() => {
     if (user.email !== "") {
       checkUser();
-      localStorage.setItem("user", JSON.stringify(user));
     }
   }, [user]);
 
   const signUserOut = async () => {
     try {
       await auth.signOut();
-      localStorage.removeItem("user");
       setIsAdmin(false);
-      setUser({
-        displayName: "Guest User",
-        email: "",
-      });
     } catch (error) {
       console.log(error);
     }
   };
 
+  const convertDate = (date) => {
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    let [year, month, day] = date.split("-").map(Number);
+    return `${months[month - 1]} ${day}, ${year}`;
+  };
+
+  const fetchArticleContent = async (id) => {
+    const articleRef = ref(storage, `articles/${id}/content.md`);
+    const url = await getDownloadURL(articleRef);
+
+    if (url) {
+      let response = await fetch(url);
+      let data = await response.text();
+      return data;
+    }
+  };
+
   return (
-    <AppContext.Provider value={{ user, setUser, admin, isAdmin, signUserOut }}>
+    <AppContext.Provider
+      value={{
+        admin,
+        isAdmin,
+        signUserOut,
+        fetchArticleContent,
+        convertDate,
+        user,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );

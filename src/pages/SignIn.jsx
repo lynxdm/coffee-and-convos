@@ -7,7 +7,6 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useGlobalContext } from "../context";
 
 function SignIn() {
-  const { setUser } = useGlobalContext();
   let navigate = useNavigate();
 
   const [userInfo, setUserInfo] = useState({
@@ -32,28 +31,19 @@ function SignIn() {
     signInWithEmailAndPassword(auth, userInfo.email, userInfo.password)
       .then((userCredential) => {
         const user = userCredential.user;
-        setUser({
-          displayName: user.displayName,
-          email: user.email,
+        setUserInfo({
+          email: "",
+          password: "",
         });
+        navigate("/");
+        console.log(user);
       })
       .catch((error) => console.log(error));
-
-    setUserInfo({
-      email: "",
-      password: "",
-    });
-
-    navigate("/");
   };
 
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        setUser({
-          displayName: result.user.displayName,
-          email: result.user.email,
-        });
         navigate("/");
         console.log(result.user);
       })
