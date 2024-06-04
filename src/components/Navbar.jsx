@@ -45,8 +45,8 @@ function Navbar() {
   }, [isMenuOpen]);
 
   return (
-    <nav className='flex justify-between py-3 pt-4 px-4 text-primary bg-background border-b-2 border-primary items-center mb-8'>
-      <Link to={"/"} className='text-xl font-semibold'>
+    <nav className={`flex justify-between py-3 pt-4  text-primary bg-inherit w-full items-center mb-8 px-32 z-20 ${currentPage === "" && "absolute"}`}>
+      <Link to={"/"} className='text-2xl font-semibold'>
         Coffee & Convos
       </Link>
       <ul className='flex gap-4 items-center'>
@@ -78,8 +78,8 @@ function Navbar() {
           <ul
             className={
               isMenuOpen
-                ? "flex flex-col gap-y-4 *:capitalize *:*:capitalize absolute right-0 top-12 border border-primary w-72 py-2 rounded-sm *:*:flex *:*:gap-2 *:*:items-center z-10 bg-background visible"
-                : "flex flex-col gap-y-4 *:capitalize *:*:capitalize absolute right-0 top-12 border border-primary w-72 py-2 rounded-sm *:*:flex *:*:gap-2 *:*:items-center z-10 bg-background invisible"
+                ? "flex flex-col gap-y-4 *:capitalize *:*:capitalize absolute right-0 top-12 border border-primary w-72 py-2 rounded-sm *:*:flex *:*:gap-2 *:*:items-center z-10 bg-white visible"
+                : "flex flex-col gap-y-4 *:capitalize *:*:capitalize absolute right-0 top-12 border border-primary w-72 py-2 rounded-sm *:*:flex *:*:gap-2 *:*:items-center z-10 bg-white invisible"
             }
             ref={userMenu}
           >

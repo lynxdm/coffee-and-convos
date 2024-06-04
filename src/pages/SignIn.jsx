@@ -54,17 +54,16 @@ function SignIn() {
 
   return (
     <main
-      className='flex w-full justify-center
-    gap-16 py-10 pt-6 px-20 items-center'
+      className='flex w-full justify-between py-10 pt-6 px-32 items-center'
     >
-      <section className='w-[35%] h-1/2 shadow-black shadow'>
+      <section className='w-[40%] overflow-clip shadow-black shadow h-[33rem]'>
         <img
           src={loginImg1}
-          className='brightness-90 aspect-[12/16] h-[33rem]'
+          className='brightness-90  w-full max-h-full object-cover'
           alt='an abstract artwork'
         />
       </section>
-      <section className='flex flex-col gap-2 p-8 w-[50%] border-primary border-2 rounded-sm shadow  max-h-[33rem]'>
+      <section className='flex flex-col gap-2 p-8 w-[55%] border-primary border-2 rounded-sm shadow  max-h-[33rem]'>
         <h2 className='text-4xl font-semibold'>Coffee & Convos</h2>
         <h3 className='text-2xl'>Sign in</h3>
         <p>

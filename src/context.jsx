@@ -34,24 +34,8 @@ const AppProvider = ({ children }) => {
       }
     });
 
-    return () => unsubscribe();
+    return unsubscribe;
   }, []);
-
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      const { displayName, email } = user;
-      // setUser({ displayName, email });
-      console.log(user);
-      console.log({ displayName, email });
-      console.log("user logged in");
-    } else {
-      setUser({
-        displayName: "Guest User",
-        email: "",
-      });
-      console.log("no user logged in");
-    }
-  });
 
   useEffect(() => {
     if (user.email !== "") {

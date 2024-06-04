@@ -7,6 +7,15 @@ import Articlecard from "../components/Articlecard";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
+import {
+  FaXTwitter,
+  FaInstagram,
+  FaMedium,
+  FaLinkedinIn,
+} from "react-icons/fa6";
+import { BiLogoGmail } from "react-icons/bi";
+import authorHero from "../assets/images/author_hero.jpg";
+import heroImg from "../assets/images/hero.jpg";
 
 function Blog() {
   const [articles, setArticles] = useState([]);
@@ -67,11 +76,54 @@ function Blog() {
 
     return (
       <main>
-        <RecentArticle article={articles[0]} />
-        <section className='grid grid-cols-2 gap-12 my-12'>
-          {articles.slice(1).map((article) => {
-            return <Articlecard {...article} key={article.id} />;
-          })}
+        {/* <RecentArticle article={articles[0]} /> */}
+        <section className='relative min-h-[80vh] grid place-items-center h-fit px-32'>
+          <div className='w-[53%] aspect-[1] absolute -z-10 left-0 bottom-0'>
+            <img src={heroImg} alt='hero image' className='aspect-[1]' />
+          </div>
+          <article className='ml-[18rem] flex items-center gap-24 mt-16'>
+            <div className='size-[28rem] aspect-square before:w-0 before:h-[90%] before:border-r-[2px] before:border-black relative before:absolute before:-translate-x-[1000%] before:top-[5%]'>
+              <img
+                src={authorHero}
+                className='aspect-square'
+                alt='A photo of the author, Adefunke'
+              />
+            </div>
+            <div className='*:uppercase flex flex-col gap-2'>
+              <h1 className='text-4xl font-bold before:h-0 before:w-[10rem] before:border before:border-primary relative before:absolute w-fit before:top-[50%] before:-translate-x-[110%] before:-translate-y-[100%]'>
+                Hello!
+              </h1>
+              <h1 className='text-4xl font-bold'>I am Adefunke,</h1>
+              <p className='font-semibold text-xl'>
+                A creative, content & technical writer{" "}
+              </p>
+              <ul className='mt-5 flex gap-5'>
+                <li>
+                  <FaLinkedinIn />
+                </li>
+                <li>
+                  <FaXTwitter />
+                </li>
+                <li>
+                  <FaInstagram />
+                </li>
+                <li>
+                  <FaMedium />
+                </li>
+                <li>
+                  <BiLogoGmail />
+                </li>
+              </ul>
+            </div>
+          </article>
+        </section>
+        <section className='mt-28 px-32 flex flex-col'>
+          <article className='grid grid-cols-2 gap-12'>
+            {articles.map((article) => {
+              return <Articlecard {...article} key={article.id} />;
+            })}
+          </article>
+          <button className="mx-auto w-fit border border-primary mt-16 mb-4 hover:font-semibold text-[16px] px-12 py-4 grid place-items-center">LOAD MORE</button>
         </section>
       </main>
     );
