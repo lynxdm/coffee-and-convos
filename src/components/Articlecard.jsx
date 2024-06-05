@@ -8,6 +8,13 @@ function Articlecard({ title, cover, date, id }) {
   const [content, setContent] = useState("");
   const { fetchArticleContent, convertDate } = useGlobalContext();
 
+
+  const formatLink = (text)=>{
+    let formattedText = text.toLowerCase()
+
+    return formattedText = formattedText.replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, '-')
+  }
+
   useEffect(() => {
     fetchArticleContent(id).then((result) => {
       setContent(result);
@@ -20,7 +27,7 @@ function Articlecard({ title, cover, date, id }) {
         <li className='px-2 flex justify-between border-b border-primary pb-2 items-center'>
           <p className='text-sm'>{convertDate(date)}</p>
           <Link
-            to={`/${id}`}
+            to={`/${formatLink(title)}-${id}`}
             className='flex gap-2 w-fit items-center self-end'
           >
             <p className='font-semibold'>Read</p>

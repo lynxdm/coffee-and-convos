@@ -16,9 +16,12 @@ import {
 import { BiLogoGmail } from "react-icons/bi";
 import authorHero from "../assets/images/author_hero.jpg";
 import heroImg from "../assets/images/hero.jpg";
+import { useGlobalContext } from "../context";
+import Loader from "../components/Loader";
 
 function Blog() {
   const [articles, setArticles] = useState([]);
+  const [isLoading, setIsLoading] = useState(true)
 
   const getArticles = async () => {
     try {
@@ -30,6 +33,7 @@ function Blog() {
         setArticles(
           articlesArr.sort((a, b) => new Date(b.date) - new Date(a.date))
         );
+        setIsLoading(false)
         console.log(articlesArr);
         console.log(articles);
       }
@@ -42,25 +46,10 @@ function Blog() {
     getArticles();
   }, []);
 
-  const convertDate = (date) => {
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
 
-    let [year, month, day] = date.split("-").map(Number);
-    return `${months[month - 1]} ${day}, ${year}`;
-  };
+  if(isLoading){
+    return <Loader/>
+  }
 
   if (articles.length > 0) {
     const fetchArticle = async (id) => {

@@ -45,7 +45,11 @@ function Navbar() {
   }, [isMenuOpen]);
 
   return (
-    <nav className={`flex justify-between py-3 pt-4  text-primary bg-inherit w-full items-center mb-8 px-32 z-20 ${currentPage === "" && "absolute"}`}>
+    <nav
+      className={`flex justify-between py-3 pt-4  text-primary bg-inherit w-full items-center px-32 z-20 ${
+        currentPage === "" && "absolute"
+      }`}
+    >
       <Link to={"/"} className='text-2xl font-semibold'>
         Coffee & Convos
       </Link>
@@ -76,18 +80,19 @@ function Navbar() {
             <FaUserCircle className='size-6' />
           </button>
           <ul
-            className={
-              isMenuOpen
-                ? "flex flex-col gap-y-4 *:capitalize *:*:capitalize absolute right-0 top-12 border border-primary w-72 py-2 rounded-sm *:*:flex *:*:gap-2 *:*:items-center z-10 bg-white visible"
-                : "flex flex-col gap-y-4 *:capitalize *:*:capitalize absolute right-0 top-12 border border-primary w-72 py-2 rounded-sm *:*:flex *:*:gap-2 *:*:items-center z-10 bg-white invisible"
-            }
+            className={`flex flex-col gap-y-4 *:capitalize *:*:capitalize *:cursor-pointer absolute right-0 top-12 shadow-md border w-72 py-4 px-3 rounded-xl *:*:flex *:*:gap-2 *:*:p-2 *:w-full *:rounded-lg *:*:items-center z-10 bg-white ${
+              isMenuOpen ? "visible" : "invisible"
+            }`}
             ref={userMenu}
           >
-            <li className='w-full text-center pb-1 border-b border-b-primary'>
+            <li className='w-full text-center border-b font-semibold pb-1 text-lg'>
               {isAdmin ? admin.displayName : user.displayName}
             </li>
             {isAdmin && (
-              <li className='px-2' onMouseUp={handleMenuOnMouseUp}>
+              <li
+                className='px-2 hover:bg-gray-200'
+                onMouseUp={handleMenuOnMouseUp}
+              >
                 <Link to={"/editor"}>
                   <SlNote className='size-5' />
                   <p>write</p>
@@ -95,34 +100,43 @@ function Navbar() {
               </li>
             )}
             {user.email && (
-              <li className='px-2' onMouseUp={handleMenuOnMouseUp}>
+              <li
+                className='px-2 hover:bg-gray-200'
+                onMouseUp={handleMenuOnMouseUp}
+              >
                 <Link to={"/notifications"}>
                   <LuBell className='size-5' />
                   <p>notifications</p>
                 </Link>
               </li>
             )}
+            <li className='px-2 hover:bg-gray-200'>
+              <button>
+                <LuMoonStar className='size-5' />
+                <p>theme</p>
+              </button>
+            </li>
             {user.email ? (
-              <li className='px-2' onMouseUp={handleMenuOnMouseUp}>
+              <li
+                className=' border-t pt-4 mt-[-0.5rem] *:px-4 cursor-pointer *:w-full *:rounded-lg *:hover:bg-gray-200'
+                onMouseUp={handleMenuOnMouseUp}
+              >
                 <button type='button' onClick={signUserOut}>
                   <TbLogout2 className='size-5' />
                   <p>logout</p>
                 </button>
               </li>
             ) : (
-              <li className='px-2' onMouseUp={handleMenuOnMouseUp}>
+              <li
+                className='px-2 hover:bg-gray-200'
+                onMouseUp={handleMenuOnMouseUp}
+              >
                 <Link to={"/login"}>
                   <LuBell className='size-5' />
                   <p>Login</p>
                 </Link>
               </li>
             )}
-            <li className='px-2'>
-              <button>
-                <LuMoonStar className='size-5' />
-                <p>theme</p>
-              </button>
-            </li>
           </ul>
         </li>
       </ul>

@@ -73,8 +73,8 @@ const AppProvider = ({ children }) => {
   };
 
   const fetchArticleContent = async (id) => {
-    const articleRef = ref(storage, `articles/${id}/content.md`);
-    const url = await getDownloadURL(articleRef);
+    const articleContentRef = ref(storage, `articles/${id}/content.md`);
+    const url = await getDownloadURL(articleContentRef);
 
     if (url) {
       let response = await fetch(url);

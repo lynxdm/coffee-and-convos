@@ -4,14 +4,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        'background': '#e1e0de',
-        'primary': '#161616',
+        background: "#e1e0de",
+        primary: "#161616",
       },
       fontFamily: {
-        "overpass": ['Overpass', 'system-ui', 'Arial'],
-        "spectral": ['Spectral', 'sans-serif'],
-      }
+        overpass: ["Overpass", "system-ui", "Arial"],
+        spectral: ["Spectral", "sans-serif"],
+      },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };

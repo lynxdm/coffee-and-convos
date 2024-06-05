@@ -18,8 +18,8 @@ function Footer() {
 
   return (
     <footer className='border-t mt-12 my-10 pt-4 border-primary flex items-center mx-32 justify-between'>
-      <div className='flex flex-col gap-4'>
-        <ul className='flex gap-6 *:text-lg items-center'>
+      <div className='flex flex-col gap-3'>
+        <ul className='flex gap-6 *:text-md items-center'>
           <li>
             <Link
               to={"/"}
@@ -55,17 +55,17 @@ function Footer() {
           </li>
         </ul>
       </div>
-      <div className='flex flex-col gap-4 items-center'>
-        <Link to={"/"} className='text-2xl font-semibold'>
+      <div className='flex flex-col gap-3 items-center'>
+        <Link to={"/"} className='text-xl font-semibold'>
           Coffee & Convos
         </Link>
         <p>Copyright &copy; {new Date().getFullYear()} Thebetawriter</p>
       </div>
-      <form className='flex flex-col gap-4'>
-        <label htmlFor='subscribe-email' className='text-lg font-semibold'>
+      <form className='flex flex-col gap-3'>
+        <label htmlFor='subscribe-email' className='text-md font-semibold'>
           NEWSLETTER
         </label>
-        <div className='flex items-center border-b border-primary gap-4'>
+        <div className='flex items-center border-b border-primary gap-2'>
           <input
             type='email'
             name="subscribe-email"
