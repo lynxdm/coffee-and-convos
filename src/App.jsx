@@ -4,18 +4,19 @@ import Navbar from "./components/Navbar";
 import Blog from "./pages/Blog";
 import About from "./pages/About";
 import Notifications from "./pages/Notifications";
-import Editor from "./pages/Editor";
+import New from "./pages/New";
 import Article from "./pages/Article";
 import Login from "./pages/Login";
 import Error from "./pages/Error";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import Footer from "./components/Footer";
+import Editor from "./pages/Editor";
+import Preview from "./pages/Preview";
 
 function App() {
   return (
     <Router>
-      <Navbar />
+      {/* <Navbar /> */}
       <Routes>
         <Route path='/' element={<Blog />} />
         <Route path='/about' element={<About />} />
@@ -24,11 +25,13 @@ function App() {
           <Route path='' element={<SignIn />} />
           <Route path='signup' element={<SignUp />} />
         </Route>
-        <Route path='/editor' element={<Editor />} />
+        <Route path='/new' element={<New />}>
+          <Route path='' element={<Editor />} />
+          <Route path='preview' element={<Preview />} />
+        </Route>
         <Route path='/:id' element={<Article />} />
         <Route path='*' element={<Error />} />
       </Routes>
-      <Footer />
     </Router>
   );
 }

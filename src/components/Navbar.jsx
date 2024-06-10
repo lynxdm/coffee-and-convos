@@ -8,7 +8,7 @@ import { TbLogout2 } from "react-icons/tb";
 import { CiUser, CiBellOn, CiLogout, CiDark, CiLight } from "react-icons/ci";
 import { useGlobalContext } from "../context";
 
-function Navbar() {
+function Navbar({page}) {
   const { admin, isAdmin, user, signUserOut } = useGlobalContext();
 
   const { pathname } = useLocation();
@@ -80,12 +80,12 @@ function Navbar() {
             <FaUserCircle className='size-6' />
           </button>
           <ul
-            className={`flex flex-col gap-y-4 *:capitalize *:*:capitalize *:cursor-pointer absolute right-0 top-12 shadow-md border w-72 py-4 px-3 rounded-xl *:*:flex *:*:gap-2 *:*:p-2 *:w-full *:rounded-lg *:*:items-center z-10 bg-white ${
+            className={`flex flex-col gap-y-4 *:capitalize *:*:capitalize *:cursor-pointer absolute right-0 top-12 shadow-md border w-72 py-4 px-2 rounded-xl *:*:flex *:*:gap-2 *:*:p-2 *:w-full *:rounded-lg *:*:items-center z-10 bg-white ${
               isMenuOpen ? "visible" : "invisible"
             }`}
             ref={userMenu}
           >
-            <li className='w-full text-center border-b font-semibold pb-1 text-lg'>
+            <li className='w-full text-center border-b font-[500] pb-1 text-[1.1rem]'>
               {isAdmin ? admin.displayName : user.displayName}
             </li>
             {isAdmin && (
@@ -93,7 +93,7 @@ function Navbar() {
                 className='px-2 hover:bg-gray-200'
                 onMouseUp={handleMenuOnMouseUp}
               >
-                <Link to={"/editor"}>
+                <Link to={"/new"}>
                   <SlNote className='size-5' />
                   <p>write</p>
                 </Link>

@@ -3,7 +3,7 @@ import { DotLoader } from "react-spinners";
 
 function Loader() {
   return (
-    <main className='h-[85vh] grid place-items-center'>
+    <main className='h-[100vh] grid place-items-center'>
       <DotLoader />
     </main>
   );

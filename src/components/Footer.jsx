@@ -7,6 +7,8 @@ import {
 } from "react-icons/fa6";
 import { BiLogoGmail } from "react-icons/bi";
 import { Link, useLocation } from "react-router-dom";
+import { FaArrowUp} from "react-icons/fa6";
+// import FooterBg from "../assets/images/footer_bg.png";
 
 function Footer() {
   const { pathname } = useLocation();
@@ -16,10 +18,16 @@ function Footer() {
     setCurrentPage(pathname.slice(1));
   }, [pathname]);
 
+ const scrollUp = ()=>{
+    window.scrollTo({top: 0, behavior: 'smooth'})
+ }
+
   return (
-    <footer className='border-t mt-12 my-10 pt-4 border-primary flex items-center mx-32 justify-between'>
-      <div className='flex flex-col gap-3'>
-        <ul className='flex gap-6 *:text-md items-center'>
+    <footer
+      className='border-t mt-12 h-[16rem]  text-white border-primary flex items-start pt-[3.5rem] px-32 bg-[url("src/assets/images/footer_bg2.svg")] bg-cover justify-between relative'
+    >
+      <div className='flex flex-col gap-4'>
+        <ul className='flex gap-6 *:text-lg items-center'>
           <li>
             <Link
               to={"/"}
@@ -37,7 +45,7 @@ function Footer() {
             </Link>
           </li>
         </ul>
-        <ul className='flex gap-5'>
+        <ul className='flex gap-5 *:text-xl'>
           <li>
             <FaLinkedinIn />
           </li>
@@ -55,23 +63,24 @@ function Footer() {
           </li>
         </ul>
       </div>
-      <div className='flex flex-col gap-3 items-center'>
-        <Link to={"/"} className='text-xl font-semibold'>
+      <div className='flex flex-col gap-4 items-center'>
+        <Link to={"/"} className='text-[1.5rem] font-semibold'>
           Coffee & Convos
         </Link>
         <p>Copyright &copy; {new Date().getFullYear()} Thebetawriter</p>
       </div>
-      <form className='flex flex-col gap-3'>
-        <label htmlFor='subscribe-email' className='text-md font-semibold'>
+      <form className='flex flex-col gap-4'>
+        <label htmlFor='subscribe-email' className='text-lg font-semibold'>
           NEWSLETTER
         </label>
-        <div className='flex items-center border-b border-primary gap-2'>
+        <div className='flex items-center border-b border-white gap-2'>
           <input
             type='email'
-            name="subscribe-email"
+            name='subscribe-email'
             placeholder='your email'
             id='subscribe-email'
-            className='placeholder:text-primary focus:outline-none w-[10rem]'
+            className='focus:outline-none w-[10rem] bg-transparent
+             placeholder:text-white'
             required
           />
           <button type='submit' className='font-semibold text-sm'>
@@ -79,6 +88,7 @@ function Footer() {
           </button>
         </div>
       </form>
+      <button className="absolute border-white bottom-10 right-32 border-2 size-10 grid place-items-center rounded-full text-black bg-white hover:-translate-y-[5%] transition-transform" onClick={scrollUp}><FaArrowUp className="size-6"/></button>
     </footer>
   );
 }
