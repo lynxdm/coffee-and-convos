@@ -1,4 +1,5 @@
 import React from "react";
+import { useMemo } from "react";
 
 function UseToolbar(textref, setArticleDraft, articleDraft) {
   //   const textarea = textref.current;
@@ -171,6 +172,23 @@ function UseToolbar(textref, setArticleDraft, articleDraft) {
     }
   };
 
+  const handleAddImage = (loading, url, startPos, endPos) => {
+    if (loading) {
+      const newText = `${content.substring(0, startPos)}\n![Uploading](...)${content.substring(endPos)}`;
+      setArticleDraft({ ...articleDraft, content: newText });
+      return;
+    }
+
+    if (startPos === 0 || content[startPos - 1] === "\n") {
+      const newText = `${content.substring(0, startPos)}![Image alt description](${url})${content.substring(endPos)}`;
+      setArticleDraft({ ...articleDraft, content: newText });
+    } else {
+      const newText = `${content.substring(0, startPos)}\n![Image alt description](${url})${content.substring(endPos)}`;
+      setArticleDraft({ ...articleDraft, content: newText });
+    }
+    textref.current.focus();
+  };
+
   return {
     handleBold,
     handleItalic,
@@ -180,6 +198,7 @@ function UseToolbar(textref, setArticleDraft, articleDraft) {
     handleLinking,
     handleQuote,
     handleUnOrderedList,
+    handleAddImage,
   };
 }
 export default UseToolbar;

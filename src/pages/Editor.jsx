@@ -3,7 +3,8 @@ import { useOutletContext } from "react-router-dom";
 import UseToolbar from "../Hooks/UseToolbar";
 import { addDoc } from "firebase/firestore";
 import { storage } from "../Utilis/firebase";
-import { ref } from "firebase/storage";
+import { v4 } from "uuid";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 function Editor() {
   const [articleDraft, handleChange, setArticleDraft] = useOutletContext();
@@ -26,12 +27,24 @@ function Editor() {
     handleLinking,
     handleUnOrderedList,
     handleQuote,
+    handleAddImage,
   } = UseToolbar(textAreaRef, setArticleDraft, articleDraft);
 
   const uploadImage = (e) => {
     if (e.target.files[0]) {
+      const startPos = textAreaRef.current.selectionStart;
+      const endPos = textAreaRef.current.selectionEnd;
+
+      handleAddImage(true, "", startPos, endPos);
       const image = e.target.files[0];
-      // const imageRef = ref(storage, `articles/${image.name}`)
+      const uniqueImageName = `${v4()}-${image.name}`;
+      console.log(uniqueImageName);
+      const imageRef = ref(storage, `uploads/articleImages/${uniqueImageName}`);
+      uploadBytes(imageRef, image).then((snapshot) => {
+        getDownloadURL(snapshot.ref).then((url) => {
+          handleAddImage(false, url, startPos, endPos);
+        });
+      });
     }
   };
 
