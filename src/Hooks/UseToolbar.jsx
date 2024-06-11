@@ -129,6 +129,10 @@ function UseToolbar(textref, setArticleDraft, articleDraft) {
     }
   };
 
+  const handleHeadings = (char) => {
+    runNewLineBtnAction(`${char} `);
+  };
+
   const handleLinking = () => {
     const startPos = textref.current.selectionStart;
     const endPos = textref.current.selectionEnd;
@@ -147,10 +151,6 @@ function UseToolbar(textref, setArticleDraft, articleDraft) {
 
       const newText = `${content.substring(0, startPos - (originalText.length + 3))}${originalText}${content.substring(endPos + 1)}`;
       setArticleDraft({ ...articleDraft, content: newText });
-
-      console.log(
-        content.substring(startPos - (originalText.length + 3), endPos - 5),
-      );
 
       const timeoutId = setTimeout(() => {
         textref.current.focus();
@@ -199,6 +199,7 @@ function UseToolbar(textref, setArticleDraft, articleDraft) {
     handleQuote,
     handleUnOrderedList,
     handleAddImage,
+    handleHeadings,
   };
 }
 export default UseToolbar;

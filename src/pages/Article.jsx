@@ -6,6 +6,7 @@ import { useGlobalContext } from "../context";
 import ReactMarkdown from "react-markdown";
 import Loader from "../components/Loader";
 import Footer from "../components/Footer";
+import Navbar from "../components/Navbar.jsx"
 
 function Article() {
   const { pathname } = useLocation();
@@ -44,6 +45,7 @@ function Article() {
   if (article) {
     return (
       <>
+      <Navbar/>
         <main className='mx-32 pt-10 border-t border-primary'>
           <h1 className='text-6xl font-bold leading-[5rem] mb-2 max-w-[60rem] mx-auto'>
             {article.title}

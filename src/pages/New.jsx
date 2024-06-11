@@ -1,17 +1,30 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { FaXmark } from "react-icons/fa6";
-import { Outlet, Link, useLocation } from "react-router-dom";
+import { Outlet, Link, useLocation, json } from "react-router-dom";
 
 function New() {
   const { pathname } = useLocation();
   const path = pathname.split("/");
   const currentPath = path[path.length - 1];
 
-const [articleDraft, setArticleDraft] = useState({
-    cover_img: "",
-    title: "",
+  const [articleDraft, setArticleDraft] = useState(
+    JSON.parse(localStorage.getItem("articleDraft")) || {
+      coverImg: "",
+      title: "",
+      content: "",
+      coverImgPath: "",
+      publishedAt: "",
+    },
+  );
+
+  const [errorComponent, setErrorComponent] = useState({
+    show: false,
     content: "",
   });
+
+  useEffect(() => {
+    localStorage.setItem("articleDraft", JSON.stringify(articleDraft));
+  }, [articleDraft]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,7 +32,8 @@ const [articleDraft, setArticleDraft] = useState({
     setArticleDraft({ ...articleDraft, [name]: value });
   };
 
-  return (<>
+  return (
+    <>
       <nav className='relative flex items-center justify-between bg-[#f5f5f5] px-32 py-2'>
         <div className='flex min-w-[60vw] items-center justify-between'>
           <div className='flex items-center gap-5'>
@@ -47,13 +61,32 @@ const [articleDraft, setArticleDraft] = useState({
           <FaXmark className='size-6' />
         </button>
       </nav>
-      <main className='min-h-[92vh] xl:min-h-[95vh] bg-[#f5f5f5] px-32'>
-        <section className='h-[80vh] w-[60vw] overflow-y-scroll rounded-md border bg-white border-gray-300'>
-          <Outlet context={[articleDraft, handleChange, setArticleDraft]} />
+      <main className='min-h-[92vh] bg-[#f5f5f5] px-32 xl:min-h-[95vh]'>
+        <section
+          className={`h-[80vh] w-[60vw] overflow-y-hidden rounded-md border border-gray-300 bg-white ${(articleDraft.content.length > 250 || currentPath === "preview") && "overflow-y-scroll"}`}
+        >
+          {errorComponent.show && (
+            <div className='m-0 grid items-center bg-red-100 px-10 py-4 pb-5 font-bold text-red-700'>
+              <p className='m-0 h-fit py-0 text-2xl'>
+                {errorComponent.content}
+              </p>
+            </div>
+          )}
+          <Outlet
+            context={[
+              articleDraft,
+              handleChange,
+              setArticleDraft,
+              errorComponent,
+              setErrorComponent,
+            ]}
+          />
         </section>
-        <div className="mt-5 flex items-center gap-2 *:px-4 *:py-[0.4rem] *:rounded-md">
-          <button className="bg-blue-700 text-white hover:bg-blue-800 font-semibold">Publish</button>
-          <button className="hover:bg-gray-300">Save draft</button>
+        <div className='mt-5 flex items-center gap-2 *:rounded-md *:px-4 *:py-[0.4rem]'>
+          <button className='bg-blue-700 font-semibold text-white hover:bg-blue-800'>
+            Publish
+          </button>
+          <button className='hover:bg-gray-300'>Save draft</button>
         </div>
       </main>
     </>
