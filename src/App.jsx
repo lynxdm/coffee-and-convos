@@ -12,6 +12,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Editor from "./pages/Editor";
 import Preview from "./pages/Preview";
+import Drafts from "./pages/Drafts";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path='' element={<SignIn />} />
           <Route path='signup' element={<SignUp />} />
         </Route>
+        <Route path='/drafts' element={<Drafts />} />
         <Route path='/new' element={<New />}>
           <Route path='' element={<Editor />} />
           <Route path='preview' element={<Preview />} />

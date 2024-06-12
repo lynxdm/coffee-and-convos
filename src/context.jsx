@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { signOut, onAuthStateChanged } from "firebase/auth";
-import { auth, storage } from "./Utilis/firebase";
+import { auth, storage, db } from "./Utilis/firebase";
 import { ref, getDownloadURL } from "firebase/storage";
+import { addDoc, doc, setDoc } from "firebase/firestore";
 
 const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
@@ -72,14 +73,23 @@ const AppProvider = ({ children }) => {
     return `${months[month - 1]} ${day}, ${year}`;
   };
 
-  const fetchArticleContent = async (id) => {
-    const articleContentRef = ref(storage, `articles/${id}/content.md`);
+  const fetchArticleContent = async (id, type) => {
+    const articleContentRef = ref(storage, `${type}/${id}/content.md`);
     const url = await getDownloadURL(articleContentRef);
 
     if (url) {
       let response = await fetch(url);
       let data = await response.text();
       return data;
+    }
+  };
+
+  const publishArticle = async (data, id, path) => {
+    try {
+      let articleRef = doc(db, path, id);
+      await setDoc(articleRef, data);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -92,6 +102,7 @@ const AppProvider = ({ children }) => {
         fetchArticleContent,
         convertDate,
         user,
+        publishArticle,
       }}
     >
       {children}

@@ -2,13 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { SlNote } from "react-icons/sl";
 import { LuBell, LuMoonStar } from "react-icons/lu";
+import { CgNotes } from "react-icons/cg";
 import { IoIosSunny } from "react-icons/io";
 import { FaUserCircle } from "react-icons/fa";
 import { TbLogout2 } from "react-icons/tb";
 import { CiUser, CiBellOn, CiLogout, CiDark, CiLight } from "react-icons/ci";
 import { useGlobalContext } from "../context";
 
-function Navbar({page}) {
+function Navbar({ page }) {
   const { admin, isAdmin, user, signUserOut } = useGlobalContext();
 
   const { pathname } = useLocation();
@@ -46,14 +47,14 @@ function Navbar({page}) {
 
   return (
     <nav
-      className={`flex justify-between py-3 pt-4  text-primary bg-inherit w-full items-center px-32 z-20 ${
+      className={`z-20 flex w-full items-center justify-between bg-inherit px-32 py-3 pt-4 text-primary ${
         currentPage === "" && "absolute"
       }`}
     >
       <Link to={"/"} className='text-2xl font-semibold'>
         Coffee & Convos
       </Link>
-      <ul className='flex gap-4 items-center'>
+      <ul className='flex items-center gap-4'>
         <li>
           <Link
             to={"/"}
@@ -72,7 +73,7 @@ function Navbar({page}) {
         </li>
         <li className='relative'>
           <button
-            className='grid place-items-center user-menu-btn'
+            className='user-menu-btn grid place-items-center'
             type='button'
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             ref={userBtn}
@@ -80,24 +81,35 @@ function Navbar({page}) {
             <FaUserCircle className='size-6' />
           </button>
           <ul
-            className={`flex flex-col gap-y-4 *:capitalize *:*:capitalize *:cursor-pointer absolute right-0 top-12 shadow-md border w-72 py-4 px-2 rounded-xl *:*:flex *:*:gap-2 *:*:p-2 *:w-full *:rounded-lg *:*:items-center z-10 bg-white ${
+            className={`absolute right-0 top-12 z-50 flex w-72 flex-col gap-y-4 rounded-xl border bg-white px-2 py-4 shadow-md *:*:flex *:w-full *:cursor-pointer *:*:items-center *:*:gap-2 *:rounded-lg *:*:p-2 *:*:capitalize *:capitalize ${
               isMenuOpen ? "visible" : "invisible"
             }`}
             ref={userMenu}
           >
-            <li className='w-full text-center border-b font-[500] pb-1 text-[1.1rem]'>
+            <li className='w-full border-b pb-1 text-center text-[1.1rem] font-[500]'>
               {isAdmin ? admin.displayName : user.displayName}
             </li>
             {isAdmin && (
-              <li
-                className='px-2 hover:bg-gray-200'
-                onMouseUp={handleMenuOnMouseUp}
-              >
-                <Link to={"/new"}>
-                  <SlNote className='size-5' />
-                  <p>write</p>
-                </Link>
-              </li>
+              <>
+                <li
+                  className='px-2 hover:bg-gray-200'
+                  onMouseUp={handleMenuOnMouseUp}
+                >
+                  <Link to={"/new"}>
+                    <SlNote className='size-5' />
+                    <p>write</p>
+                  </Link>
+                </li>
+                <li
+                  className='px-2 hover:bg-gray-200'
+                  onMouseUp={handleMenuOnMouseUp}
+                >
+                  <Link to={"/drafts"}>
+                    <CgNotes className='size-5' />
+                    <p>Drafts</p>
+                  </Link>
+                </li>
+              </>
             )}
             {user.email && (
               <li
@@ -118,7 +130,7 @@ function Navbar({page}) {
             </li>
             {user.email ? (
               <li
-                className=' border-t pt-4 mt-[-0.5rem] *:px-4 cursor-pointer *:w-full *:rounded-lg *:hover:bg-gray-200'
+                className='mt-[-0.5rem] cursor-pointer border-t pt-4 *:w-full *:rounded-lg *:px-4 *:hover:bg-gray-200'
                 onMouseUp={handleMenuOnMouseUp}
               >
                 <button type='button' onClick={signUserOut}>

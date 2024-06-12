@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import UseToolbar from "../Hooks/UseToolbar";
+import UseToolbar from "../Hooks/useToolbar";
 import { addDoc } from "firebase/firestore";
 import { storage } from "../Utilis/firebase";
 import { v4 } from "uuid";
@@ -10,7 +10,7 @@ import {
   ref,
   uploadBytes,
 } from "firebase/storage";
-import { ClipLoader, ScaleLoader } from "react-spinners";
+import { ScaleLoader } from "react-spinners";
 
 function Editor() {
   const [
@@ -71,10 +71,9 @@ function Editor() {
     if (e.target.files[0]) {
       setCoverIsLoading(true);
       const coverImage = e.target.files[0];
-      const uniqueImageName = `${v4()}-${coverImage.name}`;
       const coverImageRef = ref(
         storage,
-        `uploads/coverImages/${uniqueImageName}`,
+        `articles/${articleDraft.details.id}/cover`,
       );
       uploadBytes(coverImageRef, coverImage)
         .then((snapshot) => {
@@ -82,7 +81,6 @@ function Editor() {
             setArticleDraft({
               ...articleDraft,
               coverImg: url,
-              coverImgPath: uniqueImageName,
             });
             setCoverIsLoading(false);
           });
@@ -106,7 +104,7 @@ function Editor() {
   const deleteCoverImage = () => {
     const coverImageRef = ref(
       storage,
-      `uploads/coverImages/${articleDraft.coverImgPath}`,
+      `articles/${articleDraft.details.id}/cover`,
     );
     deleteObject(coverImageRef)
       .then(() => {
@@ -131,7 +129,10 @@ function Editor() {
 
       const image = e.target.files[0];
       const uniqueImageName = `${v4()}-${image.name}`;
-      const imageRef = ref(storage, `uploads/articleImages/${uniqueImageName}`);
+      const imageRef = ref(
+        storage,
+        `articles/${articleDraft.details.id}/${uniqueImageName}`,
+      );
       uploadBytes(imageRef, image)
         .then((snapshot) => {
           getDownloadURL(snapshot.ref).then((url) => {
@@ -151,7 +152,10 @@ function Editor() {
   };
 
   return (
-    <form className='relative flex flex-col gap-6 py-8'>
+    <form
+      className='relative flex flex-col gap-6 py-8'
+      onSubmit={(e) => e.preventDefault()}
+    >
       {coverIsLoading ? (
         <div className='mx-16 flex items-center gap-2'>
           <ScaleLoader
@@ -220,7 +224,7 @@ function Editor() {
         id='title'
         className='px-16 text-5xl font-extrabold placeholder:text-5xl placeholder:font-extrabold placeholder:text-gray-600 focus:outline-none'
       />
-      <div className='sticky top-0 flex w-full items-center gap-3 bg-[#f5f5f5] px-16 py-3 *:grid *:size-10 *:place-items-center *:rounded'>
+      <div className='sticky top-0 flex w-full items-center gap-3 bg-[#f5f5f5] px-16 py-3 *:flex *:size-10 *:items-center *:justify-center *:rounded'>
         <button
           type='button'
           className='font-mono text-2xl hover:bg-blue-100 hover:text-blue-700'
@@ -267,7 +271,7 @@ function Editor() {
             </button>
             <button
               type='button'
-              onClick={() => handleHeadings("###")}
+              onClick={() => handleHeadings("####")}
               onMouseUp={() => setShowHeadingsDropdown(false)}
             >
               H4

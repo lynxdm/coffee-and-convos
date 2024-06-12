@@ -24,8 +24,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const storage = getStorage(app);
 const db = getFirestore(app);
-const articlesRef = collection(db, "articles");
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-export { db, articlesRef, provider, auth, analytics, storage };
+export { db, provider, auth, analytics, storage };
