@@ -6,7 +6,6 @@ import { CgNotes } from "react-icons/cg";
 import { IoIosSunny } from "react-icons/io";
 import { FaUserCircle } from "react-icons/fa";
 import { TbLogout2 } from "react-icons/tb";
-import { CiUser, CiBellOn, CiLogout, CiDark, CiLight } from "react-icons/ci";
 import { useGlobalContext } from "../context";
 
 function Navbar({ page }) {
@@ -78,7 +77,15 @@ function Navbar({ page }) {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             ref={userBtn}
           >
-            <FaUserCircle className='size-6' />
+            {user.photoURL ? (
+              <img
+                src={user.photoURL}
+                className='size-8 rounded-full'
+                alt={`${user.displayName} display photo`}
+              />
+            ) : (
+              <FaUserCircle className='size-6' />
+            )}
           </button>
           <ul
             className={`absolute right-0 top-12 z-50 flex w-72 flex-col gap-y-4 rounded-xl border bg-white px-2 py-4 shadow-md *:*:flex *:w-full *:cursor-pointer *:*:items-center *:*:gap-2 *:rounded-lg *:*:p-2 *:*:capitalize *:capitalize ${

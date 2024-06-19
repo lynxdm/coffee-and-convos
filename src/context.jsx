@@ -9,6 +9,7 @@ const AppProvider = ({ children }) => {
   const [user, setUser] = useState({
     displayName: "Guest User",
     email: "",
+    photoURL: "",
   });
 
   const admin = { displayName: "Ajayi Ayobami", email: "lynxdm32@gmail.com" };
@@ -23,13 +24,15 @@ const AppProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        const { displayName, email } = user;
-        setUser({ displayName, email });
+        const { displayName, email, photoURL } = user;
+        console.log(user);
+        setUser({ displayName, email, photoURL });
         console.log("user logged in");
       } else {
         setUser({
           displayName: "Guest User",
           email: "",
+          photoURL: "",
         });
         console.log("no user logged in");
       }
@@ -51,6 +54,16 @@ const AppProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const getCurrentDate = () => {
+    const date = new Date();
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
   };
 
   const convertDate = (date) => {
@@ -103,6 +116,7 @@ const AppProvider = ({ children }) => {
         convertDate,
         user,
         publishArticle,
+        getCurrentDate,
       }}
     >
       {children}

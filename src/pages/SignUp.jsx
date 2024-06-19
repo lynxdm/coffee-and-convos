@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import loginImg2 from "../assets/images/loginImg3.jpg";
 import { auth, provider } from "../Utilis/firebase";
 import {
@@ -12,6 +12,8 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useGlobalContext } from "../context";
 
 function SignUp() {
+  const [signInWithGoogle] = useOutletContext();
+
   const [userInfo, setUserInfo] = useState({
     email: "",
     firstName: "",
@@ -53,35 +55,21 @@ function SignUp() {
     });
   };
 
-  const signUpWithGoogle = () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        navigate("/");
-        console.log(result.user);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   return (
-    <main
-      className='flex w-full justify-between
-    gap-16 py-12 pt-6 px-32 items-center'
-    >
-      <section className='w-[40%] h-[35rem] shadow-black shadow overflow-clip'>
+    <main className='flex w-full items-center justify-between gap-16 px-32 py-12 pt-6'>
+      <section className='h-[35rem] w-[40%] overflow-clip shadow shadow-black'>
         <img
           src={loginImg2}
-          className='brightness-90 w-full max-h-[full] object-cover'
+          className='max-h-[full] w-full object-cover brightness-90'
           alt='an abstract artwork'
         />
       </section>
-      <section className='flex flex-col gap-2 p-6 w-[55%] border-primary border-2 rounded-sm max-h-[35rem]'>
+      <section className='flex max-h-[35rem] w-[55%] flex-col gap-2 rounded-sm border-2 border-primary p-6'>
         <h2 className='text-4xl font-semibold'>Coffee & Convos</h2>
         <h3 className='text-2xl'>Sign up</h3>
         <button
           type='button'
-          className='border border-primary px-10 py-2 rounded w-full items-center justify-center hover:outline outline-1 flex gap-2 mt-2'
+          className='mt-2 flex w-full items-center justify-center gap-2 rounded border border-primary px-10 py-2 outline-1 hover:outline'
           onClick={signUpWithGoogle}
         >
           <svg className='size-6' viewBox='0 0 1152 1152'>
@@ -104,13 +92,13 @@ function SignUp() {
           </svg>
           <p>Sign in with Google</p>
         </button>
-        <p className='relative my-2 text-center after:absolute after:border-b after:border-gray-500 after:top-1/2 after:right-0 after:w-[47%] before:absolute before:border-b before:border-gray-500 before:top-1/2 before:w-[47%] before:left-0'>
+        <p className='relative my-2 text-center before:absolute before:left-0 before:top-1/2 before:w-[47%] before:border-b before:border-gray-500 after:absolute after:right-0 after:top-1/2 after:w-[47%] after:border-b after:border-gray-500'>
           Or
         </p>
         {/* <h3 className='text-xl font-semibold'>Sign up with email</h3> */}
-        <form className='flex flex-col gap-4 mt-1 my-4' onSubmit={handleSubmit}>
-          <div className='flex gap-2 w-full'>
-            <div className='flex flex-col gap-1 w-1/2'>
+        <form className='my-4 mt-1 flex flex-col gap-4' onSubmit={handleSubmit}>
+          <div className='flex w-full gap-2'>
+            <div className='flex w-1/2 flex-col gap-1'>
               <label htmlFor='firstName' className='text-md'>
                 First Name
               </label>
@@ -121,10 +109,10 @@ function SignUp() {
                 id='firstName'
                 value={userInfo.firstName}
                 onChange={handleChange}
-                className='bg-inherit border-b relative border-primary focus:outline-none focus:border-b-2 font-semibold'
+                className='relative border-b border-primary bg-inherit font-semibold focus:border-b-2 focus:outline-none'
               />
             </div>
-            <div className='flex flex-col gap-1 w-1/2'>
+            <div className='flex w-1/2 flex-col gap-1'>
               <label htmlFor='lastName' className='text-md'>
                 Last Name
               </label>
@@ -135,7 +123,7 @@ function SignUp() {
                 id='lastName'
                 value={userInfo.lastName}
                 onChange={handleChange}
-                className='bg-inherit border-b border-primary focus:outline-none focus:border-b-2 font-semibold'
+                className='border-b border-primary bg-inherit font-semibold focus:border-b-2 focus:outline-none'
               />
             </div>
           </div>
@@ -150,7 +138,7 @@ function SignUp() {
               id='email'
               value={userInfo.email}
               onChange={handleChange}
-              className='bg-inherit border-b border-primary focus:outline-none focus:border-b-2 font-semibold'
+              className='border-b border-primary bg-inherit font-semibold focus:border-b-2 focus:outline-none'
             />
           </div>
           <div className='flex flex-col gap-2'>
@@ -165,12 +153,12 @@ function SignUp() {
                 id='password'
                 value={userInfo.password}
                 onChange={handleChange}
-                className='bg-inherit focus:outline-none w-[95%]'
+                className='w-[95%] bg-inherit focus:outline-none'
               />
               {userInfo.password.length > 0 && (
                 <button
                   type='button'
-                  className='w-[5%] text-3xl grid place-items-center'
+                  className='grid w-[5%] place-items-center text-3xl'
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
@@ -184,14 +172,14 @@ function SignUp() {
           </div>
           <button
             type='submit'
-            className='border border-primary mt-4 py-2 rounded-sm hover:outline outline-1'
+            className='mt-4 rounded-sm border border-primary py-2 outline-1 hover:outline'
           >
             Create Account
           </button>
         </form>
         <p>
           Already have an account?{" "}
-          <Link to={"/login"} className='text-black font-bold'>
+          <Link to={"/login"} className='font-bold text-black'>
             Sign In
           </Link>
         </p>

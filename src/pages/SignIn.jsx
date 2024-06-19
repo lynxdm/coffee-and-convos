@@ -1,13 +1,18 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import loginImg1 from "../assets/images/loginImg1.webp";
-import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  signInWithRedirect,
+  getRedirectResult,
+} from "firebase/auth";
 import { auth, provider } from "../Utilis/firebase";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useGlobalContext } from "../context";
 
 function SignIn() {
   let navigate = useNavigate();
+  const [signInWithGoogle] = useOutletContext();
 
   const [userInfo, setUserInfo] = useState({
     email: "",
@@ -41,38 +46,25 @@ function SignIn() {
       .catch((error) => console.log(error));
   };
 
-  const signInWithGoogle = () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        navigate("/");
-        console.log(result.user);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   return (
-    <main
-      className='flex w-full justify-between py-10 pt-6 px-32 items-center'
-    >
-      <section className='w-[40%] overflow-clip shadow-black shadow h-[33rem]'>
+    <main className='flex w-full items-center justify-between px-32 py-10 pt-6'>
+      <section className='h-[33rem] w-[40%] overflow-clip shadow shadow-black'>
         <img
           src={loginImg1}
-          className='brightness-90  w-full max-h-full object-cover'
+          className='max-h-full w-full object-cover brightness-90'
           alt='an abstract artwork'
         />
       </section>
-      <section className='flex flex-col gap-2 p-8 w-[55%] border-primary border-2 rounded-sm shadow  max-h-[33rem]'>
+      <section className='flex max-h-[33rem] w-[55%] flex-col gap-2 rounded-sm border-2 border-primary p-8 shadow'>
         <h2 className='text-4xl font-semibold'>Coffee & Convos</h2>
         <h3 className='text-2xl'>Sign in</h3>
         <p>
           Don't have an account?{" "}
-          <Link to={"signup"} className='text-black font-bold'>
+          <Link to={"signup"} className='font-bold text-black'>
             Create one
           </Link>
         </p>
-        <form className='flex flex-col gap-4 my-6' onSubmit={handleSubmit}>
+        <form className='my-6 flex flex-col gap-4' onSubmit={handleSubmit}>
           <div className='flex flex-col gap-2'>
             <label htmlFor='email' className='text-sm'>
               Email
@@ -84,7 +76,7 @@ function SignIn() {
               id='email'
               value={userInfo.email}
               onChange={handleChange}
-              className='bg-inherit border-b border-primary focus:outline-none focus:border-b-2'
+              className='border-b border-primary bg-inherit focus:border-b-2 focus:outline-none'
             />
           </div>
           <div className='flex flex-col gap-2'>
@@ -99,12 +91,12 @@ function SignIn() {
                 id='password'
                 value={userInfo.password}
                 onChange={handleChange}
-                className='bg-inherit focus:outline-none w-[95%]'
+                className='w-[95%] bg-inherit focus:outline-none'
               />
               {userInfo.password.length > 0 && (
                 <button
                   type='button'
-                  className='w-[5%] text-3xl grid place-items-center'
+                  className='grid w-[5%] place-items-center text-3xl'
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
@@ -118,16 +110,16 @@ function SignIn() {
           </div>
           <button
             type='submit'
-            className='border border-primary mt-4 py-2 rounded-sm hover:outline outline-1'
+            className='mt-4 rounded-sm border border-primary py-2 outline-1 hover:outline'
           >
             Continue
           </button>
         </form>
-        <p className='relative text-center after:absolute after:border-b after:border-gray-500 after:top-1/2 after:right-0 after:w-[47%] before:absolute before:border-b before:border-gray-500 before:top-1/2 before:w-[47%] before:left-0'>
+        <p className='relative text-center before:absolute before:left-0 before:top-1/2 before:w-[47%] before:border-b before:border-gray-500 after:absolute after:right-0 after:top-1/2 after:w-[47%] after:border-b after:border-gray-500'>
           Or
         </p>
         <button
-          className='border border-primary flex items-center mt-4 gap-4 p-2 rounded-sm justify-center hover:outline outline-1'
+          className='mt-4 flex items-center justify-center gap-4 rounded-sm border border-primary p-2 outline-1 hover:outline'
           onClick={signInWithGoogle}
         >
           <svg className='size-6' viewBox='0 0 1152 1152'>

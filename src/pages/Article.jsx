@@ -1,43 +1,29 @@
 import React, { useEffect, useRef, useState } from "react";
+import { FaXmark } from "react-icons/fa6";
 import { useLocation, useNavigate } from "react-router-dom";
-import { db } from "../Utilis/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { db, storage } from "../Utilis/firebase";
+import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { useGlobalContext } from "../context";
 import ReactMarkdown from "react-markdown";
 import Loader from "../components/Loader";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar.jsx";
+import { deleteObject, ref } from "firebase/storage";
+import Warningmodal from "../components/Warningmodal";
+import CommentSection from "../components/CommentSection.jsx";
+import useMenu from "../Hooks/useMenu.jsx";
 
 function Article() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const { fetchArticleContent, convertDate } = useGlobalContext();
+  const { fetchArticleContent, convertDate, isAdmin } = useGlobalContext();
   const [content, setContent] = useState("");
   const [article, setArticle] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const [isManageMenuOpen, setIsManageMenuOpen] = useState(false);
   const manageMenuRef = useRef(null);
   const manageBtnRef = useRef(null);
-
-  const handleMenu = (e) => {
-    if (
-      !manageMenuRef.current.contains(e.target) &&
-      !manageBtnRef.current.contains(e.target)
-    ) {
-      setIsManageMenuOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    if (isManageMenuOpen) {
-      document.body.addEventListener("click", handleMenu);
-    }
-
-    return () => {
-      document.body.removeEventListener("click", handleMenu);
-    };
-  }, [isManageMenuOpen]);
+  const { isMenuOpen, setIsMenuOpen } = useMenu(manageBtnRef, manageMenuRef);
 
   let path = pathname.split("-");
   const id = path[path.length - 1];
@@ -75,6 +61,14 @@ function Article() {
     navigate("/new");
   };
 
+  const [isModalWarningOpen, setIsModalWarningOpen] = useState(false);
+
+  const deleteArticle = () => {
+    deleteDoc(doc(db, "articles", id));
+    deleteObject(ref(storage, `articles/${id}`));
+    navigate("/");
+  };
+
   if (isLoading) {
     return <Loader />;
   }
@@ -93,30 +87,35 @@ function Article() {
               <button className='underline underline-offset-2'>
                 Share this post
               </button>
-              <div className='relative'>
-                <button
-                  className='rounded p-1 px-2 font-semibold underline underline-offset-2 hover:bg-gray-200'
-                  ref={manageBtnRef}
-                  onClick={() => setIsManageMenuOpen(!isManageMenuOpen)}
-                >
-                  Manage
-                </button>
-                {isManageMenuOpen && (
-                  <div className='absolute top-[110%] z-20 flex w-[10rem] flex-col gap-1 rounded-md border border-gray-200 bg-white p-1 shadow-lg *:rounded'>
-                    <button
-                      className='py-2 hover:bg-blue-100 hover:text-blue-700'
-                      ref={manageMenuRef}
-                      onClick={handleEditing}
-                    >
-                      Edit Article
-                    </button>
-                    <div className='h-0 border-y py-0'></div>
-                    <button className='py-2 text-red-700 hover:bg-blue-100 hover:text-red-500'>
-                      Delete Article
-                    </button>
-                  </div>
-                )}
-              </div>
+              {isAdmin && (
+                <div className='relative'>
+                  <button
+                    className='rounded p-1 px-2 font-semibold underline underline-offset-2 hover:bg-gray-200'
+                    ref={manageBtnRef}
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  >
+                    Manage
+                  </button>
+                  {isMenuOpen && (
+                    <div className='absolute right-0 top-[110%] z-20 flex w-[12rem] flex-col gap-1 rounded-md border border-gray-200 bg-white p-1.5 shadow-lg *:rounded *:px-2 *:text-left'>
+                      <button
+                        className='py-1 hover:bg-blue-50 hover:text-blue-700'
+                        ref={manageMenuRef}
+                        onClick={handleEditing}
+                      >
+                        Edit Article
+                      </button>
+                      <div className='h-0 border-t py-0'></div>
+                      <button
+                        className='py-1 hover:bg-blue-50 hover:text-blue-700'
+                        onClick={() => setIsModalWarningOpen(true)}
+                      >
+                        Delete Article
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
           <div className='relative mb-8 grid place-items-center py-8 after:absolute after:bottom-0 after:right-[50%] after:w-[10rem] after:translate-x-[50%] after:border after:border-primary'>
@@ -128,10 +127,21 @@ function Article() {
           </div>
           <ReactMarkdown
             children={content}
-            className='prose-lg mx-auto max-w-[60rem] prose-headings:font-bold prose-li:list-disc'
+            className='prose-lg mx-auto max-w-[60rem] prose-headings:my-3 prose-headings:font-bold prose-li:list-disc'
           />
         </main>
+        <CommentSection articleId={id} />
         <Footer />
+        {isModalWarningOpen && (
+          <Warningmodal
+            deleteaction={deleteArticle}
+            delBtn={"Delete"}
+            setIsModalWarningOpen={setIsModalWarningOpen}
+            content={"Are you sure you want to delete this post?"}
+            header={"You're about to delete a published article"}
+            backBtn={"Cancel"}
+          />
+        )}
       </>
     );
   }
