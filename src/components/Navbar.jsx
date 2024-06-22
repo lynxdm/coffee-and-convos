@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { SlNote } from "react-icons/sl";
 import { LuBell, LuMoonStar } from "react-icons/lu";
 import { CgNotes } from "react-icons/cg";
@@ -8,9 +8,15 @@ import { FaUserCircle } from "react-icons/fa";
 import { TbLogout2 } from "react-icons/tb";
 import { useGlobalContext } from "../context";
 
-function Navbar({ page }) {
-  const { admin, isAdmin, user, signUserOut } = useGlobalContext();
+function Navbar({ page, bg }) {
+  const { admin, isAdmin, user, signUserOut, userNotifications } =
+    useGlobalContext();
 
+  const notificationNum = userNotifications.filter(
+    (notification) => !notification.read && notification,
+  ).length;
+
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const [currentPage, setCurrentPage] = useState(pathname.slice(1));
 
@@ -46,7 +52,7 @@ function Navbar({ page }) {
 
   return (
     <nav
-      className={`z-20 flex w-full items-center justify-between bg-inherit px-32 py-3 pt-4 text-primary ${
+      className={`z-20 flex w-full items-center justify-between ${bg ? `bg-[${bg}]` : "bg-inherit"} px-32 py-3 pt-4 text-primary ${
         currentPage === "" && "absolute"
       }`}
     >
@@ -124,7 +130,14 @@ function Navbar({ page }) {
                 onMouseUp={handleMenuOnMouseUp}
               >
                 <Link to={"/notifications"}>
-                  <LuBell className='size-5' />
+                  <div className='relative'>
+                    <LuBell className='size-5' />
+                    {notificationNum > 0 && (
+                      <span className='absolute right-0 top-0 grid size-4 -translate-y-[50%] translate-x-[35%] place-items-center rounded-full bg-blue-700 text-[0.8rem] text-white'>
+                        {notificationNum}
+                      </span>
+                    )}
+                  </div>
                   <p>notifications</p>
                 </Link>
               </li>
@@ -140,7 +153,13 @@ function Navbar({ page }) {
                 className='mt-[-0.5rem] cursor-pointer border-t pt-4 *:w-full *:rounded-lg *:px-4 *:hover:bg-gray-200'
                 onMouseUp={handleMenuOnMouseUp}
               >
-                <button type='button' onClick={signUserOut}>
+                <button
+                  type='button'
+                  onClick={() => {
+                    signUserOut();
+                    navigate("/");
+                  }}
+                >
                   <TbLogout2 className='size-5' />
                   <p>logout</p>
                 </button>

@@ -7,7 +7,7 @@ import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 function Articlecard({ title, cover, date, id, type }) {
   const navigate = useNavigate();
   const [content, setContent] = useState("");
-  const { fetchArticleContent, convertDate } = useGlobalContext();
+  const { fetchArticleContent, timeAgo } = useGlobalContext();
 
   const formatLink = (text) => {
     let formattedText = text.toLowerCase();
@@ -39,7 +39,7 @@ function Articlecard({ title, cover, date, id, type }) {
     return (
       <ul className='border border-primary py-3' key={id}>
         <li className='flex items-center justify-between border-b border-primary px-2 pb-2'>
-          <p className='text-sm'>{convertDate(date)}</p>
+          <p className='text-sm'>{timeAgo(date)}</p>
           {type === "articles" ? (
             <Link
               to={`/${formatLink(title)}-${id}`}

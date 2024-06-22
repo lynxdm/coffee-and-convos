@@ -13,6 +13,8 @@ import SignUp from "./pages/SignUp";
 import Editor from "./pages/Editor";
 import Preview from "./pages/Preview";
 import Drafts from "./pages/Drafts";
+import NewNotifications from "./pages/NewNotifications";
+import ReadNotifications from "./pages/ReadNotifications";
 
 function App() {
   return (
@@ -21,7 +23,10 @@ function App() {
       <Routes>
         <Route path='/' element={<Blog />} />
         <Route path='/about' element={<About />} />
-        <Route path='/notifications' element={<Notifications />} />
+        <Route path='/notifications' element={<Notifications />}>
+          <Route path='' element={<NewNotifications />} />
+          <Route path='read' element={<ReadNotifications />} />
+        </Route>
         <Route path='/login' element={<Login />}>
           <Route path='' element={<SignIn />} />
           <Route path='signup' element={<SignUp />} />

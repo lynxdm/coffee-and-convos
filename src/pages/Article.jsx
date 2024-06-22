@@ -16,7 +16,7 @@ import useMenu from "../Hooks/useMenu.jsx";
 function Article() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const { fetchArticleContent, convertDate, isAdmin } = useGlobalContext();
+  const { fetchArticleContent, timeAgo, isAdmin } = useGlobalContext();
   const [content, setContent] = useState("");
   const [article, setArticle] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -82,7 +82,7 @@ function Article() {
             {article.title}
           </h1>
           <div className='mx-auto flex max-w-[60rem] items-center justify-between'>
-            {convertDate(article.date)}
+            {timeAgo(article.date)}
             <div className='flex items-center gap-4'>
               <button className='underline underline-offset-2'>
                 Share this post
@@ -130,7 +130,7 @@ function Article() {
             className='prose-lg mx-auto max-w-[60rem] prose-headings:my-3 prose-headings:font-bold prose-li:list-disc'
           />
         </main>
-        <CommentSection articleId={id} />
+        <CommentSection articleId={id} articleLink = {pathname} articleTitle = {article.title} />
         <Footer />
         {isModalWarningOpen && (
           <Warningmodal

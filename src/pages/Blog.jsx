@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { db, storage } from "../Utilis/firebase";
 import { getDoc, getDocs, collection } from "firebase/firestore";
-import { ref, getDownloadURL } from "firebase/storage";
-import RecentArticle from "../components/RecentArticle";
 import Articlecard from "../components/Articlecard";
-import ReactMarkdown from "react-markdown";
-import { Link } from "react-router-dom";
 import {
   FaXTwitter,
   FaInstagram,
@@ -15,7 +11,6 @@ import {
 import { BiLogoGmail } from "react-icons/bi";
 import authorHero from "../assets/images/author_hero.jpg";
 import heroImg from "../assets/images/hero.jpg";
-import { useGlobalContext } from "../context";
 import Loader from "../components/Loader";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";

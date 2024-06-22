@@ -1,13 +1,15 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { auth, provider } from "../Utilis/firebase";
 import { useNavigate } from "react-router-dom";
 import { signInWithRedirect, getRedirectResult } from "firebase/auth";
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import useNotification from "../Hooks/useNotification";
 
 function Login() {
   const navigate = useNavigate();
+  const { createUserNotification } = useNotification();
 
   const signInWithGoogle = () => {
     signInWithRedirect(auth, provider);
@@ -18,6 +20,7 @@ function Login() {
       .then((result) => {
         if (result) {
           console.log("User signed in successfully:", result.user);
+          createUserNotification(result.user);
           navigate("/");
         }
       })

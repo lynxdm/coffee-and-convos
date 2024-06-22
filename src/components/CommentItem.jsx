@@ -14,6 +14,7 @@ import useMenu from "../Hooks/useMenu";
 import { ScaleLoader } from "react-spinners";
 import CommentText from "./CommentText";
 import Warningmodal from "./Warningmodal";
+import useNotification from "../Hooks/useNotification";
 
 function CommentItem({
   user: { displayName, photoURL, email },
@@ -25,11 +26,12 @@ function CommentItem({
   getComments,
   articleId,
   parentId = null,
+  articleLink,
   id,
 }) {
-  const { convertDate, user, getCurrentDate } = useGlobalContext();
+  const { user, timeAgo } = useGlobalContext();
+  const { sendNotification } = useNotification();
   const [newReply, setNewReply] = useState("");
-  const newReplyRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const [isReplyOpen, setIsReplyOpen] = useState(false);
@@ -39,7 +41,7 @@ function CommentItem({
 
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState("");
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const manageCommentBtn = useRef(null);
   const manageCommentMenu = useRef(null);
@@ -101,6 +103,7 @@ function CommentItem({
     }
 
     setIsLiked(true);
+    sendNotification("like", comment, articleId, user, false, articleLink);
     setLikesCount(likesCount + 1);
     getComments();
   };
@@ -145,7 +148,7 @@ function CommentItem({
         content: newReply,
         likes: [],
         replies: [],
-        timestamp: getCurrentDate(),
+        timestamp: new Date().toISOString(),
         user,
         id: uuidv4(),
       };
@@ -180,6 +183,9 @@ function CommentItem({
       await updateDoc(commentRef, {
         replies: updatedReplies,
       });
+
+      sendNotification("reply", comment, articleId, user, replyData, articleLink);
+
       setIsLoading(false);
       setIsReplyOpen(false);
       setNewReply("");
@@ -275,15 +281,11 @@ function CommentItem({
     });
 
     getComments();
-    setIsDeleteModalOpen(false)
+    setIsDeleteModalOpen(false);
   };
 
-<span class='color-base-30 m:pl-0 px-2' role='presentation'>
-  •
-</span>;
-
   return (
-    <li>
+    <li id={id}>
       <div className='flex items-start gap-3'>
         {photoURL ? (
           <img
@@ -299,7 +301,7 @@ function CommentItem({
             <div className='mb-2 flex items-start gap-2 text-[0.9rem] text-gray-600'>
               <p className='font-bold'>{displayName}</p>
               <span>•</span>
-              <p className='text-sm'>{convertDate(timestamp)}</p>
+              <p className='text-sm'>{timeAgo(timestamp)}</p>
               {comment.edited && (
                 <>
                   <span>•</span>
@@ -331,7 +333,7 @@ function CommentItem({
                     <div className='h-0 border-t py-0'></div>
                     <button
                       className='py-1 hover:bg-blue-50 hover:text-blue-700'
-                      onClick={()=>setIsDeleteModalOpen(true)}
+                      onClick={() => setIsDeleteModalOpen(true)}
                     >
                       Delete Comment
                     </button>
@@ -428,7 +430,16 @@ function CommentItem({
           })}
         </ul>
       )}
-      {isDeleteModalOpen && <Warningmodal deleteaction={deleteComment} delBtn={"Delete"} setIsModalWarningOpen={setIsDeleteModalOpen} content={"Are you sure you want to delete your comment?"} header={"You're about to delete a comment"} backBtn={"Cancel"}/>}
+      {isDeleteModalOpen && (
+        <Warningmodal
+          deleteaction={deleteComment}
+          delBtn={"Delete"}
+          setIsModalWarningOpen={setIsDeleteModalOpen}
+          content={"Are you sure you want to delete your comment?"}
+          header={"You're about to delete a comment"}
+          backBtn={"Cancel"}
+        />
+      )}
     </li>
   );
 }

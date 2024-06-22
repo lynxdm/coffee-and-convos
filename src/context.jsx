@@ -1,8 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
-import { signOut, onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { auth, storage, db } from "./Utilis/firebase";
 import { ref, getDownloadURL } from "firebase/storage";
-import { addDoc, doc, setDoc } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  collection,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 
 const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
@@ -10,7 +17,12 @@ const AppProvider = ({ children }) => {
     displayName: "Guest User",
     email: "",
     photoURL: "",
+    userId: "",
   });
+
+  const [userNotifications, setUserNotifications] = useState(
+    JSON.parse(sessionStorage.getItem("userNotifications")) || [],
+  );
 
   const admin = { displayName: "Ajayi Ayobami", email: "lynxdm32@gmail.com" };
   const [isAdmin, setIsAdmin] = useState(false);
@@ -21,18 +33,38 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const updateNotifications = async (user) => {
+    if (!user?.email) return; // Check if user email is available
+    try {
+      const notificationsRef = collection(db, "notifications");
+      const q = query(notificationsRef, where("email", "==", user.email));
+
+      // Execute the query
+      const querySnapshot = await getDocs(q);
+      if (!querySnapshot.empty) {
+        const newNotifications = querySnapshot.docs.flatMap(
+          (doc) => doc.data().userNotifications || [],
+        );
+        setUserNotifications(newNotifications);
+      }
+    } catch (err) {
+      console.error("Error fetching notifications:", err);
+    }
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const { displayName, email, photoURL } = user;
-        console.log(user);
-        setUser({ displayName, email, photoURL });
+        setUser({ displayName, email, photoURL, userId: user.uid });
         console.log("user logged in");
+        console.log(user.uid);
       } else {
         setUser({
           displayName: "Guest User",
           email: "",
           photoURL: "",
+          userId: "",
         });
         console.log("no user logged in");
       }
@@ -44,8 +76,16 @@ const AppProvider = ({ children }) => {
   useEffect(() => {
     if (user.email !== "") {
       checkUser();
+      updateNotifications(user);
     }
   }, [user]);
+
+  useEffect(() => {
+    sessionStorage.setItem(
+      "userNotifications",
+      JSON.stringify(userNotifications),
+    );
+  }, [userNotifications]);
 
   const signUserOut = async () => {
     try {
@@ -56,35 +96,30 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  const getCurrentDate = () => {
-    const date = new Date();
+  function timeAgo(dateString) {
+    const now = new Date();
+    const createdAt = new Date(dateString);
+    const diffInSeconds = Math.floor((now - createdAt) / 1000);
 
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
+    const secondsInMinute = 60;
+    const secondsInHour = 3600;
+    const secondsInDay = 86400;
 
-    return `${year}-${month}-${day}`;
-  };
-
-  const convertDate = (date) => {
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-
-    let [year, month, day] = date.split("-").map(Number);
-    return `${months[month - 1]} ${day}, ${year}`;
-  };
+    if (diffInSeconds < secondsInMinute) {
+      return `${diffInSeconds} second${diffInSeconds !== 1 ? "s" : ""} ago`;
+    } else if (diffInSeconds < secondsInHour) {
+      const minutes = Math.floor(diffInSeconds / secondsInMinute);
+      return `${minutes} minute${minutes !== 1 ? "s" : ""} ago`;
+    } else if (diffInSeconds < secondsInDay) {
+      const hours = Math.floor(diffInSeconds / secondsInHour);
+      return `${hours} hour${hours !== 1 ? "s" : ""} ago`;
+    } else if (diffInSeconds < secondsInDay * 2) {
+      return "yesterday";
+    } else {
+      const options = { year: "numeric", month: "long", day: "numeric" };
+      return createdAt.toLocaleDateString(undefined, options);
+    }
+  }
 
   const fetchArticleContent = async (id, type) => {
     const articleContentRef = ref(storage, `${type}/${id}/content.md`);
@@ -113,10 +148,10 @@ const AppProvider = ({ children }) => {
         isAdmin,
         signUserOut,
         fetchArticleContent,
-        convertDate,
+        timeAgo,
         user,
         publishArticle,
-        getCurrentDate,
+        userNotifications,
       }}
     >
       {children}

@@ -21,7 +21,7 @@ function New() {
   const currentPath = path[path.length - 1];
   const [isLoading, setIsLoading] = useState({ show: false, message: "" });
 
-  const { publishArticle, getCurrentDate } = useGlobalContext();
+  const { publishArticle } = useGlobalContext();
 
   const [articleDraft, setArticleDraft] = useState(
     JSON.parse(localStorage.getItem("articleDraft")) || {
@@ -85,7 +85,7 @@ function New() {
                   image: articleDraft.coverImg,
                   alt: `${articleDraft.title} cover image`,
                 },
-                date: `${articleDraft.publishDate ? articleDraft.publishDate : getCurrentDate()}`,
+                date: `${articleDraft.publishDate ? articleDraft.publishDate : new Date().toISOString()}`,
               };
               if (articleDraft.details.type === "article") {
                 updateDoc(

@@ -14,12 +14,14 @@ import { FaUserCircle } from "react-icons/fa";
 import CommentItem from "./CommentItem";
 import { v4 } from "uuid";
 import { ScaleLoader } from "react-spinners";
+import useNotification from "../Hooks/useNotification";
 
-function CommentSection({ articleId }) {
+function CommentSection({ articleId, articleLink, articleTitle }) {
   const { user, getCurrentDate } = useGlobalContext();
+  const { sendAdminNotification } = useNotification();
   const [comments, setComments] = useState(null);
   const [newComment, setNewComment] = useState("");
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     setNewComment(e.target.value);
@@ -54,27 +56,38 @@ function CommentSection({ articleId }) {
 
   const addComment = async (e) => {
     e.preventDefault();
-    setIsLoading(true)
+    setIsLoading(true);
     if (newComment) {
       const commentsRef = collection(db, "articles", articleId, "comments");
       const commentData = {
         content: newComment,
         likes: [],
         replies: [],
-        timestamp: getCurrentDate(),
+        timestamp: new Date().toISOString(),
         user,
       };
 
       await addDoc(commentsRef, commentData);
       getComments();
-      setIsLoading(false)
+      sendAdminNotification(
+        "new_comment",
+        commentData,
+        articleId,
+        user,
+        articleLink,
+        articleTitle,
+      );
+      setIsLoading(false);
       setNewComment("");
     }
   };
 
   return (
-    <section className='mx-auto mt-8 max-w-[60rem] border-t pt-10'>
-      <h2 className='text-2xl font-bold text-center'>Comments</h2>
+    <section
+      className='mx-auto mt-8 max-w-[60rem] border-t pt-10'
+      id='comment_section'
+    >
+      <h2 className='text-center text-2xl font-bold'>Comments</h2>
       <div className='mt-7 flex items-start gap-3'>
         {user.photoURL ? (
           <img
@@ -98,7 +111,7 @@ function CommentSection({ articleId }) {
           {newComment.length > 0 && (
             <div className='transition-[height 1ms ease] mt-1 flex gap-3'>
               {isLoading ? (
-                <div className='rounded-md bg-blue-600 px-4 py-2 text-white flex gap-2 items-center'>
+                <div className='flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-white'>
                   <ScaleLoader
                     color='rgba(256, 256, 256, 1)'
                     height={12}
@@ -137,6 +150,7 @@ function CommentSection({ articleId }) {
               comment={comment}
               key={comment.id}
               parentId={comment.id}
+              articleLink={articleLink}
             />
           );
         })}
