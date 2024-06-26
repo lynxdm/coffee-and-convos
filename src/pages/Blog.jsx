@@ -1,87 +1,87 @@
 import React, { useEffect, useState } from "react";
-import { db, storage } from "../Utilis/firebase";
-import { getDoc, getDocs, collection } from "firebase/firestore";
-import Articlecard from "../components/Articlecard";
-import {
-  FaXTwitter,
-  FaInstagram,
-  FaMedium,
-  FaLinkedinIn,
-} from "react-icons/fa6";
-import { BiLogoGmail } from "react-icons/bi";
-import authorHero from "../assets/images/author_hero.jpg";
-import heroImg from "../assets/images/hero.jpg";
+import { db } from "../Utilis/firebase";
+import { collection } from "firebase/firestore";
 import Loader from "../components/Loader";
 import Navbar from "../components/Navbar";
+import useGetArticles from "../Hooks/useGetArticles";
+import Articlecard from "../components/Articlecard";
+import { HiOutlineArrowNarrowRight } from "react-icons/hi";
+import ReactMarkdown from "react-markdown";
+import { useGlobalContext } from "../context";
+import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
-import useGetArticles from "../Hooks/useGetArticles.jsx";
+import ErrorComponent from "../components/ErrorComponent";
 
 function Blog() {
   const { articles, isLoading, error } = useGetArticles(
     collection(db, "articles"),
   );
+  const [previewContent, setPreviewContnt] = useState("");
+
+  const { fetchArticleContent, timeAgo, formatLink } = useGlobalContext();
+
+  useEffect(() => {
+    if (!isLoading) {
+      fetchArticleContent(articles[0].id, "articles").then((data) => {
+        setPreviewContnt(data);
+      });
+    }
+  }, [isLoading]);
 
   if (isLoading) {
     return <Loader />;
+  }
+
+  if (error) {
+    return (
+      <>
+        <Navbar />
+        <ErrorComponent />
+      </>
+    );
   }
 
   if (articles.length > 0) {
     return (
       <>
         <Navbar />
-        <main>
-          <section className='relative grid h-fit min-h-[80vh] place-items-center px-32'>
-            <div className='absolute bottom-0 left-0 -z-10 aspect-[1] w-[53%]'>
-              <img src={heroImg} alt='hero image' className='aspect-[1]' />
-            </div>
-            <article className='ml-[18rem] mt-16 flex items-center gap-24'>
-              <div className='relative aspect-square size-[28rem] before:absolute before:top-[5%] before:h-[90%] before:w-0 before:-translate-x-[1000%] before:border-r-[2px] before:border-black'>
-                <img
-                  src={authorHero}
-                  className='aspect-square'
-                  alt='A photo of the author, Adefunke'
+        <main className='px-32'>
+          <section className='mt-12 border border-primary py-2 pt-6'>
+            <div className='flex w-full items-center justify-center gap-10 px-4 mb-4'>
+              <div className='w-[60rem]'>
+                <h1 className='text-left text-6xl font-semibold leading-normal'>
+                  {articles[0].title}
+                </h1>
+              </div>
+              <div>
+                <ReactMarkdown
+                  children={previewContent}
+                  className='prose prose-lg line-clamp-6 max-w-[50rem] leading-10 prose-headings:hidden prose-p:my-0 prose-img:hidden'
                 />
               </div>
-              <div className='flex flex-col gap-2 *:uppercase'>
-                <h1 className='relative w-fit text-4xl font-bold before:absolute before:top-[50%] before:h-0 before:w-[10rem] before:-translate-x-[110%] before:-translate-y-[100%] before:border before:border-primary'>
-                  Hello!
-                </h1>
-                <h1 className='text-4xl font-bold'>I am Adefunke,</h1>
-                <p className='text-xl font-semibold'>
-                  A creative, content & technical writer{" "}
-                </p>
-                <ul className='mt-5 flex gap-5'>
-                  <li>
-                    <FaLinkedinIn />
-                  </li>
-                  <li>
-                    <FaXTwitter />
-                  </li>
-                  <li>
-                    <FaInstagram />
-                  </li>
-                  <li>
-                    <FaMedium />
-                  </li>
-                  <li>
-                    <BiLogoGmail />
-                  </li>
-                </ul>
-              </div>
-            </article>
+            </div>
+            <div className='flex border-t items-center border-primary px-3 pt-2 mt-5'>
+              <p className='text-sm'>{timeAgo(articles[0].date)}</p>
+              <Link
+                to={`/blog/${formatLink(articles[0].title)}-${articles[0].id}`}
+                className='ml-auto flex w-fit items-center gap-2'
+              >
+                <p className='font-semibold'>Read</p>
+                <HiOutlineArrowNarrowRight className='size-5' />
+              </Link>
+            </div>
           </section>
-          <section className='mt-28 flex flex-col px-32'>
+          <section className='py-12'>
             <article className='grid grid-cols-2 gap-12'>
               {articles.map((article) => {
-                return <Articlecard {...article} key={article.id} type="articles" />;
+                return (
+                  <Articlecard {...article} key={article.id} type='articles' />
+                );
               })}
             </article>
-            <button className='mx-auto mb-4 mt-16 grid w-fit place-items-center border border-primary px-12 py-4 text-[16px] hover:font-semibold'>
-              LOAD MORE
-            </button>
           </section>
         </main>
-        <Footer />
+        <Footer/>
       </>
     );
   }

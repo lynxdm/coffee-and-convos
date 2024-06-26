@@ -1,14 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { getDocs } from "firebase/firestore";
+import { getDocs, query, limit, collection, orderBy } from "firebase/firestore";
+import { db } from "../Utilis/firebase";
 
-function useGetArticles(articlesRef) {
+function useGetArticles(articlesRef, homePage = false) {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setIsError] = useState(false);
+  const [error, setError] = useState(false);
 
   const getArticles = async () => {
     try {
-      const snapshot = await getDocs(articlesRef);
+      let snapshot;
+      if (!homePage) {
+        snapshot = await getDocs(articlesRef);
+      } else {
+        const q = query(
+          collection(db, "articles"),
+          orderBy("date", "desc"),
+          limit(6),
+        );
+        snapshot = await getDocs(q);
+      }
+      if (snapshot.empty) {
+        setError(true);
+      }
       const data = snapshot.docs;
       if (data) {
         let articlesArr = [];
@@ -19,7 +33,8 @@ function useGetArticles(articlesRef) {
         setIsLoading(false);
       }
     } catch (error) {
-      setIsError(true);
+      setIsLoading(false);
+      setError(true);
       console.log(error);
     }
   };

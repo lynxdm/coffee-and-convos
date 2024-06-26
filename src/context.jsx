@@ -141,6 +141,14 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const formatLink = (text) => {
+    let formattedText = text.toLowerCase();
+
+    return (formattedText = formattedText
+      .replace(/[^a-z0-9\s]/g, "")
+      .replace(/\s+/g, "-"));
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -152,6 +160,7 @@ const AppProvider = ({ children }) => {
         user,
         publishArticle,
         userNotifications,
+        formatLink,
       }}
     >
       {children}

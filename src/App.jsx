@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
 import Blog from "./pages/Blog";
 import About from "./pages/About";
 import Notifications from "./pages/Notifications";
@@ -15,13 +16,15 @@ import Preview from "./pages/Preview";
 import Drafts from "./pages/Drafts";
 import NewNotifications from "./pages/NewNotifications";
 import ReadNotifications from "./pages/ReadNotifications";
+import { Toaster } from "sonner";
 
 function App() {
   return (
     <Router>
-      {/* <Navbar /> */}
+      <Toaster position='top-right' />
       <Routes>
-        <Route path='/' element={<Blog />} />
+        <Route path='/' element={<Home />} />
+        <Route path="/blog" element= {<Blog/>}/>
         <Route path='/about' element={<About />} />
         <Route path='/notifications' element={<Notifications />}>
           <Route path='' element={<NewNotifications />} />
@@ -36,7 +39,7 @@ function App() {
           <Route path='' element={<Editor />} />
           <Route path='preview' element={<Preview />} />
         </Route>
-        <Route path='/:id' element={<Article />} />
+        <Route path='blog/:id' element={<Article />} />
         <Route path='*' element={<Error />} />
       </Routes>
     </Router>

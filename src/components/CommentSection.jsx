@@ -15,6 +15,7 @@ import CommentItem from "./CommentItem";
 import { v4 } from "uuid";
 import { ScaleLoader } from "react-spinners";
 import useNotification from "../Hooks/useNotification";
+import { Link } from "react-router-dom";
 
 function CommentSection({ articleId, articleLink, articleTitle }) {
   const { user, getCurrentDate } = useGlobalContext();
@@ -87,7 +88,7 @@ function CommentSection({ articleId, articleLink, articleTitle }) {
       className='mx-auto mt-8 max-w-[60rem] border-t pt-10'
       id='comment_section'
     >
-      <h2 className='text-center text-2xl font-bold'>Comments</h2>
+      <h2 className='text-center text-3xl font-bold'>Comments</h2>
       <div className='mt-7 flex items-start gap-3'>
         {user.photoURL ? (
           <img
@@ -96,7 +97,7 @@ function CommentSection({ articleId, articleLink, articleTitle }) {
             className='size-8 rounded-full'
           />
         ) : (
-          <FaUserCircle className='size-8' />
+          <FaUserCircle className='size-8 text-[#3e3b3b]' />
         )}
         <form className='w-full' onSubmit={addComment}>
           <textarea
@@ -104,14 +105,14 @@ function CommentSection({ articleId, articleLink, articleTitle }) {
             id='newComment'
             ref={newCommentRef}
             placeholder='What are you thinking?'
-            className='peer h-[30rem] w-full resize-none overflow-hidden rounded-md border-2 border-gray-600 p-2 focus:outline-none'
+            className='peer h-[30rem] w-full resize-none overflow-hidden rounded-md border-2 border-[#3e3b3b] p-2 focus:outline-none'
             value={newComment}
             onChange={handleChange}
           />
           {newComment.length > 0 && (
             <div className='transition-[height 1ms ease] mt-1 flex gap-3'>
               {isLoading ? (
-                <div className='flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-white'>
+                <div className='flex items-center gap-2 rounded-md bg-[#3e3b3b] px-4 py-2 text-white'>
                   <ScaleLoader
                     color='rgba(256, 256, 256, 1)'
                     height={12}
@@ -120,13 +121,20 @@ function CommentSection({ articleId, articleLink, articleTitle }) {
                   />
                   <p>Posting...</p>
                 </div>
-              ) : (
+              ) : user.email ? (
                 <button
-                  className='rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:bg-blue-500'
+                  className='rounded-md bg-[#3e3b3b] px-4 py-2 text-white hover:bg-[#343432]'
                   type='submit'
                 >
                   Post
                 </button>
+              ) : (
+                <Link
+                  to={"/login"}
+                  className='rounded-md bg-[#3e3b3b] px-4 py-2 text-white hover:bg-[#343432]'
+                >
+                  Login to post
+                </Link>
               )}
               <button
                 className='rounded-md px-4 py-2 hover:bg-gray-200'

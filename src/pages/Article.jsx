@@ -77,8 +77,8 @@ function Article() {
     return (
       <>
         <Navbar />
-        <main className='mx-32 border-t border-primary pt-10'>
-          <h1 className='mx-auto mb-2 max-w-[60rem] text-6xl font-bold leading-[5rem]'>
+        <main className='mx-32 pt-10 font-inter_tight'>
+          <h1 className='mx-auto mb-8 max-w-[50rem] text-6xl leading-[5rem] font-bold font-inter text-center'>
             {article.title}
           </h1>
           <div className='mx-auto flex max-w-[60rem] items-center justify-between'>
@@ -99,7 +99,7 @@ function Article() {
                   {isMenuOpen && (
                     <div className='absolute right-0 top-[110%] z-20 flex w-[12rem] flex-col gap-1 rounded-md border border-gray-200 bg-white p-1.5 shadow-lg *:rounded *:px-2 *:text-left'>
                       <button
-                        className='py-1 hover:bg-blue-50 hover:text-blue-700'
+                        className='py-1 hover:bg-gray-200'
                         ref={manageMenuRef}
                         onClick={handleEditing}
                       >
@@ -107,7 +107,7 @@ function Article() {
                       </button>
                       <div className='h-0 border-t py-0'></div>
                       <button
-                        className='py-1 hover:bg-blue-50 hover:text-blue-700'
+                        className='py-1 hover:bg-gray-200'
                         onClick={() => setIsModalWarningOpen(true)}
                       >
                         Delete Article
@@ -118,7 +118,7 @@ function Article() {
               )}
             </div>
           </div>
-          <div className='relative mb-8 grid place-items-center py-8 after:absolute after:bottom-0 after:right-[50%] after:w-[10rem] after:translate-x-[50%] after:border after:border-primary'>
+          <div className='relative grid place-items-center border-primary py-12 pb-8'>
             <img
               src={article.cover.image}
               alt={article.cover.alt}
@@ -127,10 +127,14 @@ function Article() {
           </div>
           <ReactMarkdown
             children={content}
-            className='prose-lg mx-auto max-w-[60rem] prose-headings:my-3 prose-headings:font-bold prose-li:list-disc'
+            className='prose-xl mx-auto max-w-[50rem] prose-headings: prose-headings:font-bold prose-headings:font-inter prose-h2:font-extrabold prose-li:list-disc prose-h2:text-4xl prose-p:my-4 break-words'
           />
         </main>
-        <CommentSection articleId={id} articleLink = {pathname} articleTitle = {article.title} />
+        <CommentSection
+          articleId={id}
+          articleLink={pathname}
+          articleTitle={article.title}
+        />
         <Footer />
         {isModalWarningOpen && (
           <Warningmodal

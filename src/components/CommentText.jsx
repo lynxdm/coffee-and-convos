@@ -36,7 +36,7 @@ function CommentText({
       />
       <div className='transition-[height 1ms ease] mt-1 flex gap-3'>
         {isLoading ? (
-          <div className='flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-white'>
+          <div className='flex items-center gap-2 rounded-md bg-[#3e3b3b] px-4 py-2 text-white'>
             <ScaleLoader
               color='rgba(256, 256, 256, 1)'
               height={12}
@@ -47,7 +47,7 @@ function CommentText({
           </div>
         ) : (
           <button
-            className='rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:bg-blue-500'
+            className='rounded-md bg-[#3e3b3b] px-4 py-2 text-white hover:bg-[#343432]'
             type='submit'
           >
             {submitText}

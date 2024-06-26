@@ -10,6 +10,8 @@ export default {
       fontFamily: {
         overpass: ["Overpass", "system-ui", "Arial"],
         spectral: ["Spectral", "sans-serif"],
+        inter: ["Inter", "system-ui", "Arial"],
+        inter_tight: ["Inter Tight", "system-ui", "Arial"],
       },
     },
   },

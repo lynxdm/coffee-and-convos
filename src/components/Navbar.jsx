@@ -59,11 +59,19 @@ function Navbar({ page, bg }) {
       <Link to={"/"} className='text-2xl font-semibold'>
         Coffee & Convos
       </Link>
-      <ul className='flex items-center gap-4'>
+      <ul className='flex items-center gap-6'>
         <li>
           <Link
             to={"/"}
             className={currentPage === "" ? "font-semibold" : undefined}
+          >
+            Home
+          </Link>
+        </li>
+        <li>
+          <Link
+            to={"/blog"}
+            className={currentPage === "blog" ? "font-semibold" : undefined}
           >
             Blog
           </Link>
@@ -157,7 +165,7 @@ function Navbar({ page, bg }) {
                   type='button'
                   onClick={() => {
                     signUserOut();
-                    navigate("/");
+                    navigate("/login");
                   }}
                 >
                   <TbLogout2 className='size-5' />

@@ -5,15 +5,16 @@ import {
   FaHeart,
   FaRegComment,
 } from "react-icons/fa";
-import { HiOutlineDotsHorizontal } from "react-icons/hi";
+import { HiOutlineDotsHorizontal, HiBadgeCheck } from "react-icons/hi";
 import { useGlobalContext } from "../context";
 import { v4 as uuidv4 } from "uuid";
 import { db } from "../Utilis/firebase";
 import { updateDoc, doc, getDoc, deleteDoc } from "firebase/firestore";
 import useMenu from "../Hooks/useMenu";
-import { ScaleLoader } from "react-spinners";
 import CommentText from "./CommentText";
 import Warningmodal from "./Warningmodal";
+import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 import useNotification from "../Hooks/useNotification";
 
 function CommentItem({
@@ -29,7 +30,8 @@ function CommentItem({
   articleLink,
   id,
 }) {
-  const { user, timeAgo } = useGlobalContext();
+  const navigate = useNavigate();
+  const { user, timeAgo, admin, isAdmin } = useGlobalContext();
   const { sendNotification } = useNotification();
   const [newReply, setNewReply] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -184,7 +186,14 @@ function CommentItem({
         replies: updatedReplies,
       });
 
-      sendNotification("reply", comment, articleId, user, replyData, articleLink);
+      sendNotification(
+        "reply",
+        comment,
+        articleId,
+        user,
+        replyData,
+        articleLink,
+      );
 
       setIsLoading(false);
       setIsReplyOpen(false);
@@ -299,7 +308,12 @@ function CommentItem({
         <div className='w-full rounded-md border border-gray-300 p-2'>
           <div className='flex w-full justify-between'>
             <div className='mb-2 flex items-start gap-2 text-[0.9rem] text-gray-600'>
-              <p className='font-bold'>{displayName}</p>
+              <p className='font-bold'>
+                {displayName}{" "}
+                {email === admin.email && (
+                  <HiBadgeCheck className='inline size-4' title='Author' />
+                )}
+              </p>
               <span>•</span>
               <p className='text-sm'>{timeAgo(timestamp)}</p>
               {comment.edited && (
@@ -309,7 +323,7 @@ function CommentItem({
                 </>
               )}
             </div>
-            {email === user.email && (
+            {(email === user.email || isAdmin) && (
               <div className='relative'>
                 <button
                   type='button'
@@ -324,15 +338,19 @@ function CommentItem({
                     className='absolute right-0 top-[110%] z-20 flex w-[11rem] flex-col gap-1 rounded-md border border-gray-200 bg-white p-1.5 shadow-lg *:rounded *:px-2 *:text-left *:text-sm'
                     ref={manageCommentMenu}
                   >
+                    {email === user.email && (
+                      <>
+                        <button
+                          className='py-1 hover:bg-gray-200'
+                          onClick={() => setIsEditing(true)}
+                        >
+                          Edit Comment
+                        </button>
+                        <div className='h-0 border-t py-0'></div>
+                      </>
+                    )}
                     <button
-                      className='py-1 hover:bg-blue-50 hover:text-blue-700'
-                      onClick={() => setIsEditing(true)}
-                    >
-                      Edit Comment
-                    </button>
-                    <div className='h-0 border-t py-0'></div>
-                    <button
-                      className='py-1 hover:bg-blue-50 hover:text-blue-700'
+                      className='py-1 hover:bg-gray-200'
                       onClick={() => setIsDeleteModalOpen(true)}
                     >
                       Delete Comment
@@ -351,6 +369,23 @@ function CommentItem({
             <button
               className={`${isLiked ? "bg-[#d71c1c18]" : "hover:bg-gray-100"}`}
               onClick={() => {
+                if (!user.email) {
+                  toast.custom((t) => (
+                    <div className='flex items-center gap-20 rounded-md p-5 py-3 text-[0.8rem] font-semibold shadow-md'>
+                      <p className=''>Login to interact with comment</p>
+                      <button
+                        className='rounded-md bg-primary px-2 py-1 font-medium text-white'
+                        onClick={() => {
+                          navigate("/login");
+                          toast.dismiss(t);
+                        }}
+                      >
+                        Login
+                      </button>
+                    </div>
+                  ));
+                  return;
+                }
                 if (!isLiked) {
                   addLike();
                   return;
@@ -365,7 +400,26 @@ function CommentItem({
               </p>
             </button>
             <button
-              onClick={() => setIsReplyOpen(true)}
+              onClick={() => {
+                if (!user.email) {
+                  toast.custom((t) => (
+                    <div className='flex items-center gap-20 rounded-md p-5 py-3 text-[0.8rem] font-semibold shadow-md'>
+                      <p className=''>Login to interact with comment</p>
+                      <button
+                        className='rounded-md bg-primary px-2 py-1 font-medium text-white'
+                        onClick={() => {
+                          navigate("/login");
+                          toast.dismiss(t);
+                        }}
+                      >
+                        Login
+                      </button>
+                    </div>
+                  ));
+                  return;
+                }
+                setIsReplyOpen(true);
+              }}
               className='hover:bg-gray-100'
             >
               <FaRegComment /> <p className='text-sm'>Reply</p>

@@ -7,15 +7,7 @@ import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 function Articlecard({ title, cover, date, id, type }) {
   const navigate = useNavigate();
   const [content, setContent] = useState("");
-  const { fetchArticleContent, timeAgo } = useGlobalContext();
-
-  const formatLink = (text) => {
-    let formattedText = text.toLowerCase();
-
-    return (formattedText = formattedText
-      .replace(/[^a-z0-9\s]/g, "")
-      .replace(/\s+/g, "-"));
-  };
+  const { fetchArticleContent, timeAgo, formatLink } = useGlobalContext();
 
   useEffect(() => {
     fetchArticleContent(id, type).then((result) => {
@@ -42,7 +34,7 @@ function Articlecard({ title, cover, date, id, type }) {
           <p className='text-sm'>{timeAgo(date)}</p>
           {type === "articles" ? (
             <Link
-              to={`/${formatLink(title)}-${id}`}
+              to={`/blog/${formatLink(title)}-${id}`}
               className='flex w-fit items-center gap-2 self-end'
             >
               <p className='font-semibold'>Read</p>
@@ -59,7 +51,7 @@ function Articlecard({ title, cover, date, id, type }) {
           )}
         </li>
         <li className='min-h-28 px-5 py-4'>
-          <h3 className='text-4xl font-bold'>{title}</h3>
+          <h3 className='text-4xl font-semibold'>{title}</h3>
         </li>
         <li className='border-y border-primary'>
           <img
@@ -71,7 +63,7 @@ function Articlecard({ title, cover, date, id, type }) {
         <li className='mt-6 px-2'>
           <ReactMarkdown
             children={content}
-            className='prose line-clamp-4 leading-loose prose-img:hidden'
+            className='prose line-clamp-4 leading-loose prose-headings:hidden prose-p:my-0 prose-img:hidden'
           />
         </li>
       </ul>

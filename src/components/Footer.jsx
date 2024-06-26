@@ -22,16 +22,27 @@ function Footer() {
     window.scrollTo({top: 0, behavior: 'smooth'})
  }
 
+// bg - [url("src/assets/images/footer_bg2.svg")];
+
   return (
-    <footer
-      className='border-t mt-12 h-[16rem]  text-white border-primary flex items-start pt-[3.5rem] px-32 bg-[url("src/assets/images/footer_bg2.svg")] bg-cover justify-between relative'
-    >
-      <div className='flex flex-col gap-4'>
-        <ul className='flex gap-6 *:text-lg items-center'>
+    <footer className='relative mt-12 flex flex-col items-center gap-8 bg-[#fdadb8] bg-cover px-20 pb-8 pt-14 text-[#342f23]'>
+      <div className='flex flex-col items-center gap-6'>
+        <Link to={"/"} className='text-lg font-semibold'>
+          Coffee & Convos
+        </Link>
+        <ul className='flex items-center gap-8 *:text-sm *:uppercase'>
           <li>
             <Link
               to={"/"}
               className={currentPage === "" ? "font-semibold" : undefined}
+            >
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link
+              to={"/blog"}
+              className={currentPage === "blog" ? "font-semibold" : undefined}
             >
               Blog
             </Link>
@@ -45,7 +56,7 @@ function Footer() {
             </Link>
           </li>
         </ul>
-        <ul className='flex gap-5 *:text-xl'>
+        <ul className='flex gap-8 *:rounded-full *:border-2 *:border-[#342f23] *:p-2 *:bg-[#342f23] *:cursor-pointer *:text-[#fdadb8]'>
           <li>
             <FaLinkedinIn />
           </li>
@@ -63,32 +74,18 @@ function Footer() {
           </li>
         </ul>
       </div>
-      <div className='flex flex-col gap-4 items-center'>
-        <Link to={"/"} className='text-[1.5rem] font-semibold'>
-          Coffee & Convos
-        </Link>
-        <p>Copyright &copy; {new Date().getFullYear()} Thebetawriter</p>
+      <div className='w-full border-t-2 border-[#342f23] pt-8'>
+        <p className='text-center'>
+          Copyright &copy; {new Date().getFullYear()} Thebetawriter. All rights
+          reserved
+        </p>
       </div>
-      <form className='flex flex-col gap-4'>
-        <label htmlFor='subscribe-email' className='text-lg font-semibold'>
-          NEWSLETTER
-        </label>
-        <div className='flex items-center border-b border-white gap-2'>
-          <input
-            type='email'
-            name='subscribe-email'
-            placeholder='your email'
-            id='subscribe-email'
-            className='focus:outline-none w-[10rem] bg-transparent
-             placeholder:text-white'
-            required
-          />
-          <button type='submit' className='font-semibold text-sm'>
-            SUBSCRIBE
-          </button>
-        </div>
-      </form>
-      <button className="absolute border-white bottom-10 right-32 border-2 size-10 grid place-items-center rounded-full text-black bg-white hover:-translate-y-[5%] transition-transform" onClick={scrollUp}><FaArrowUp className="size-6"/></button>
+      {/* <button
+        className='absolute bottom-10 right-32 grid size-10 place-items-center rounded-full border-2 border-white bg-white text-black transition-transform hover:-translate-y-[5%]'
+        onClick={scrollUp}
+      >
+        <FaArrowUp className='size-6' />
+      </button> */}
     </footer>
   );
 }
