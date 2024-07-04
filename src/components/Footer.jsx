@@ -25,7 +25,7 @@ function Footer() {
 // bg - [url("src/assets/images/footer_bg2.svg")];
 
   return (
-    <footer className='relative mt-12 flex flex-col items-center gap-8 bg-[#fdadb8] bg-cover px-20 pb-8 pt-14 text-[#342f23]'>
+    <footer className='relative mt-12 flex flex-col items-center gap-8 bg-[#fdadb8] bg-cover px-6 lg:px-20 pb-8 pt-14 text-[#342f23]'>
       <div className='flex flex-col items-center gap-6'>
         <Link to={"/"} className='text-lg font-semibold'>
           Coffee & Convos

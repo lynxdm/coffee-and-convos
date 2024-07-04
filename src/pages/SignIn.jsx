@@ -58,7 +58,7 @@ function SignIn() {
       {!isUsingEmail ? (
         <>
           <h2 className='mx-auto mb-4 text-2xl font-bold'>Welcome back!</h2>
-          <div className='flex flex-col gap-2 *:flex *:gap-3 *:rounded-[3rem] *:bg-primary *:px-12 *:py-4 *:text-xl *:font-semibold *:text-white'>
+          <div className='flex flex-col gap-2 *:flex *:gap-3 *:rounded-[3rem] *:bg-primary *:px-12 *:py-4 *:text-lg md:*:text-xl *:font-semibold *:text-white'>
             <button onClick={signInWithGoogle}>
               {" "}
               <svg className='size-6' viewBox='0 0 1152 1152'>
@@ -99,7 +99,7 @@ function SignIn() {
           <div className='mx-auto mb-4 text-center'>
             <h2 className='text-2xl font-semibold'>Sign in with Email</h2>
           </div>
-          <div className='h-[20rem] w-[30rem] rounded-3xl border-2 border-primary p-6'>
+          <div className='h-[20rem] w-[20rem] lg:w-[30rem] rounded-3xl border-2 border-primary p-6'>
             <button
               className='float-right flex items-center gap-1 font-bold text-blue-800'
               onClick={() => setIsUsingEmail(false)}

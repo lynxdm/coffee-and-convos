@@ -22,7 +22,7 @@ function useMenu(btn, menu) {
        };
      }, [isMenuOpen]);
 
-  return {isMenuOpen, setIsMenuOpen}
+  return [isMenuOpen, setIsMenuOpen]
 }
 
 export default useMenu

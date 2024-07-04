@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { auth, provider } from "../Utilis/firebase";
 import { useNavigate } from "react-router-dom";
-import { signInWithRedirect, getRedirectResult } from "firebase/auth";
+import {
+  signInWithRedirect,
+  getRedirectResult,
+  signInWithPopup,
+} from "firebase/auth";
 import { ScaleLoader } from "react-spinners";
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
@@ -14,24 +18,33 @@ function Login() {
   const [isLoading, setIsLoading] = useState(false);
 
   const signInWithGoogle = () => {
-    setIsLoading(true)
-    signInWithRedirect(auth, provider);
+    setIsLoading(true);
+    // signInWithRedirect(auth, provider).catch(error=>console.log(error))
+    signInWithPopup(auth, provider)
+      .then((UserCredential) => {
+        const user = UserCredential.user;
+        createUserNotification(user);
+        navigate("/");
+      })
+      .catch((error) => console.log("There was an error signing in:", error));
   };
 
-  useEffect(() => {
-    getRedirectResult(auth)
-      .then((result) => {
-        if (result) {
-          console.log("User signed in successfully:", result.user);
-          setIsLoading(true)
-          createUserNotification(result.user);
-          navigate("/");
-        }
-      })
-      .catch((error) => {
-        console.error("Error during sign-in:", error);
-      });
-  }, [navigate]);
+  // useEffect(() => {
+  //   getRedirectResult(auth)
+  //     .then((result) => {
+  //       if (result) {
+  //         console.log("User signed in successfully:", result.user);
+  //         setIsLoading(true)
+  //         createUserNotification(result.user);
+  //         navigate("/");
+  //       } else{
+  //         throw new Error("unable to get result from auth");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error during sign-in:", error);
+  //     });
+  // }, [navigate]);
 
   return (
     <>

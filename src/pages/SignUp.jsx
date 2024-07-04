@@ -134,7 +134,7 @@ function SignUp() {
       {!isUsingEmail ? (
         <>
           <h2 className='mx-auto mb-4 text-2xl font-bold'>Hello there.</h2>
-          <div className='flex flex-col gap-2 *:flex *:gap-3 *:rounded-[3rem] *:bg-primary *:px-12 *:py-4 *:text-xl *:font-semibold *:text-white'>
+          <div className='flex flex-col gap-2 *:flex *:gap-3 *:rounded-[3rem] *:bg-primary *:px-12 *:py-4 text-lg md:*:text-xl *:font-semibold *:text-white'>
             <button onClick={signInWithGoogle}>
               {" "}
               <svg className='size-6' viewBox='0 0 1152 1152'>
@@ -172,16 +172,16 @@ function SignUp() {
         </>
       ) : (
         <>
-          <h2 className='mx-auto mb-4 text-2xl font-semibold'>
+          <h2 className='mx-auto mb-4 mt-4 lg:mt-0 text-xl lg:text-2xl font-semibold'>
             Sign up with Email
           </h2>
-          <div className='w-[30rem] rounded-3xl border-2 border-primary p-6'>
+          <div className=' w-[21rem] lg:w-[30rem] rounded-3xl border-2 border-primary p-5 lg:p-6'>
             <button
               className='float-right flex items-center gap-1 font-bold text-blue-800'
               onClick={() => setIsUsingEmail(false)}
             >
-              <FaChevronLeft className='size-3' />
-              <p>All sign up options</p>
+              <FaChevronLeft className='size-2 lg:size-3' />
+              <p className="text-sm lg:text-[1rem]">All sign up options</p>
             </button>
             <form
               className='clear-both my-4 mt-9 flex flex-col gap-4'
@@ -191,7 +191,7 @@ function SignUp() {
                 {!userInfo.photoURL ? (
                   <label
                     htmlFor='profile_photo'
-                    className='mb-4 w-fit cursor-pointer rounded-md border-2 px-4 py-1.5 font-semibold text-gray-700 hover:border-gray-700'
+                    className='mb-4 w-fit cursor-pointer rounded-md border-2 lg:px-4 px-3 py-1.5 text-sm lg:text-base font-semibold text-gray-700 hover:border-gray-700'
                   >
                     <p>Upload a profile photo</p>
                     <input
@@ -204,7 +204,7 @@ function SignUp() {
                     />
                   </label>
                 ) : (
-                  <div className='mb-4 flex items-center gap-4'>
+                  <div className='mb-4 flex items-center gap-3 lg:gap-4'>
                     <img
                       src={userInfo.photoURL}
                       alt='profile photo'
@@ -212,7 +212,7 @@ function SignUp() {
                     />
                     <label
                       htmlFor='change_image'
-                      className='w-fit cursor-pointer rounded-md border-2 px-4 py-1.5 font-semibold text-gray-700 hover:border-gray-700'
+                      className='w-fit cursor-pointer rounded-md border-2 text-sm lg:text-base px-3 lg:px-4 py-1.5 font-semibold text-gray-700 hover:border-gray-700'
                     >
                       <p>Change photo</p>
                       <input

@@ -16,6 +16,8 @@ import Warningmodal from "./Warningmodal";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import useNotification from "../Hooks/useNotification";
+import { genConfig } from "react-nice-avatar";
+import ReactNiceAvatar from "react-nice-avatar";
 
 function CommentItem({
   user: { displayName, photoURL, email },
@@ -35,6 +37,7 @@ function CommentItem({
   const { sendNotification } = useNotification();
   const [newReply, setNewReply] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   const [isReplyOpen, setIsReplyOpen] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
@@ -293,15 +296,22 @@ function CommentItem({
     setIsDeleteModalOpen(false);
   };
 
+  const config = genConfig(email);
+
   return (
     <li id={id}>
       <div className='flex items-start gap-3'>
         {photoURL ? (
-          <img
-            src={photoURL}
-            alt={displayName + " display photo"}
-            className='size-8 rounded-full'
-          />
+          !imageError ? (
+            <img
+              src={photoURL}
+              alt={displayName + " display photo"}
+              className='size-8 rounded-full'
+              onError={()=>setImageError(true)}
+            />
+          ) : (
+            <ReactNiceAvatar className='size-8' {...config} />
+          )
         ) : (
           <FaUserCircle className='size-8' />
         )}
@@ -315,7 +325,7 @@ function CommentItem({
                 )}
               </p>
               <span>•</span>
-              <p className='text-sm'>{timeAgo(timestamp)}</p>
+              <p className='text-sm'>{timeAgo(timestamp, true)}</p>
               {comment.edited && (
                 <>
                   <span>•</span>
@@ -395,8 +405,10 @@ function CommentItem({
             >
               {isLiked ? <FaHeart className='text-red-600' /> : <FaRegHeart />}{" "}
               <p className='text-sm'>
-                <span>{likesCount > 0 ? likesCount : ""}</span>{" "}
-                {likesCount > 1 ? "likes" : "like"}
+                <span>{likesCount > 0 ? likesCount : ""}</span>
+                <span className='hidden lg:block'>
+                  {likesCount > 1 ? "likes" : "like"}
+                </span>
               </p>
             </button>
             <button
@@ -422,7 +434,7 @@ function CommentItem({
               }}
               className='hover:bg-gray-100'
             >
-              <FaRegComment /> <p className='text-sm'>Reply</p>
+              <FaRegComment /> <p className='hidden text-sm lg:block'>Reply</p>
             </button>
           </div>
           {replies.length > 0 && (

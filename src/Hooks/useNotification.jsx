@@ -23,7 +23,7 @@ function useNotification() {
 
   const createUserNotification = async (result) => {
     // Create a query against the subcollection
-    const q = query(notificationsRef, where("email", "==", result.email));
+    try{const q = query(notificationsRef, where("email", "==", result.email));
 
     // Execute the query
     const querySnapshot = await getDocs(q);
@@ -39,6 +39,11 @@ function useNotification() {
       const newUserRef = doc(db, "notifications", result.uid);
 
       await setDoc(newUserRef, newUserNotificationData);
+    } else{
+      console.log("snapshot empty")
+    }
+  }catch(err){
+      console.log("unable to create user notification", err)
     }
   };
 

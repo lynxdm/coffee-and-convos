@@ -137,15 +137,15 @@ function New() {
 
   return (
     <>
-      <nav className='relative flex items-center justify-between bg-[#f5f5f5] px-32 py-2'>
+      <nav className='relative flex items-center justify-between bg-[#f5f5f5] lg:px-32 py-2 px-2 min-h-[5vh]'>
         <div className='flex min-w-[60vw] items-center justify-between'>
-          <div className='flex items-center gap-5'>
+          <div className='lg:flex items-center gap-5 hidden'>
             <Link to={"/"} className='text-2xl font-semibold'>
               Coffee & Convos
             </Link>
             <p className='text-lg font-semibold underline'>Markdown Editor</p>
           </div>
-          <div className='flex items-center gap-5 *:rounded-lg *:px-4 *:py-2 hover:*:bg-gray-300'>
+          <div className='flex items-center lg:gap-5 *:rounded-lg *:px-4 *:py-2 hover:*:bg-gray-300'>
             <Link
               to={"/new"}
               className={`${currentPath === "new" && "font-bold"}`}
@@ -161,7 +161,7 @@ function New() {
           </div>
         </div>
         <button
-          className='absolute right-[3rem]'
+          className='absolute right-4 lg:right-[3rem]'
           onClick={() => {
             if (
               articleDraft.title ||
@@ -177,9 +177,9 @@ function New() {
           <FaXmark className='size-6' />
         </button>
       </nav>
-      <main className='min-h-[90vh] bg-[#f5f5f5] px-32'>
+      <main className='bg-[#f5f5f5] lg:px-32 min-h-[110vh]'>
         <section
-          className={`h-[40rem] w-[57rem] overflow-y-hidden rounded-md border border-gray-300 bg-white ${(articleDraft.content.length > 250 || currentPath === "preview") && "overflow-y-scroll"} relative`}
+          className={`h-[40rem] xl:w-[57rem] overflow-y-hidden lg:rounded-md border border-gray-300 bg-white ${(articleDraft.content.length > 200 || currentPath === "preview") && "overflow-y-scroll"} relative`}
         >
           {errorComponent.show && (
             <div className='m-0 grid items-center bg-red-100 px-10 py-4 pb-5 font-bold text-red-700'>
@@ -198,7 +198,7 @@ function New() {
             ]}
           />
         </section>
-        <div className='mt-5 flex items-center gap-2 pb-4 *:rounded-md *:px-4 *:py-[0.4rem]'>
+        <div className='my-5 flex items-center px-3 gap-2 pb-4 *:rounded-md *:px-4 *:py-[0.4rem]'>
           {isLoading.show ? (
             <div className='flex gap-2 bg-blue-700 font-semibold text-white'>
               <ScaleLoader
@@ -244,7 +244,7 @@ function New() {
           setIsModalWarningOpen={setIsDeleteDraft}
           content={"Are you sure you want to delete your saved work?"}
           header={"You're about to delete a draft"}
-          backBtn={"Cancel"}
+          backBtn={"Cancel"}z
         />
       )}
       {isModalWarningOpen && (
@@ -255,7 +255,7 @@ function New() {
           content={
             "You've made some changes to this post. Do you want to leave this page?"
           }
-          header={"You have some unsaved changes"}
+          header={"You have unsaved changes"}
           backBtn={"No, keep editing"}
         />
       )}

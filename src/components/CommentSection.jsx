@@ -16,11 +16,14 @@ import { v4 } from "uuid";
 import { ScaleLoader } from "react-spinners";
 import useNotification from "../Hooks/useNotification";
 import { Link } from "react-router-dom";
+import { genConfig } from "react-nice-avatar";
+import ReactNiceAvatar from "react-nice-avatar";
 
 function CommentSection({ articleId, articleLink, articleTitle }) {
   const { user, getCurrentDate } = useGlobalContext();
   const { sendAdminNotification } = useNotification();
   const [comments, setComments] = useState(null);
+  const [imageError, setImageError] = useState(false)
   const [newComment, setNewComment] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -83,21 +86,28 @@ function CommentSection({ articleId, articleLink, articleTitle }) {
     }
   };
 
+  const config = genConfig(user.email);
+
   return (
     <section
-      className='mx-auto mt-8 max-w-[60rem] border-t pt-10'
+      className='mx-auto mt-8 max-w-[60rem] border-t px-3 pt-10 md:px-8'
       id='comment_section'
     >
-      <h2 className='text-center text-3xl font-bold'>Comments</h2>
+      <h2 className='text-center text-xl font-bold lg:text-3xl'>Comments</h2>
       <div className='mt-7 flex items-start gap-3'>
         {user.photoURL ? (
-          <img
-            src={user.photoURL}
-            alt={user.dispalyName + " display photo"}
-            className='size-8 rounded-full'
-          />
+          !imageError ? (
+            <img
+              src={user.photoURL}
+              alt={user.dispalyName + " display photo"}
+              className='size-8 rounded-full'
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            <ReactNiceAvatar className='size-8' {...config} />
+          )
         ) : (
-          <FaUserCircle className='size-8 text-[#3e3b3b]' />
+          <FaUserCircle className='size-8' />
         )}
         <form className='w-full' onSubmit={addComment}>
           <textarea

@@ -29,16 +29,16 @@ function Articlecard({ title, cover, date, id, type }) {
 
   if (content) {
     return (
-      <ul className='border border-primary py-3' key={id}>
-        <li className='flex items-center justify-between border-b border-primary px-2 pb-2'>
-          <p className='text-sm'>{timeAgo(date)}</p>
+      <ul className='border border-primary py-3 dark:border-[#979292]' key={id}>
+        <li className='flex items-center justify-between border-b border-primary px-2 pb-2 dark:border-[#979292]'>
+          <p className='text-sm capitalize'>{timeAgo(date)}</p>
           {type === "articles" ? (
             <Link
               to={`/blog/${formatLink(title)}-${id}`}
-              className='flex w-fit items-center gap-2 self-end'
+              className='flex w-fit items-center gap-1 self-end lg:gap-2'
             >
-              <p className='font-semibold'>Read</p>
-              <HiOutlineArrowNarrowRight className='size-5' />
+              <p className='lg:text-md text-sm font-semibold'>Read</p>
+              <HiOutlineArrowNarrowRight className='lg:size-5' />
             </Link>
           ) : (
             <button
@@ -50,12 +50,14 @@ function Articlecard({ title, cover, date, id, type }) {
             </button>
           )}
         </li>
-        <li className='min-h-28 px-5 py-4'>
-          <h3 className='text-4xl font-semibold'>{title}</h3>
+        <li className='px-3 py-4 md:min-h-24 lg:min-h-28 lg:px-5'>
+          <h3 className='text-2xl font-bold lg:font-semibold xl:text-4xl'>
+            {title}
+          </h3>
         </li>
-        <li className='border-y border-primary'>
+        <li className='border-y border-primary dark:border-[#979292]'>
           <img
-            className='aspect-[16/3.5] object-cover object-center'
+            className='aspect-[16/7] object-cover object-center md:aspect-[16/5] lg:aspect-[16/3.5]'
             src={cover.image}
             alt={cover.alt}
           />
@@ -63,7 +65,7 @@ function Articlecard({ title, cover, date, id, type }) {
         <li className='mt-6 px-2'>
           <ReactMarkdown
             children={content}
-            className='prose line-clamp-4 leading-loose prose-headings:hidden prose-p:my-0 prose-img:hidden'
+            className='dark:text-darkPrimary prose line-clamp-3 leading-loose prose-headings:hidden prose-p:my-0 prose-img:hidden lg:line-clamp-4'
           />
         </li>
       </ul>

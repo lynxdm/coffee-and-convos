@@ -77,12 +77,12 @@ function Article() {
     return (
       <>
         <Navbar />
-        <main className='mx-32 pt-10 font-inter_tight'>
-          <h1 className='mx-auto mb-8 max-w-[50rem] text-6xl leading-[5rem] font-bold font-inter text-center'>
+        <main className='lg:mx-32 mx-6 pt-10 font-inter_tight'>
+          <h1 className='mx-auto lg:mb-8 mb-4 max-w-[50rem] text-3xl lg:text-6xl lg:leading-[5rem] leading-10 font-bold font-inter text-center'>
             {article.title}
           </h1>
           <div className='mx-auto flex max-w-[60rem] items-center justify-between'>
-            {timeAgo(article.date)}
+            <p className="capitalize">{timeAgo(article.date)}</p>
             <div className='flex items-center gap-4'>
               <button className='underline underline-offset-2'>
                 Share this post
@@ -118,7 +118,7 @@ function Article() {
               )}
             </div>
           </div>
-          <div className='relative grid place-items-center border-primary py-12 pb-8'>
+          <div className='relative grid place-items-center border-primary lg:py-12 py-10 pb-4 lg:pb-8'>
             <img
               src={article.cover.image}
               alt={article.cover.alt}
@@ -127,7 +127,7 @@ function Article() {
           </div>
           <ReactMarkdown
             children={content}
-            className='prose-xl mx-auto max-w-[50rem] prose-headings: prose-headings:font-bold prose-headings:font-inter prose-h2:font-extrabold prose-li:list-disc prose-h2:text-4xl prose-p:my-4 break-words'
+            className='md:prose-xl prose-lg mx-auto max-w-[50rem] prose-headings: prose-headings:font-bold prose-headings:font-inter prose-h2:font-extrabold prose-li:list-disc lg:prose-h2:text-4xl prose-p:my-4 break-words prose-headings:mt-8 prose-headings:mb-4'
           />
         </main>
         <CommentSection

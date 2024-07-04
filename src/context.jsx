@@ -20,6 +20,18 @@ const AppProvider = ({ children }) => {
     userId: "",
   });
 
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+    const root = window.document.documentElement;
+    if (theme === "dark") {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+  }, [theme]);
+
   const [userNotifications, setUserNotifications] = useState(
     JSON.parse(sessionStorage.getItem("userNotifications")) || [],
   );
@@ -96,7 +108,7 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  function timeAgo(dateString) {
+  function timeAgo(dateString, comment) {
     const now = new Date();
     const createdAt = new Date(dateString);
     const diffInSeconds = Math.floor((now - createdAt) / 1000);
@@ -106,16 +118,29 @@ const AppProvider = ({ children }) => {
     const secondsInDay = 86400;
 
     if (diffInSeconds < secondsInMinute) {
+      if (comment) {
+        return `${diffInSeconds} sec${diffInSeconds !== 1 ? "s" : ""}`;
+      }
       return `${diffInSeconds} second${diffInSeconds !== 1 ? "s" : ""} ago`;
     } else if (diffInSeconds < secondsInHour) {
       const minutes = Math.floor(diffInSeconds / secondsInMinute);
+      if (comment) {
+        return `${minutes} min${diffInSeconds !== 1 ? "s" : ""}`;
+      }
       return `${minutes} minute${minutes !== 1 ? "s" : ""} ago`;
     } else if (diffInSeconds < secondsInDay) {
       const hours = Math.floor(diffInSeconds / secondsInHour);
+      if (comment) {
+        return `${hours} hour${hours !== 1 ? "s" : ""}`;
+      }
       return `${hours} hour${hours !== 1 ? "s" : ""} ago`;
     } else if (diffInSeconds < secondsInDay * 2) {
       return "yesterday";
     } else {
+      if (comment) {
+        const options = { month: "short", day: "numeric" };
+        return createdAt.toLocaleDateString("en-US", options);
+      }
       const options = { year: "numeric", month: "long", day: "numeric" };
       return createdAt.toLocaleDateString(undefined, options);
     }
@@ -158,6 +183,8 @@ const AppProvider = ({ children }) => {
         fetchArticleContent,
         timeAgo,
         user,
+        theme,
+        setTheme,
         publishArticle,
         userNotifications,
         formatLink,

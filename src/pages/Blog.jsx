@@ -45,18 +45,18 @@ function Blog() {
     return (
       <>
         <Navbar />
-        <main className='px-32'>
-          <section className='mt-12 border border-primary py-2 pt-6'>
-            <div className='flex w-full items-center justify-center gap-10 px-4 mb-4'>
-              <div className='w-[60rem]'>
-                <h1 className='text-left text-6xl font-semibold leading-normal'>
+        <main className='lg:px-32  px-6'>
+          <section className='mt-12 border border-primary py-2 pt-6 hidden lg:block'>
+            <div className='flex flex-col lg:flex-row w-full items-center justify-center gap-2 lg:gap-10 px-4 mb-4'>
+              <div className='lg:w-[60rem]'>
+                <h1 className='text-left text-2xl lg:text-6xl font-bold lg:font-semibold leading-normal'>
                   {articles[0].title}
                 </h1>
               </div>
               <div>
                 <ReactMarkdown
                   children={previewContent}
-                  className='prose prose-lg line-clamp-6 max-w-[50rem] leading-10 prose-headings:hidden prose-p:my-0 prose-img:hidden'
+                  className='prose prose-md lg:prose-lg line-clamp-6 max-w-[50rem] leading-10 prose-headings:hidden prose-p:my-0 prose-img:hidden'
                 />
               </div>
             </div>
@@ -72,7 +72,7 @@ function Blog() {
             </div>
           </section>
           <section className='py-12'>
-            <article className='grid grid-cols-2 gap-12'>
+            <article className='grid md:grid-cols-2 gap-12'>
               {articles.map((article) => {
                 return (
                   <Articlecard {...article} key={article.id} type='articles' />

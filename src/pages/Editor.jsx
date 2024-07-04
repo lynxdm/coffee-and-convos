@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import UseToolbar from "../Hooks/useToolbar";
+import useTextArea from "../Hooks/useTextArea";
 import { addDoc } from "firebase/firestore";
 import { storage } from "../Utilis/firebase";
 import { v4 } from "uuid";
@@ -24,12 +25,10 @@ function Editor() {
   const [coverIsLoading, setCoverIsLoading] = useState(false);
 
   const textAreaRef = useRef(null);
+  const titleText  = useRef(null)
 
-  useEffect(() => {
-    textAreaRef.current.style.height = "0px";
-    const scrollHeight = textAreaRef.current.scrollHeight;
-    textAreaRef.current.style.height = scrollHeight + "px";
-  }, [textAreaRef, articleDraft.content]);
+  useTextArea(textAreaRef, articleDraft.content)
+  useTextArea(titleText, articleDraft.title)
 
   const headingsDropdown = useRef(null);
   const headingsButton = useRef(null);
@@ -157,7 +156,7 @@ function Editor() {
       onSubmit={(e) => e.preventDefault()}
     >
       {coverIsLoading ? (
-        <div className='mx-16 flex items-center gap-2'>
+        <div className='lg:mx-16 mx-3 flex items-center gap-2'>
           <ScaleLoader
             color='rgba(29, 78, 216, 1)'
             height={12}
@@ -167,12 +166,12 @@ function Editor() {
           <p>Uploading...</p>
         </div>
       ) : articleDraft.coverImg ? (
-        <div className='mx-16 flex items-center gap-8'>
+        <div className='lg:mx-16 mx-3 flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-8'>
           <div>
             <img
               src={articleDraft.coverImg}
               alt={articleDraft.title + "cover image"}
-              className='max-h-[9rem] rounded object-contain'
+              className='max-h-[7rem] lg:max-h-[9rem] rounded object-contain'
             />
           </div>
           <div className='flex gap-2 *:rounded-md *:px-3 *:py-[0.4rem] *:font-semibold'>
@@ -202,7 +201,7 @@ function Editor() {
       ) : (
         <label
           htmlFor='cover-img'
-          className='mx-16 w-fit cursor-pointer rounded-md border-2 border-gray-300 px-3 py-[0.4rem] font-semibold'
+          className='lg:mx-16 mx-3 w-fit cursor-pointer rounded-md border-2 border-gray-300 px-3 py-[0.4rem] font-semibold'
           onInput={uploadCoverImage}
         >
           Add a cover image
@@ -215,16 +214,16 @@ function Editor() {
           />
         </label>
       )}
-      <input
-        type='text'
+      <textarea
         placeholder='Article title here'
         name='title'
         value={articleDraft.title}
         onChange={handleChange}
+        ref={titleText}
         id='title'
-        className='px-16 text-5xl font-extrabold placeholder:text-5xl placeholder:font-extrabold placeholder:text-gray-600 focus:outline-none'
+        className='px-3 lg:px-16 text-4xl lg:text-5xl font-extrabold lg:placeholder:text-5xl placeholder:font-extrabold placeholder:text-gray-600 focus:outline-none'
       />
-      <div className='sticky top-0 flex w-full items-center gap-3 bg-[#f5f5f5] px-16 py-3 *:flex *:size-10 *:items-center *:justify-center *:rounded'>
+      <div className='sticky top-0 flex w-full items-center gap-3 bg-[#f5f5f5] px-2 flex-wrap overflow-scroll lg:px-16 py-3 *:flex *:size-10 *:items-center *:justify-center *:rounded'>
         <button
           type='button'
           className='font-mono text-2xl hover:bg-blue-100 hover:text-blue-700'
@@ -386,7 +385,7 @@ function Editor() {
         value={articleDraft.content}
         placeholder='Article content here...'
         onChange={handleChange}
-        className='resize-none overflow-hidden px-16 font-mono text-lg leading-loose placeholder:text-gray-600 focus:outline-none'
+        className='resize-none overflow-hidden px-3 lg:px-16 font-mono text-lg leading-loose placeholder:text-gray-600 focus:outline-none'
         ref={textAreaRef}
       ></textarea>
     </form>

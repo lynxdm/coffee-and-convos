@@ -4,32 +4,28 @@ import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar"
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
-import {
-  FaXTwitter,
-  FaInstagram,
-  FaMedium,
-  FaLinkedinIn,
-} from "react-icons/fa6";
-import { BiLogoGmail } from "react-icons/bi";
 
 function About() {
   return (
     <>
-    <Navbar/>
-      <main className='px-32'>
-        <h1 className='mx-auto text-center text-5xl font-semibold mt-4 mb-0'>
+      <Navbar />
+      <main className='px:6 lg:px-32'>
+        <h1 className='mx-auto mb-0 mt-4 hidden text-center text-2xl font-semibold lg:block lg:text-5xl'>
           About Coffee & Convos
         </h1>
-        <div className='flex gap-[10rem] items-center my-[4rem] mb-[8rem] justify-center'>
-          <div className='relative after:absolute after:w-[10rem] after:top-[80%] aspect-square h-[30rem] border after:right-0 after:translate-x-[80%] after:border after:border-primary bg-[#fdadb8]'>
+        <div className='my-[3em] flex flex-col items-center justify-center lg:gap-[10rem] gap-20 px-6 lg:my-[4rem] lg:mb-[8rem] lg:flex-row lg:px-0'>
+          <div className='relative aspect-square h-[18rem] border -translate-x-4 bg-[#fdadb8] after:absolute after:right-0 after:top-[80%] after:hidden after:w-[10rem] after:translate-x-[80%] after:border after:border-primary lg:h-[30rem] lg:after:block border-primary lg:border-none'>
             <img
               src={aboutImg}
               alt='a picture of three coffee mugs'
-              className='absolute top-[3rem] left-[3rem] aspect-square object-cover object-center h-[30rem]'
+              className='absolute left-[2rem] top-[2rem] aspect-square h-[18rem] object-cover object-center lg:left-[3rem] lg:top-[3rem] lg:h-[30rem] border border-primary lg:border-none'
             />
           </div>
           <section className='max-w-[30rem]'>
-            <article className='prose-xl max-w-full mx-auto'>
+            <h1 className='mb-3 text-2xl font-extrabold'>
+              About Coffee & Convos
+            </h1>
+            <article className='prose mx-auto lg:prose-xl lg:max-w-full'>
               <p>
                 Welcome to Coffee & Convos, a blog dedicated to exploring the
                 world of research and writing with a dose of coffee and
@@ -46,27 +42,13 @@ function About() {
                 me and let's explore the world together.
               </p>
             </article>
-            <Link to={"/"} className="flex items-center gap-3 justify-end mt-2">
-              <p className="font-semibold font-overpass text-lg">View blog</p>
-              <HiOutlineArrowNarrowRight className="size-6" />
+            <Link
+              to={"/blog"}
+              className='flex items-center justify-end gap-3 lg:mt-2 mt-3'
+            >
+              <p className='font-overpass lg:text-lg font-semibold'>View blog</p>
+              <HiOutlineArrowNarrowRight className='size-6' />
             </Link>
-            {/* <ul className='mt-5 flex gap-5 justify-center *:*:size-6'>
-              <li>
-                <FaLinkedinIn />
-              </li>
-              <li>
-                <FaXTwitter />
-              </li>
-              <li>
-                <FaInstagram />
-              </li>
-              <li>
-                <FaMedium />
-              </li>
-              <li>
-                <BiLogoGmail />
-              </li>
-            </ul> */}
           </section>
         </div>
       </main>

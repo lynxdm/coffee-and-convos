@@ -11,9 +11,9 @@ function Warningmodal({
 }) {
   return (
     <section className='pointer-events-auto fixed bottom-0 left-0 right-0 top-0 z-50 grid h-[100vh] w-[100vw] place-items-center bg-[#0000006c]'>
-      <div className='aspect-[3.3/1] w-[40rem] rounded-xl bg-white py-4 pt-2'>
-        <div className='flex items-center justify-between border-b px-6 py-2'>
-          <p className='text-xl font-semibold'>{header}</p>
+      <div className=' w-[100vw] h-[100vh] md:h-fit md:w-[40rem] md:rounded-xl bg-white py-4 pt-2'>
+        <div className='flex items-center justify-between border-b px-3 lg:px-6 py-2'>
+          <p className='text-lg lg:text-xl font-extrabold'>{header}</p>
           <button
             className='grid size-8 place-items-center rounded hover:bg-blue-100 hover:text-blue-700'
             onClick={() => setIsModalWarningOpen(false)}
@@ -21,9 +21,9 @@ function Warningmodal({
             <FaXmark className='size-5' />
           </button>
         </div>
-        <div className='px-6 pt-8'>
+        <div className='lg:px-6 px-3 lg:pt-8 py-4'>
           <p> {content}</p>
-          <div className='mt-3 flex gap-4 *:rounded-md *:px-4 *:py-2 *:font-semibold'>
+          <div className='mt-3 flex gap-4 *:rounded-md *:px-3 lg:*:px-4 *:py-2 *:font-semibold text-sm'>
             <button
               className='bg-red-600 text-white hover:bg-red-700'
             onClick={deleteaction}

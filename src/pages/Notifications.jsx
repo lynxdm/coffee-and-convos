@@ -27,11 +27,11 @@ function Notifications() {
   return (
     <>
       <Navbar bg={"#f5f5f5"} />
-      <main className='min-h-[100vh] bg-[#f5f5f5] px-32 pb-14'>
+      <main className='min-h-[100vh] bg-[#f5f5f5]  lg:px-32 pb-14'>
         <h1 className='mb-5 pt-4 text-center text-2xl font-semibold'>
           All Notifications
         </h1>
-        <nav className='mx-auto flex w-fit justify-center rounded-3xl border bg-gray-200 *:rounded-3xl *:border-gray-300 *:px-10 *:py-1.5 *:text-lg'>
+        <nav className='mx-auto flex w-fit justify-center rounded-3xl border bg-gray-200 *:rounded-3xl *:border-gray-300 *:px-10 *:py-1.5 lg:*:text-lg'>
           <Link
             to={"/notifications"}
             className={`${currentPath === "notifications" ? "bg-white text-primary" : "text-gray-500"}`}

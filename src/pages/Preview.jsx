@@ -8,14 +8,11 @@ function Preview() {
   const { content, coverImg, title } = articleDraft;
 
   return (
-    <article className='p-10'>
-      <h1 className='mx-auto mb-2 max-w-[60rem] text-6xl font-bold leading-[5rem]'>
+    <article className='lg:p-10 p-6'>
+      <h1 className='font-inter mx-auto max-w-[50rem] text-center text-3xl font-bold leading-10 lg:mb-8 lg:text-6xl lg:leading-[5rem]'>
         {title}
       </h1>
-      <div className='mx-auto flex max-w-[60rem] items-center justify-between'>
-        <p className='underline underline-offset-2'>Editing...</p>
-      </div>
-      <div className='relative mb-8 grid place-items-center py-8 after:absolute after:bottom-0 after:right-[50%] after:w-[10rem] after:translate-x-[50%] after:border after:border-primary'>
+      <div className='relative grid place-items-center border-primary py-8 pb-4 lg:py-12 lg:pb-8'>
         <img
           src={coverImg}
           alt={title + "cover image"}
@@ -24,7 +21,7 @@ function Preview() {
       </div>
       <ReactMarkdown
         children={content}
-        className='prose-lg mx-auto max-w-[60rem] prose-headings:font-bold prose-li:list-disc'
+        className='prose-headings: prose-headings:font-inter prose-lg mx-auto max-w-[50rem] break-words md:prose-xl prose-headings:mb-4 prose-headings:mt-8 prose-headings:font-bold prose-h2:font-extrabold prose-p:my-4 prose-li:list-disc lg:prose-h2:text-4xl'
       />
     </article>
   );
