@@ -25,10 +25,10 @@ function Editor() {
   const [coverIsLoading, setCoverIsLoading] = useState(false);
 
   const textAreaRef = useRef(null);
-  const titleText  = useRef(null)
+  const titleText = useRef(null);
 
-  useTextArea(textAreaRef, articleDraft.content)
-  useTextArea(titleText, articleDraft.title)
+  useTextArea(textAreaRef, articleDraft.content);
+  useTextArea(titleText, articleDraft.title);
 
   const headingsDropdown = useRef(null);
   const headingsButton = useRef(null);
@@ -156,7 +156,7 @@ function Editor() {
       onSubmit={(e) => e.preventDefault()}
     >
       {coverIsLoading ? (
-        <div className='lg:mx-16 mx-3 flex items-center gap-2'>
+        <div className='mx-3 flex items-center gap-2 lg:mx-16'>
           <ScaleLoader
             color='rgba(29, 78, 216, 1)'
             height={12}
@@ -166,12 +166,12 @@ function Editor() {
           <p>Uploading...</p>
         </div>
       ) : articleDraft.coverImg ? (
-        <div className='lg:mx-16 mx-3 flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-8'>
+        <div className='mx-3 flex flex-col gap-3 lg:mx-16 lg:flex-row lg:items-center lg:gap-8'>
           <div>
             <img
               src={articleDraft.coverImg}
               alt={articleDraft.title + "cover image"}
-              className='max-h-[7rem] lg:max-h-[9rem] rounded object-contain'
+              className='max-h-[7rem] rounded object-contain lg:max-h-[9rem]'
             />
           </div>
           <div className='flex gap-2 *:rounded-md *:px-3 *:py-[0.4rem] *:font-semibold'>
@@ -192,7 +192,7 @@ function Editor() {
             <button
               type='button'
               onClick={deleteCoverImage}
-              className='text-red-700 hover:bg-gray-200'
+              className='text-red-700 dark:hover:bg-[#de1c1c18] hover:bg-gray-200'
             >
               Remove
             </button>
@@ -201,7 +201,7 @@ function Editor() {
       ) : (
         <label
           htmlFor='cover-img'
-          className='lg:mx-16 mx-3 w-fit cursor-pointer rounded-md border-2 border-gray-300 px-3 py-[0.4rem] font-semibold'
+          className='mx-3 w-fit cursor-pointer rounded-md border-2 border-gray-300 px-3 py-[0.4rem] font-semibold dark:border-[#3a3a3a] lg:mx-16'
           onInput={uploadCoverImage}
         >
           Add a cover image
@@ -221,19 +221,19 @@ function Editor() {
         onChange={handleChange}
         ref={titleText}
         id='title'
-        className='px-3 lg:px-16 text-4xl lg:text-5xl font-extrabold lg:placeholder:text-5xl placeholder:font-extrabold placeholder:text-gray-600 focus:outline-none'
+        className='resize-none px-3 font-inter text-4xl font-extrabold placeholder:font-extrabold placeholder:text-gray-600 focus:outline-none dark:bg-darkBg dark:text-white dark:placeholder:text-[#3a3a3a] lg:px-16 lg:text-5xl lg:placeholder:text-5xl'
       />
-      <div className='sticky top-0 flex w-full items-center gap-3 bg-[#f5f5f5] px-2 flex-wrap overflow-scroll lg:px-16 py-3 *:flex *:size-10 *:items-center *:justify-center *:rounded'>
+      <div className='sticky top-0 flex w-full flex-wrap items-center gap-3 bg-[#f5f5f5] px-2 py-3 *:flex *:size-10 *:items-center *:justify-center *:rounded dark:bg-[black] lg:px-16'>
         <button
           type='button'
-          className='font-mono text-2xl hover:bg-blue-100 hover:text-blue-700'
+          className='font-mono text-2xl hover:bg-blue-100 hover:text-blue-700 dark:hover:bg-[#343434] dark:hover:text-darkPrimary'
           onClick={handleBold}
         >
           B
         </button>
         <button
           type='button'
-          className='font-mono text-2xl italic hover:bg-blue-100 hover:text-blue-700'
+          className='font-mono text-2xl italic hover:bg-blue-100 hover:text-blue-700 dark:hover:bg-[#343434] dark:hover:text-darkPrimary'
           onClick={handleItalic}
         >
           I
@@ -241,7 +241,7 @@ function Editor() {
         <div className='relative'>
           <button
             type='button'
-            className='size-10 rounded font-mono text-2xl hover:bg-blue-100 hover:text-blue-700'
+            className='size-10 rounded font-mono text-2xl hover:bg-blue-100 hover:text-blue-700 dark:hover:bg-[#343434] dark:hover:text-darkPrimary'
             ref={headingsButton}
             onClick={() => {
               setShowHeadingsDropdown(!showHeadingsDropdown);
@@ -250,7 +250,7 @@ function Editor() {
             H
           </button>
           <div
-            className={`absolute top-[110%] rounded border border-gray-200 bg-white *:px-5 *:py-3 hover:*:bg-blue-100 hover:*:text-blue-700 ${showHeadingsDropdown ? "flex" : "hidden"}`}
+            className={`absolute top-[110%] rounded border border-gray-200 bg-white *:px-5 *:py-3 hover:*:bg-blue-100 hover:*:text-blue-700 dark:border-[#3a3a3a] dark:bg-[#262626] dark:hover:*:bg-[#343434] dark:hover:*:text-darkPrimary ${showHeadingsDropdown ? "flex" : "hidden"}`}
             ref={headingsDropdown}
           >
             <button
@@ -261,7 +261,7 @@ function Editor() {
               H2
             </button>
             <button
-              className='border-x'
+              className='border-x dark:border-[#3a3a3a]'
               type='button'
               onClick={() => handleHeadings("###")}
               onMouseUp={() => setShowHeadingsDropdown(false)}
@@ -279,14 +279,14 @@ function Editor() {
         </div>
         <button
           type='button'
-          className='font-mono text-2xl underline hover:bg-blue-100 hover:text-blue-700'
+          className='font-mono text-2xl underline hover:bg-blue-100 hover:text-blue-700 dark:hover:bg-[#343434] dark:hover:text-darkPrimary'
           onClick={handleUnderline}
         >
           U
         </button>
         <button
           type='button'
-          className='font-mono text-2xl line-through hover:bg-blue-100 hover:text-blue-700'
+          className='font-mono text-2xl line-through hover:bg-blue-100 hover:text-blue-700 dark:hover:bg-[#343434] dark:hover:text-darkPrimary'
           onClick={handleStrikethrough}
         >
           S
@@ -294,9 +294,10 @@ function Editor() {
         <button
           type='button'
           onClick={handleLinking}
-          className='hover:bg-blue-100 hover:fill-blue-700'
+          className='hover:bg-blue-100 hover:fill-blue-700 dark:hover:bg-[#343434] dark:hover:fill-darkPrimary'
         >
           <svg
+            className='dark:fill-darkPrimary'
             height='24'
             viewBox='0 0 24 24'
             width='24'
@@ -308,9 +309,10 @@ function Editor() {
         <button
           type='button'
           onClick={handleOrderedList}
-          className='hover:bg-blue-100 hover:fill-blue-700'
+          className='hover:bg-blue-100 hover:fill-blue-700 dark:hover:bg-[#343434] dark:hover:fill-darkPrimary'
         >
           <svg
+            className='dark:fill-darkPrimary'
             height='24'
             viewBox='0 0 24 24'
             width='24'
@@ -322,9 +324,10 @@ function Editor() {
         <button
           type='button'
           onClick={handleUnOrderedList}
-          className='hover:bg-blue-100 hover:fill-blue-700'
+          className='hover:bg-blue-100 hover:fill-blue-700 dark:hover:bg-[#343434] dark:hover:fill-darkPrimary'
         >
           <svg
+            className='dark:fill-darkPrimary'
             height='24'
             viewBox='0 0 24 24'
             width='24'
@@ -336,9 +339,10 @@ function Editor() {
         <button
           type='button'
           onClick={handleQuote}
-          className='hover:bg-blue-100 hover:fill-blue-700'
+          className='hover:bg-blue-100 hover:fill-blue-700 dark:hover:bg-[#343434] dark:hover:fill-darkPrimary'
         >
           <svg
+            className='dark:fill-darkPrimary'
             height='24'
             viewBox='0 0 24 24'
             width='24'
@@ -349,7 +353,7 @@ function Editor() {
         </button>
         <label
           htmlFor='add-img'
-          className='hover:bg-blue-100 hover:fill-blue-700'
+          className='hover:bg-blue-100 hover:fill-blue-700 dark:hover:bg-[#343434] dark:hover:fill-darkPrimary'
         >
           {imageIsLoading ? (
             <ScaleLoader
@@ -360,6 +364,7 @@ function Editor() {
             />
           ) : (
             <svg
+              className='dark:fill-darkPrimary'
               width='24'
               height='24'
               viewBox='0 0 24 24'
@@ -385,7 +390,7 @@ function Editor() {
         value={articleDraft.content}
         placeholder='Article content here...'
         onChange={handleChange}
-        className='resize-none overflow-hidden px-3 lg:px-16 font-mono text-lg leading-loose placeholder:text-gray-600 focus:outline-none'
+        className='resize-none overflow-hidden px-3 font-mono text-lg leading-loose placeholder:text-gray-600 focus:outline-none dark:bg-darkBg dark:text-white dark:placeholder:text-[#3a3a3a] lg:px-16'
         ref={textAreaRef}
       ></textarea>
     </form>

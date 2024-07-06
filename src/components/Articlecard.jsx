@@ -29,8 +29,8 @@ function Articlecard({ title, cover, date, id, type }) {
 
   if (content) {
     return (
-      <ul className='border border-primary py-3 dark:border-[#979292]' key={id}>
-        <li className='flex items-center justify-between border-b border-primary px-2 pb-2 dark:border-[#979292]'>
+      <ul className='border border-primary py-3 dark:border-[#3a3a3a]' key={id}>
+        <li className='dark:border-[#3a3a3a] dark:text-darkSecondary flex items-center justify-between border-b border-primary px-2 pb-2'>
           <p className='text-sm capitalize'>{timeAgo(date)}</p>
           {type === "articles" ? (
             <Link
@@ -55,7 +55,7 @@ function Articlecard({ title, cover, date, id, type }) {
             {title}
           </h3>
         </li>
-        <li className='border-y border-primary dark:border-[#979292]'>
+        <li className='border-y border-primary dark:border-[#3a3a3a]'>
           <img
             className='aspect-[16/7] object-cover object-center md:aspect-[16/5] lg:aspect-[16/3.5]'
             src={cover.image}
@@ -65,7 +65,7 @@ function Articlecard({ title, cover, date, id, type }) {
         <li className='mt-6 px-2'>
           <ReactMarkdown
             children={content}
-            className='dark:text-darkPrimary prose line-clamp-3 leading-loose prose-headings:hidden prose-p:my-0 prose-img:hidden lg:line-clamp-4'
+            className='prose line-clamp-3 leading-loose prose-headings:hidden prose-p:my-0 prose-img:hidden dark:text-darkSecondary lg:line-clamp-4'
           />
         </li>
       </ul>

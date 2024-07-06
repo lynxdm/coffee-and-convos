@@ -7,7 +7,9 @@ export default {
       colors: {
         background: "#e1e0de",
         primary: "#161616",
-        darkPrimary: "#E8E8E8",
+        darkPrimary: "#D4D4D4",
+        darkBg: "#171717",
+        darkSecondary: "#A3A3A3",
       },
       fontFamily: {
         overpass: ["Overpass", "system-ui", "Arial"],

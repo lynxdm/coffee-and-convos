@@ -30,7 +30,7 @@ function CommentText({
         id='newComment'
         ref={textRef}
         placeholder={placeholder}
-        className='peer h-[30rem] w-full resize-none overflow-hidden rounded-md border-2 border-gray-600 p-2 focus:outline-none'
+        className='peer h-[30rem] w-full resize-none overflow-hidden rounded-md border-2 border-gray-600 p-2 focus:outline-none dark:border-[#3e3b3b] dark:bg-[#101011] dark:placeholder:text-[#61626d]'
         value={text}
         onChange={handleChange}
       />
@@ -54,7 +54,7 @@ function CommentText({
           </button>
         )}
         <button
-          className='rounded-md px-4 py-2 hover:bg-gray-200'
+          className='rounded-md px-4 py-2 hover:bg-gray-200 dark:hover:bg-[#262626]'
           type='button'
           onClick={() => {
             setText("");

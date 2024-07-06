@@ -31,7 +31,7 @@ function Drafts() {
               Your Drafts
             </h2>
           </section> */}
-          <h1 className='mx-auto mt-12 w-fit text-4xl font-semibold text-gray-700'>
+          <h1 className='mx-auto mt-12 w-fit text-4xl font-semibold text-gray-700 dark:text-darkPrimary'>
             Your drafts
           </h1>
           <section className='my-16 flex flex-col px-6 lg:px-32'>

@@ -90,7 +90,7 @@ function CommentSection({ articleId, articleLink, articleTitle }) {
 
   return (
     <section
-      className='mx-auto mt-8 max-w-[60rem] border-t px-3 pt-10 md:px-8'
+      className='mx-auto mt-8 max-w-[60rem] border-t px-3 pt-10 dark:border-darkSecondary md:px-8'
       id='comment_section'
     >
       <h2 className='text-center text-xl font-bold lg:text-3xl'>Comments</h2>
@@ -115,7 +115,7 @@ function CommentSection({ articleId, articleLink, articleTitle }) {
             id='newComment'
             ref={newCommentRef}
             placeholder='What are you thinking?'
-            className='peer h-[30rem] w-full resize-none overflow-hidden rounded-md border-2 border-[#3e3b3b] p-2 focus:outline-none'
+            className='peer h-[30rem] w-full resize-none overflow-hidden rounded-md border-2 border-[#3e3b3b] p-2 focus:outline-none dark:bg-[#101011] dark:placeholder:text-[#61626d]'
             value={newComment}
             onChange={handleChange}
           />

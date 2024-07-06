@@ -63,22 +63,19 @@ function Navbar({ page, bg }) {
           currentPage === "" && "absolute"
         }`}
       >
-        <Link to={"/"} className='text-lg font-semibold lg:text-2xl'>
+        <Link to={"/"} className={`text-lg font-semibold lg:text-2xl ${currentPage !== "" && "dark:text-darkPrimary"}`}>
           Coffee & Convos
         </Link>
-        <ul className='flex items-center gap-6'>
+        <ul className='flex items-center gap-6 dark:text-darkSecondary'>
           <li className='hidden lg:block'>
-            <Link
-              to={"/"}
-              className={`${currentPage === "" && "font-semibold"}`}
-            >
+            <Link to={"/"} className={`${currentPage === "" && "font-bold"}`}>
               Home
             </Link>
           </li>
           <li className='hidden lg:block'>
             <Link
               to={"/blog"}
-              className={`${currentPage === "blog" && "font-semibold"}`}
+              className={`${currentPage === "blog" && "font-bold"}`}
             >
               Blog
             </Link>
@@ -86,7 +83,7 @@ function Navbar({ page, bg }) {
           <li className='hidden lg:block'>
             <Link
               to={"/about"}
-              className={`${currentPage === "about" && "font-semibold"}`}
+              className={`${currentPage === "about" && "font-bold"}`}
             >
               About
             </Link>
@@ -115,27 +112,23 @@ function Navbar({ page, bg }) {
                 )}
               </button>
               <ul
-                className={`absolute right-0 top-12 z-50 flex w-[90vw] translate-x-[14%] flex-col gap-y-4 rounded-lg border bg-white px-2 py-4 shadow-md *:*:flex *:w-full *:cursor-pointer *:*:items-center *:*:gap-2 *:rounded-lg *:*:p-2 *:*:capitalize *:capitalize sm:w-80 sm:translate-x-0 lg:w-72 lg:rounded-xl ${
+                className={`absolute right-0 top-12 z-50 flex w-[90vw] translate-x-[14%] flex-col gap-y-4 rounded-lg border bg-white px-2 py-4 shadow-md *:*:flex *:w-full *:cursor-pointer *:*:items-center *:*:gap-2 *:*:p-2 *:*:capitalize *:capitalize dark:border-[#2c2c2d] dark:bg-darkBg sm:w-80 sm:translate-x-0 lg:w-72 lg:rounded-xl ${
                   isMenuOpen ? "visible" : "invisible"
                 }`}
                 ref={userMenu}
               >
-                <li className='w-full border-b pb-1 text-center text-[1.1rem] font-[500]'>
+                <li className='w-full border-b pb-1 text-center text-[1.1rem] font-[500] dark:border-[#3a3a3a]'>
                   {isAdmin ? admin.displayName : user.displayName}
                 </li>
                 {isAdmin && (
                   <>
-                    <li
-                      className='px-2 hover:bg-gray-200'
-                    >
+                    <li className='rounded-lg px-2 hover:bg-gray-200 dark:hover:bg-[#262626]'>
                       <Link to={"/new"}>
                         <SlNote className='size-5' />
                         <p>write</p>
                       </Link>
                     </li>
-                    <li
-                      className='px-2 hover:bg-gray-200'
-                    >
+                    <li className='rounded-lg px-2 hover:bg-gray-200 dark:hover:bg-[#262626]'>
                       <Link to={"/drafts"}>
                         <CgNotes className='size-5' />
                         <p>Drafts</p>
@@ -144,9 +137,7 @@ function Navbar({ page, bg }) {
                   </>
                 )}
                 {user.email && (
-                  <li
-                    className='px-2 hover:bg-gray-200'
-                  >
+                  <li className='rounded-lg px-2 hover:bg-gray-200 dark:hover:bg-[#262626]'>
                     <Link to={"/notifications"}>
                       <div className='relative'>
                         <LuBell className='size-5' />
@@ -160,8 +151,9 @@ function Navbar({ page, bg }) {
                     </Link>
                   </li>
                 )}
-                <li className='px-2 hover:bg-gray-200'>
-                  <button className="w-full"
+                <li className='rounded-lg px-2 hover:bg-gray-200 dark:hover:bg-[#262626]'>
+                  <button
+                    className='w-full'
                     onClick={() =>
                       setTheme(theme === "light" ? "dark" : "light")
                     }
@@ -175,9 +167,7 @@ function Navbar({ page, bg }) {
                   </button>
                 </li>
                 {user.email ? (
-                  <li
-                    className='mt-[-0.5rem] cursor-pointer border-t pt-4 *:w-full *:rounded-lg *:px-4 *:hover:bg-gray-200'
-                  >
+                  <li className='mt-[-0.5rem] cursor-pointer border-t pt-4 *:w-full *:rounded-lg *:px-4 *:hover:bg-gray-200 dark:border-[#3a3a3a] dark:*:hover:bg-[#262626]'>
                     <button
                       type='button'
                       onClick={() => {
@@ -190,9 +180,7 @@ function Navbar({ page, bg }) {
                     </button>
                   </li>
                 ) : (
-                  <li
-                    className='px-2 hover:bg-gray-200'
-                  >
+                  <li className='px-2 hover:bg-gray-200 rounded-lg dark:hover:bg-[#262626]'>
                     <Link to={"/login"}>
                       <LuBell className='size-5' />
                       <p>Login</p>
@@ -212,37 +200,37 @@ function Navbar({ page, bg }) {
         </ul>
       </nav>
       <aside
-        className={`shadow-x fixed right-0 top-0 z-40 h-[100vh] w-[75vw] max-w-[20rem] ${isSidebarOpen ? "translate-x-0" : "translate-x-full"} border-l border-gray-200 bg-white py-6 text-gray-700 transition-transform duration-300`}
+        className={`shadow-x fixed right-0 top-0 z-40 h-[100vh] w-[75vw] max-w-[20rem] ${isSidebarOpen ? "translate-x-0" : "translate-x-full"} border-l border-gray-200 bg-white py-6 text-gray-700 transition-transform duration-300 dark:border-[#262626] dark:bg-darkBg dark:text-darkSecondary`}
         ref={sidebarRef}
       >
         <button
-          className='float-right mr-6 rounded-full p-1 text-gray-700'
+          className='float-right mr-6 rounded-full p-1 text-gray-700 dark:text-darkPrimary'
           onClick={() => setIsSidebarOpen(false)}
         >
           <FaXmark className='size-6' />
         </button>
         <div className='clear-both mt-16 flex flex-col gap-14'>
-          <div className='flex flex-col gap-6 text-xl font-semibold capitalize *:px-4 *:py-5 hover:*:bg-gray-200'>
+          <div className='flex flex-col gap-6 text-xl font-semibold capitalize *:px-4 *:py-5 hover:*:bg-gray-200 dark:hover:*:bg-[#262626]'>
             <Link
               to={"/"}
-              className={` ${currentPage === "" && "border-l-[6px] border-[#f88c9b] bg-[#febdbd6e]"} `}
+              className={` ${currentPage === "" && "border-l-[6px] border-[#f88c9b] bg-[#febdbd6e] dark:border-[#f39fa9] dark:bg-[#b78a8a19]"}`}
             >
               Home
             </Link>
             <Link
               to={"/about"}
-              className={` ${currentPage === "about" && "border-l-[6px] border-[#f88c9b] bg-[#febdbd6e]"} `}
+              className={` ${currentPage === "about" && "border-l-[6px] border-[#f88c9b] bg-[#febdbd6e] dark:border-[#f39fa9] dark:bg-[#b78a8a19]"}`}
             >
               About
             </Link>
             <Link
               to={"/blog"}
-              className={` ${currentPage === "blog" && "border-l-[6px] border-[#f88c9b] bg-[#febdbd6e]"} `}
+              className={` ${currentPage === "blog" && "border-l-[6px] border-[#f88c9b] bg-[#febdbd6e] dark:border-[#f39fa9] dark:bg-[#b78a8a19]"} `}
             >
               Blog
             </Link>
           </div>
-          <ul className='flex flex-wrap gap-4 px-6 *:*:size-5 *:rounded-full *:p-2 hover:*:bg-gray-200'>
+          <ul className='flex flex-wrap gap-4 px-6 *:*:size-5 *:rounded-full *:p-2 hover:*:bg-gray-200 dark:hover:*:bg-[#262626]'>
             <li>
               <FaLinkedinIn />
             </li>

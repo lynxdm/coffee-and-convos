@@ -46,7 +46,7 @@ function Blog() {
       <>
         <Navbar />
         <main className='lg:px-32  px-6'>
-          <section className='mt-12 border border-primary py-2 pt-6 hidden lg:block'>
+          <section className='mt-12 border dark:border-[#3a3a3a] border-primary py-2 pt-6 hidden lg:block'>
             <div className='flex flex-col lg:flex-row w-full items-center justify-center gap-2 lg:gap-10 px-4 mb-4'>
               <div className='lg:w-[60rem]'>
                 <h1 className='text-left text-2xl lg:text-6xl font-bold lg:font-semibold leading-normal'>
@@ -56,11 +56,11 @@ function Blog() {
               <div>
                 <ReactMarkdown
                   children={previewContent}
-                  className='prose prose-md lg:prose-lg line-clamp-6 max-w-[50rem] leading-10 prose-headings:hidden prose-p:my-0 prose-img:hidden'
+                  className='prose prose-md dark:text-darkSecondary lg:prose-lg line-clamp-6 max-w-[50rem] leading-10 prose-headings:hidden prose-p:my-0 prose-img:hidden'
                 />
               </div>
             </div>
-            <div className='flex border-t items-center border-primary px-3 pt-2 mt-5'>
+            <div className='flex border-t items-center border-primary dark:border-[#3a3a3a] px-3 pt-2 mt-5'>
               <p className='text-sm'>{timeAgo(articles[0].date)}</p>
               <Link
                 to={`/blog/${formatLink(articles[0].title)}-${articles[0].id}`}

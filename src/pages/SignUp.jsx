@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
-import loginImg2 from "../assets/images/loginImg3.jpg";
 import { auth, storage } from "../Utilis/firebase";
 import {
   createUserWithEmailAndPassword,
   updateProfile,
-  signInWithPopup,
-  GoogleAuthProvider,
 } from "firebase/auth";
 import {
   getDownloadURL,
@@ -18,7 +15,6 @@ import {
 import { BiLogoGmail } from "react-icons/bi";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { FaChevronLeft } from "react-icons/fa6";
-import { useGlobalContext } from "../context";
 import useNotification from "../Hooks/useNotification";
 import { v4 } from "uuid";
 
@@ -134,7 +130,7 @@ function SignUp() {
       {!isUsingEmail ? (
         <>
           <h2 className='mx-auto mb-4 text-2xl font-bold'>Hello there.</h2>
-          <div className='flex flex-col gap-2 *:flex *:gap-3 *:rounded-[3rem] *:bg-primary *:px-12 *:py-4 text-lg md:*:text-xl *:font-semibold *:text-white'>
+          <div className='flex flex-col gap-2 text-lg *:flex *:gap-3 *:rounded-[3rem] *:bg-primary *:px-12 *:py-4 *:font-semibold *:text-white dark:*:bg-[#262626] md:*:text-xl'>
             <button onClick={signInWithGoogle}>
               {" "}
               <svg className='size-6' viewBox='0 0 1152 1152'>
@@ -172,16 +168,16 @@ function SignUp() {
         </>
       ) : (
         <>
-          <h2 className='mx-auto mb-4 mt-4 lg:mt-0 text-xl lg:text-2xl font-semibold'>
+          <h2 className='mx-auto mb-4 mt-4 text-xl font-semibold lg:mt-0 lg:text-2xl'>
             Sign up with Email
           </h2>
-          <div className=' w-[21rem] lg:w-[30rem] rounded-3xl border-2 border-primary p-5 lg:p-6'>
+          <div className='w-[21rem] rounded-3xl border-2 border-primary p-5 dark:border-[#3a3a3a] lg:w-[30rem] lg:p-6'>
             <button
               className='float-right flex items-center gap-1 font-bold text-blue-800'
               onClick={() => setIsUsingEmail(false)}
             >
               <FaChevronLeft className='size-2 lg:size-3' />
-              <p className="text-sm lg:text-[1rem]">All sign up options</p>
+              <p className='text-sm lg:text-[1rem]'>All sign up options</p>
             </button>
             <form
               className='clear-both my-4 mt-9 flex flex-col gap-4'
@@ -191,7 +187,7 @@ function SignUp() {
                 {!userInfo.photoURL ? (
                   <label
                     htmlFor='profile_photo'
-                    className='mb-4 w-fit cursor-pointer rounded-md border-2 lg:px-4 px-3 py-1.5 text-sm lg:text-base font-semibold text-gray-700 hover:border-gray-700'
+                    className='mb-4 w-fit cursor-pointer rounded-md border-2 px-3 py-1.5 text-sm font-semibold text-gray-700 hover:border-gray-700 dark:border-[#3a3a3a] dark:text-darkPrimary lg:px-4 lg:text-base'
                   >
                     <p>Upload a profile photo</p>
                     <input
@@ -208,11 +204,11 @@ function SignUp() {
                     <img
                       src={userInfo.photoURL}
                       alt='profile photo'
-                      className='size-[5rem] rounded-full border border-gray-700 object-cover'
+                      className='size-[5rem] rounded-full border border-gray-700 object-cover dark:border-[#3a3a3a]'
                     />
                     <label
                       htmlFor='change_image'
-                      className='w-fit cursor-pointer rounded-md border-2 text-sm lg:text-base px-3 lg:px-4 py-1.5 font-semibold text-gray-700 hover:border-gray-700'
+                      className='w-fit cursor-pointer rounded-md border-2 px-3 py-1.5 text-sm font-semibold text-gray-700 hover:border-gray-700 dark:border-[#3a3a3a] dark:text-darkPrimary lg:px-4 lg:text-base'
                     >
                       <p>Change photo</p>
                       <input
@@ -236,7 +232,7 @@ function SignUp() {
                     id='firstName'
                     value={userInfo.firstName}
                     onChange={handleChange}
-                    className='relative border-b border-primary bg-inherit font-semibold focus:border-b-2 focus:outline-none'
+                    className='relative border-b border-primary bg-inherit font-semibold focus:border-b-2 focus:outline-none dark:border-[#3a3a3a] dark:focus-within:border-darkSecondary'
                   />
                 </div>
                 <div className='flex w-full flex-col gap-1'>
@@ -250,7 +246,7 @@ function SignUp() {
                     id='lastName'
                     value={userInfo.lastName}
                     onChange={handleChange}
-                    className='border-b border-primary bg-inherit font-semibold focus:border-b-2 focus:outline-none'
+                    className='border-b border-primary bg-inherit font-semibold focus:border-b-2 focus:outline-none dark:border-[#3a3a3a] dark:focus:border-darkSecondary'
                   />
                 </div>
               </div>
@@ -265,14 +261,14 @@ function SignUp() {
                   id='email'
                   value={userInfo.email}
                   onChange={handleChange}
-                  className='border-b border-primary bg-inherit font-semibold focus:border-b-2 focus:outline-none'
+                  className='border-b border-primary bg-inherit font-semibold focus:border-b-2 focus:outline-none dark:border-[#3a3a3a] dark:focus:border-darkSecondary'
                 />
               </div>
               <div className='flex flex-col gap-2'>
                 <label htmlFor='password' className='text-sm'>
                   Password
                 </label>
-                <div className='flex gap-1 border-b border-primary focus-within:border-b-2'>
+                <div className='flex gap-1 border-b border-primary focus-within:border-b-2 dark:border-[#3a3a3a] dark:focus-within:border-darkSecondary'>
                   <input
                     type={showPassword ? "text" : "password"}
                     required
@@ -299,7 +295,7 @@ function SignUp() {
               </div>
               <button
                 type='submit'
-                className='mt-4 rounded-3xl border border-primary bg-primary py-2 text-white'
+                className='mt-4 rounded-3xl border border-primary bg-primary py-2 text-white dark:border-[#3a3a3a] dark:bg-[#262626]'
               >
                 Create Account
               </button>

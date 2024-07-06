@@ -57,7 +57,7 @@ function Home() {
                 />
               </div>
               <div className='flex flex-col md:items-end gap-2 *:text-left *:uppercase md:*:max-w-[12rem] md:*:text-left lg:*:w-full lg:*:max-w-full lg:*:text-left'>
-                <h1 className='relative w-fit self-auto text-2xl font-bold before:absolute before:top-[50%] before:h-0 before:w-[10rem] before:-translate-x-[110%] before:-translate-y-[100%] before:border before:border-primary md:self-end lg:self-auto xl:text-4xl'>
+                <h1 className='relative w-fit self-auto text-2xl font-bold before:absolute before:top-[50%] before:h-0 before:w-[10rem] before:-translate-x-[110%] before:-translate-y-[100%] before:border before:border-primary dark:before:border-[#262626] md:self-end lg:self-auto xl:text-4xl'>
                   Hello!
                 </h1>
                 <h1 className='text-2xl font-bold lg:ml-0 xl:text-4xl'>
@@ -88,12 +88,12 @@ function Home() {
           </section>
           <section className='mt-12 flex flex-col px-6 lg:mt-24 lg:px-32'>
             <div className='mb-8 flex items-center justify-between'>
-              <h1 className='relative py-1.5 text-lg font-semibold after:absolute after:bottom-0 after:left-0 after:w-[60%] after:border after:border-gray-500 lg:text-2xl'>
+              <h1 className='relative py-1.5 text-lg font-semibold after:absolute after:bottom-0 after:left-0 after:w-[60%] after:border after:border-gray-500 dark:after:border-darkSecondary lg:text-2xl'>
                 Latest posts
               </h1>
               <Link
                 to={"/blog"}
-                className='border-2 border-gray-500 px-6 py-2 text-xs font-semibold text-gray-600 hover:text-primary lg:px-10 lg:text-sm'
+                className='border-2 border-gray-500 dark:border-darkSecondary px-6 py-2 text-xs font-semibold text-gray-600 dark:text-darkSecondary hover:text-primary lg:px-10 lg:text-sm'
               >
                 SEE ALL
               </Link>
@@ -107,7 +107,7 @@ function Home() {
             </article>
             <Link
               to={"/blog"}
-              className='mx-auto mb-8 mt-20 grid w-fit place-items-center border-2 border-gray-500 px-5 py-3 text-[13px] font-semibold text-gray-500 hover:text-primary lg:px-9 lg:py-3.5 lg:text-[14px]'
+              className='mx-auto mb-8 mt-20 grid w-fit place-items-center border-2 border-gray-500 dark:border-darkSecondary dark:text-darkSecondary px-5 py-3 text-[13px] font-semibold text-gray-500 hover:text-primary lg:px-9 lg:py-3.5 lg:text-[14px]'
             >
               LOAD MORE
             </Link>

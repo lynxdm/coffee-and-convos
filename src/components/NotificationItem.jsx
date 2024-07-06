@@ -29,17 +29,17 @@ function NotificationItem({
     if (type === "like") {
       return (
         <Link to={`/blog${articleLink}`}>
-          <li className='flex min-h-[5rem] items-start gap-4 border bg-white p-2 shadow-sm md:p-4 lg:rounded-2xl'>
+          <li className='flex min-h-[5rem] items-start gap-4 border bg-white p-2 shadow-sm dark:border-[#3a3a3a] dark:bg-darkBg md:p-4 lg:rounded-2xl'>
             <div className='relative'>
               {!imageError ? (
                 <img
                   src={photoURL}
                   alt={displayName + "profile picture"}
                   className='size-8 rounded-full lg:size-12'
-                  onError={() => setImageError(false)}
+                  onError={() => setImageError(true)}
                 />
               ) : (
-                <ReactNiceAvatar {...config} />
+                <ReactNiceAvatar className='size-8 lg:size-12' {...config} />
               )}
               <FaHeart className='absolute right-0 top-0 size-5 translate-x-[25%] text-red-500 lg:size-6' />
             </div>
@@ -70,13 +70,18 @@ function NotificationItem({
     if (type === "reply") {
       return (
         <Link to={`/blog${articleLink}`}>
-          <li className='flex min-h-[5rem] items-start gap-4 border bg-white p-2 shadow-sm md:p-4 lg:rounded-2xl'>
+          <li className='flex min-h-[5rem] items-start gap-4 border bg-white p-2 shadow-sm dark:border-[#3a3a3a] dark:bg-darkBg md:p-4 lg:rounded-2xl'>
             <div className='relative'>
-              <img
-                src={photoURL}
-                alt={displayName + "profile picture"}
-                className='size-8 rounded-full lg:size-12'
-              />
+              {!imageError ? (
+                <img
+                  src={photoURL}
+                  alt={displayName + "profile picture"}
+                  className='size-8 rounded-full lg:size-12'
+                  onError={() => setImageError(true)}
+                />
+              ) : (
+                <ReactNiceAvatar className='size-8 lg:size-12' {...config} />
+              )}
               <FaReply className='absolute right-0 top-0 size-5 translate-x-[25%] text-purple-500 lg:size-6' />
             </div>
             <div className='flex flex-col gap-2 md:w-full'>
@@ -113,13 +118,18 @@ function NotificationItem({
     if (type === "new_comment") {
       return (
         <Link to={`/blog${articleLink}`}>
-          <li className='items-startq flex min-h-[5rem] gap-4 border bg-white p-2 shadow-sm md:p-4 lg:rounded-2xl'>
+          <li className='items-startq flex min-h-[5rem] gap-4 border bg-white dark:bg-darkBg dark:border-[#3a3a3a] p-2 shadow-sm md:p-4 lg:rounded-2xl'>
             <div className='relative'>
-              <img
-                src={photoURL}
-                alt={displayName + "profile picture"}
-                className='size-8 rounded-full lg:size-12'
-              />
+              {!imageError ? (
+                <img
+                  src={photoURL}
+                  alt={displayName + "profile picture"}
+                  className='size-8 rounded-full lg:size-12'
+                  onError={() => setImageError(true)}
+                />
+              ) : (
+                <ReactNiceAvatar className='size-8 lg:size-12' {...config} />
+              )}
               <FaComment className='absolute right-0 top-0 size-5 translate-x-[25%] text-blue-300 lg:size-6' />
             </div>
             <div className='flex flex-col gap-4 md:w-full'>

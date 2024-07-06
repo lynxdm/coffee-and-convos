@@ -51,7 +51,7 @@ function CommentItem({
   const manageCommentBtn = useRef(null);
   const manageCommentMenu = useRef(null);
 
-  const { isMenuOpen, setIsMenuOpen } = useMenu(
+  const [ isMenuOpen, setIsMenuOpen ] = useMenu(
     manageCommentBtn,
     manageCommentMenu,
   );
@@ -307,7 +307,7 @@ function CommentItem({
               src={photoURL}
               alt={displayName + " display photo"}
               className='size-8 rounded-full'
-              onError={()=>setImageError(true)}
+              onError={() => setImageError(true)}
             />
           ) : (
             <ReactNiceAvatar className='size-8' {...config} />
@@ -315,9 +315,9 @@ function CommentItem({
         ) : (
           <FaUserCircle className='size-8' />
         )}
-        <div className='w-full rounded-md border border-gray-300 p-2'>
+        <div className='w-full rounded-md border border-gray-300 p-2 dark:border-[#3a3a3a]'>
           <div className='flex w-full justify-between'>
-            <div className='mb-2 flex items-start gap-2 text-[0.9rem] text-gray-600'>
+            <div className='mb-2 flex items-start gap-2 text-[0.9rem] text-gray-600 dark:text-darkSecondary'>
               <p className='font-bold'>
                 {displayName}{" "}
                 {email === admin.email && (
@@ -337,7 +337,7 @@ function CommentItem({
               <div className='relative'>
                 <button
                   type='button'
-                  className='grid size-6 place-items-center rounded-md hover:bg-gray-200'
+                  className='grid size-6 place-items-center rounded-md hover:bg-gray-200 dark:hover:bg-[#262626]'
                   ref={manageCommentBtn}
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
                 >
@@ -345,22 +345,22 @@ function CommentItem({
                 </button>
                 {isMenuOpen && (
                   <div
-                    className='absolute right-0 top-[110%] z-20 flex w-[11rem] flex-col gap-1 rounded-md border border-gray-200 bg-white p-1.5 shadow-lg *:rounded *:px-2 *:text-left *:text-sm'
+                    className='absolute right-0 top-[110%] z-20 flex w-[12rem] flex-col gap-1 rounded-md border border-gray-200 bg-white p-1 shadow-lg *:rounded *:px-2 *:text-left *:text-sm dark:border-[#3a3a3a] dark:bg-darkBg'
                     ref={manageCommentMenu}
                   >
                     {email === user.email && (
                       <>
                         <button
-                          className='py-1 hover:bg-gray-200'
+                          className='py-2 hover:bg-gray-200 dark:hover:bg-[#262626]'
                           onClick={() => setIsEditing(true)}
                         >
                           Edit Comment
                         </button>
-                        <div className='h-0 border-t py-0'></div>
+                        {/* <div className='h-0 border-t dark:border-[#262626] py-0'></div> */}
                       </>
                     )}
                     <button
-                      className='py-1 hover:bg-gray-200'
+                      className='py-2 hover:bg-gray-200 dark:hover:bg-[#262626]'
                       onClick={() => setIsDeleteModalOpen(true)}
                     >
                       Delete Comment
@@ -377,7 +377,7 @@ function CommentItem({
         <div className='flex items-center justify-between'>
           <div className='ml-12 mt-3 flex gap-2 *:flex *:items-start *:gap-2 *:rounded *:px-3 *:py-1.5'>
             <button
-              className={`${isLiked ? "bg-[#d71c1c18]" : "hover:bg-gray-100"}`}
+              className={`${isLiked ? "bg-[#d71c1c18]" : "hover:bg-gray-100 dark:hover:bg-[#262626]"}`}
               onClick={() => {
                 if (!user.email) {
                   toast.custom((t) => (
@@ -405,8 +405,8 @@ function CommentItem({
             >
               {isLiked ? <FaHeart className='text-red-600' /> : <FaRegHeart />}{" "}
               <p className='text-sm'>
-                <span>{likesCount > 0 ? likesCount : ""}</span>
-                <span className='hidden lg:block'>
+                <span>{likesCount > 0 ? likesCount : ""} </span>
+                <span className='hidden lg:inline-block'>
                   {likesCount > 1 ? "likes" : "like"}
                 </span>
               </p>
@@ -432,7 +432,7 @@ function CommentItem({
                 }
                 setIsReplyOpen(true);
               }}
-              className='hover:bg-gray-100'
+              className='hover:bg-gray-100 dark:hover:bg-[#262626]'
             >
               <FaRegComment /> <p className='hidden text-sm lg:block'>Reply</p>
             </button>

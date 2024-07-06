@@ -14,7 +14,7 @@ function About() {
           About Coffee & Convos
         </h1>
         <div className='my-[3em] flex flex-col items-center justify-center lg:gap-[10rem] gap-20 px-6 lg:my-[4rem] lg:mb-[8rem] lg:flex-row lg:px-0'>
-          <div className='relative aspect-square h-[18rem] border -translate-x-4 bg-[#fdadb8] after:absolute after:right-0 after:top-[80%] after:hidden after:w-[10rem] after:translate-x-[80%] after:border after:border-primary lg:h-[30rem] lg:after:block border-primary lg:border-none'>
+          <div className='relative aspect-square h-[18rem] border -translate-x-4 dark:bg-[#c26d78] bg-[#fdadb8] after:absolute after:right-0 after:top-[80%] after:hidden after:w-[10rem] after:translate-x-[80%] after:border after:border-primary lg:h-[30rem] lg:after:block border-primary lg:border-none'>
             <img
               src={aboutImg}
               alt='a picture of three coffee mugs'
@@ -22,10 +22,10 @@ function About() {
             />
           </div>
           <section className='max-w-[30rem]'>
-            <h1 className='mb-3 text-2xl font-extrabold'>
+            <h1 className='mb-3 text-2xl font-extrabold lg:hidden'>
               About Coffee & Convos
             </h1>
-            <article className='prose mx-auto lg:prose-xl lg:max-w-full'>
+            <article className='prose dark:text-darkSecondary mx-auto lg:prose-xl lg:max-w-full'>
               <p>
                 Welcome to Coffee & Convos, a blog dedicated to exploring the
                 world of research and writing with a dose of coffee and

@@ -25,7 +25,7 @@ function Footer() {
 // bg - [url("src/assets/images/footer_bg2.svg")];
 
   return (
-    <footer className='relative mt-12 flex flex-col items-center gap-8 bg-[#fdadb8] bg-cover px-6 lg:px-20 pb-8 pt-14 text-[#342f23]'>
+    <footer className='relative mt-12 flex flex-col items-center gap-8 bg-[#fdadb8] bg-cover px-6 pb-8 pt-14 text-[#342f23] dark:bg-[#c26d78] dark:text-[#18140d] lg:px-20'>
       <div className='flex flex-col items-center gap-6'>
         <Link to={"/"} className='text-lg font-semibold'>
           Coffee & Convos
@@ -34,7 +34,7 @@ function Footer() {
           <li>
             <Link
               to={"/"}
-              className={currentPage === "" ? "font-semibold" : undefined}
+              className={currentPage === "" ? "font-bold" : undefined}
             >
               Home
             </Link>
@@ -42,7 +42,7 @@ function Footer() {
           <li>
             <Link
               to={"/blog"}
-              className={currentPage === "blog" ? "font-semibold" : undefined}
+              className={currentPage === "blog" ? "font-bold" : undefined}
             >
               Blog
             </Link>
@@ -50,13 +50,13 @@ function Footer() {
           <li>
             <Link
               to={"/about"}
-              className={currentPage === "about" ? "font-semibold" : undefined}
+              className={currentPage === "about" ? "font-bold" : undefined}
             >
               About
             </Link>
           </li>
         </ul>
-        <ul className='flex gap-8 *:rounded-full *:border-2 *:border-[#342f23] *:p-2 *:bg-[#342f23] *:cursor-pointer *:text-[#fdadb8]'>
+        <ul className='flex gap-8 *:cursor-pointer *:rounded-full *:border-2 *:border-[#342f23] *:bg-[#342f23] dark:*:border-[#18140d] *:p-2 *:text-[#fdadb8] dark:*:bg-[#18140d] dark:*:text-[#c26d78]'>
           <li>
             <FaLinkedinIn />
           </li>
@@ -80,12 +80,6 @@ function Footer() {
           reserved
         </p>
       </div>
-      {/* <button
-        className='absolute bottom-10 right-32 grid size-10 place-items-center rounded-full border-2 border-white bg-white text-black transition-transform hover:-translate-y-[5%]'
-        onClick={scrollUp}
-      >
-        <FaArrowUp className='size-6' />
-      </button> */}
     </footer>
   );
 }
