@@ -10,7 +10,7 @@ import { ScaleLoader } from "react-spinners";
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import useNotification from "../Hooks/useNotification";
+import useNotification from "../hooks/useNotification";
 
 function Login() {
   const navigate = useNavigate();

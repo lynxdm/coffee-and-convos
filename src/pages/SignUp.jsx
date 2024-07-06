@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { auth, storage } from "../Utilis/firebase";
-import {
-  createUserWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import {
   getDownloadURL,
   ref,
@@ -15,7 +12,7 @@ import {
 import { BiLogoGmail } from "react-icons/bi";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { FaChevronLeft } from "react-icons/fa6";
-import useNotification from "../Hooks/useNotification";
+import useNotification from "../hooks/useNotification";
 import { v4 } from "uuid";
 
 function SignUp() {
@@ -117,12 +114,12 @@ function SignUp() {
           displayName: `${userInfo.firstName} ${userInfo.lastName}`,
           photoURL: userInfo.photoURL,
         });
-        createUserNotification(user)
+        createUserNotification(user);
         setUserInfo({});
         navigate("/");
         console.log(user);
       })
-      .catch((error) => console.log(error)); 
+      .catch((error) => console.log(error));
   };
 
   return (

@@ -15,7 +15,7 @@ import { IoIosSunny } from "react-icons/io";
 import { FaUserCircle } from "react-icons/fa";
 import { TbLogout2 } from "react-icons/tb";
 import { useGlobalContext } from "../context";
-import useMenu from "../Hooks/useMenu";
+import useMenu from "../hooks/useMenu";
 import { genConfig } from "react-nice-avatar";
 import ReactNiceAvatar from "react-nice-avatar";
 
@@ -63,7 +63,10 @@ function Navbar({ page, bg }) {
           currentPage === "" && "absolute"
         }`}
       >
-        <Link to={"/"} className={`text-lg font-semibold lg:text-2xl ${currentPage !== "" && "dark:text-darkPrimary"}`}>
+        <Link
+          to={"/"}
+          className={`text-lg font-semibold lg:text-2xl ${currentPage !== "" && "dark:text-darkPrimary"}`}
+        >
           Coffee & Convos
         </Link>
         <ul className='flex items-center gap-6 dark:text-darkSecondary'>
@@ -180,7 +183,7 @@ function Navbar({ page, bg }) {
                     </button>
                   </li>
                 ) : (
-                  <li className='px-2 hover:bg-gray-200 rounded-lg dark:hover:bg-[#262626]'>
+                  <li className='rounded-lg px-2 hover:bg-gray-200 dark:hover:bg-[#262626]'>
                     <Link to={"/login"}>
                       <LuBell className='size-5' />
                       <p>Login</p>

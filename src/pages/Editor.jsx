@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import UseToolbar from "../Hooks/useToolbar.jsx";
-import useTextArea from "../Hooks/useTextArea";
+import UseToolbar from "../hooks/useToolBar.jsx";
+import useTextArea from "../hooks/useTextArea.jsx";
 import { addDoc } from "firebase/firestore";
 import { storage } from "../Utilis/firebase";
 import { v4 } from "uuid";
@@ -192,7 +192,7 @@ function Editor() {
             <button
               type='button'
               onClick={deleteCoverImage}
-              className='text-red-700 dark:hover:bg-[#de1c1c18] hover:bg-gray-200'
+              className='text-red-700 hover:bg-gray-200 dark:hover:bg-[#de1c1c18]'
             >
               Remove
             </button>
