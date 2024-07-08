@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useGlobalContext } from "../context";
 import Navbar from "../components/Navbar";
 import { Outlet, Link, useLocation } from "react-router-dom";
-import useNotification from "../Hooks/useNotification";
+import useNotification from "../hooks/useNotification";
 
 function Notifications() {
   const { userNotifications, user, theme } = useGlobalContext();

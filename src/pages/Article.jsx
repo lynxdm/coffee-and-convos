@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaXmark } from "react-icons/fa6";
 import { useLocation, useNavigate } from "react-router-dom";
-import { db, storage } from "../Utilis/firebase";
+import { db, storage } from "../utilis/firebase";
 import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { useGlobalContext } from "../context";
 import ReactMarkdown from "react-markdown";
@@ -11,7 +11,7 @@ import Navbar from "../components/Navbar.jsx";
 import { deleteObject, ref } from "firebase/storage";
 import Warningmodal from "../components/Warningmodal";
 import CommentSection from "../components/CommentSection.jsx";
-import useMenu from "../Hooks/useMenu.jsx";
+import useMenu from "../hooks/useMenu.jsx";
 
 function Article() {
   const navigate = useNavigate();

@@ -2,11 +2,11 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import Loader from "../components/Loader";
 import { collection } from "firebase/firestore";
-import useGetArticles from "../Hooks/useGetArticles";
+import useGetArticles from "../hooks/useGetArticles";
 import ErrorComponent from "../components/ErrorComponent";
 import heroImg from "../assets/images/hero.jpg";
 import Articlecard from "../components/Articlecard";
-import { db } from "../Utilis/firebase";
+import { db } from "../utilis/firebase";
 
 function Drafts() {
   const { articles, isLoading, error } = useGetArticles(

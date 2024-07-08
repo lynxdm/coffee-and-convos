@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { db } from "../Utilis/firebase";
+import { db } from "../utilis/firebase";
 import { collection } from "firebase/firestore";
 import Loader from "../components/Loader";
 import Navbar from "../components/Navbar";
-import useGetArticles from "../Hooks/useGetArticles";
+import useGetArticles from "../hooks/useGetArticles";
 import Articlecard from "../components/Articlecard";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import ReactMarkdown from "react-markdown";

@@ -8,14 +8,14 @@ import {
 import { HiOutlineDotsHorizontal, HiBadgeCheck } from "react-icons/hi";
 import { useGlobalContext } from "../context";
 import { v4 as uuidv4 } from "uuid";
-import { db } from "../Utilis/firebase";
+import { db } from "../utilis/firebase";
 import { updateDoc, doc, getDoc, deleteDoc } from "firebase/firestore";
-import useMenu from "../Hooks/useMenu";
+import useMenu from "../hooks/useMenu";
 import CommentText from "./CommentText";
 import Warningmodal from "./Warningmodal";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
-import useNotification from "../Hooks/useNotification";
+import useNotification from "../hooks/useNotification";
 import { genConfig } from "react-nice-avatar";
 import ReactNiceAvatar from "react-nice-avatar";
 

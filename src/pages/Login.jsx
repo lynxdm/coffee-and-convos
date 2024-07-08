@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { auth, provider } from "../utili/firebase";
+import { auth, provider } from "../utilis/firebase";
 import { useNavigate } from "react-router-dom";
 import {
   signInWithRedirect,
@@ -10,7 +10,7 @@ import { ScaleLoader } from "react-spinners";
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import useNotification from "../hook/useNotification";
+import useNotification from "../hooks/useNotification";
 
 function Login() {
   const navigate = useNavigate();

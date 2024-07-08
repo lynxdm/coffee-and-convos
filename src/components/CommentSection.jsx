@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { db } from "../Utilis/firebase";
+import { db } from "../utilis/firebase";
 import {
   addDoc,
   collection,
@@ -14,7 +14,7 @@ import { FaUserCircle } from "react-icons/fa";
 import CommentItem from "./CommentItem";
 import { v4 } from "uuid";
 import { ScaleLoader } from "react-spinners";
-import useNotification from "../Hooks/useNotification";
+import useNotification from "../hooks/useNotification";
 import { Link } from "react-router-dom";
 import { genConfig } from "react-nice-avatar";
 import ReactNiceAvatar from "react-nice-avatar";

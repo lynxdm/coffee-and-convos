@@ -10,7 +10,7 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import { db } from "../utili/firebase";
+import { db } from "../utilis/firebase";
 import { useGlobalContext } from "../context";
 import { RiRadarFill } from "react-icons/ri";
 import { update } from "firebase/database";
