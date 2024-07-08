@@ -5,7 +5,7 @@ import { auth, provider } from "../Utilis/firebase";
 import { BiLogoGmail } from "react-icons/bi";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { FaChevronLeft } from "react-icons/fa6";
-import useNotification from "../hooks/useNotification";
+import useNotification from "../Hooks/useNotification";
 
 function SignIn() {
   let navigate = useNavigate();

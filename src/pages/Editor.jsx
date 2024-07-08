@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import UseToolbar from "../hooks/useToolBar.jsx";
-import useTextArea from "../hooks/useTextArea.jsx";
+import UseToolbar from "../Hooks/useToolBar.jsx";
+import useTextArea from "../Hooks/useTextArea.jsx";
 import { addDoc } from "firebase/firestore";
 import { storage } from "../Utilis/firebase";
 import { v4 } from "uuid";

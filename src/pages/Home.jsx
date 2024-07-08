@@ -16,7 +16,7 @@ import Loader from "../components/Loader";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ErrorComponent from "../components/ErrorComponent.jsx";
-import useGetArticles from "../hooks/useGetArticles.jsx";
+import useGetArticles from "../Hooks/useGetArticles.jsx";
 
 function Home() {
   const { articles, isLoading, error } = useGetArticles(
@@ -100,7 +100,7 @@ function Home() {
                 SEE ALL
               </Link>
             </div>
-            <article className='grid gap-12 md:grid-cols-2'>
+            <article className='grid gap-12 md:grid-cols-3'>
               {articles.map((article) => {
                 return (
                   <Articlecard {...article} key={article.id} type='articles' />
