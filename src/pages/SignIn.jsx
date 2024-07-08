@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, provider } from "../Utilis/firebase";
+import { auth, provider } from "../utili/firebase";
 import { BiLogoGmail } from "react-icons/bi";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { FaChevronLeft } from "react-icons/fa6";
-import useNotification from "../Hooks/useNotification";
+import useNotification from "../hook/useNotification";
 
 function SignIn() {
   let navigate = useNavigate();

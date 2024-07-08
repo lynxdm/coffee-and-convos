@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getDocs, query, limit, collection, orderBy } from "firebase/firestore";
-import { db } from "../Utilis/firebase";
+import { db } from "../utili/firebase";
 
 function useGetArticles(articlesRef, homePage = false) {
   const [articles, setArticles] = useState([]);

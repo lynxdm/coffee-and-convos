@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { db } from "../Utilis/firebase";
+import { db } from "../utili/firebase.js";
 import { collection } from "firebase/firestore";
 import Articlecard from "../components/Articlecard";
 import {
@@ -16,7 +16,7 @@ import Loader from "../components/Loader";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ErrorComponent from "../components/ErrorComponent.jsx";
-import useGetArticles from "../Hooks/useGetArticles.jsx";
+import useGetArticles from "../hook/useGetArticles.jsx";
 
 function Home() {
   const { articles, isLoading, error } = useGetArticles(

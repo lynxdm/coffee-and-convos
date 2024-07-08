@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
-import { auth, storage } from "../Utilis/firebase";
+import { auth, storage } from "../utili/firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import {
   getDownloadURL,
@@ -12,7 +12,7 @@ import {
 import { BiLogoGmail } from "react-icons/bi";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { FaChevronLeft } from "react-icons/fa6";
-import useNotification from "../Hooks/useNotification";
+import useNotification from "../hook/useNotification";
 import { v4 } from "uuid";
 
 function SignUp() {

@@ -10,7 +10,7 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import { db } from "../Utilis/firebase";
+import { db } from "../utili/firebase";
 import { useGlobalContext } from "../context";
 import { RiRadarFill } from "react-icons/ri";
 import { update } from "firebase/database";
@@ -23,27 +23,28 @@ function useNotification() {
 
   const createUserNotification = async (result) => {
     // Create a query against the subcollection
-    try{const q = query(notificationsRef, where("email", "==", result.email));
+    try {
+      const q = query(notificationsRef, where("email", "==", result.email));
 
-    // Execute the query
-    const querySnapshot = await getDocs(q);
+      // Execute the query
+      const querySnapshot = await getDocs(q);
 
-    if (querySnapshot.empty) {
-      const newUserNotificationData = {
-        userNotifications: [],
-        displayName: result.displayName,
-        email: result.email,
-        id: result.uid,
-      };
+      if (querySnapshot.empty) {
+        const newUserNotificationData = {
+          userNotifications: [],
+          displayName: result.displayName,
+          email: result.email,
+          id: result.uid,
+        };
 
-      const newUserRef = doc(db, "notifications", result.uid);
+        const newUserRef = doc(db, "notifications", result.uid);
 
-      await setDoc(newUserRef, newUserNotificationData);
-    } else{
-      console.log("snapshot empty")
-    }
-  }catch(err){
-      console.log("unable to create user notification", err)
+        await setDoc(newUserRef, newUserNotificationData);
+      } else {
+        console.log("snapshot empty");
+      }
+    } catch (err) {
+      console.log("unable to create user notification", err);
     }
   };
 

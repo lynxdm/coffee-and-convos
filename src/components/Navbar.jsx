@@ -15,7 +15,7 @@ import { IoIosSunny } from "react-icons/io";
 import { FaUserCircle } from "react-icons/fa";
 import { TbLogout2 } from "react-icons/tb";
 import { useGlobalContext } from "../context";
-import useMenu from "../Hooks/useMenu";
+import useMenu from "../hook/useMenu";
 import { genConfig } from "react-nice-avatar";
 import ReactNiceAvatar from "react-nice-avatar";
 
