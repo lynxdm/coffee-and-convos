@@ -8,7 +8,7 @@ import {
   ref,
   uploadBytes,
 } from "firebase/storage";
-import { storage, db } from "../Utilis/firebase";
+import { storage, db } from "../utilis/firebase";
 import { v4 } from "uuid";
 import { ScaleLoader } from "react-spinners";
 import { collection, deleteDoc, doc, updateDoc } from "firebase/firestore";
