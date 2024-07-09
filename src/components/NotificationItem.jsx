@@ -29,7 +29,7 @@ function NotificationItem({
     if (type === "like") {
       return (
         <Link to={`/blog${articleLink}`}>
-          <li className='flex min-h-[5rem] items-start gap-4 border bg-white p-2 shadow-sm dark:border-[#3a3a3a] dark:bg-darkBg md:p-4 lg:rounded-2xl'>
+          <li className='flex min-h-[5rem] items-start gap-4 border bg-white p-2 shadow-sm dark:border-[#3a3a3a] dark:bg-[#262626] md:p-4 lg:rounded-2xl'>
             <div className='relative'>
               {!imageError ? (
                 <img
@@ -70,7 +70,7 @@ function NotificationItem({
     if (type === "reply") {
       return (
         <Link to={`/blog${articleLink}`}>
-          <li className='flex min-h-[5rem] items-start gap-4 border bg-white p-2 shadow-sm dark:border-[#3a3a3a] dark:bg-darkBg md:p-4 lg:rounded-2xl'>
+          <li className='flex min-h-[5rem] items-start gap-4 border bg-white p-2 shadow-sm dark:border-[#3a3a3a] dark:bg-[#262626] md:p-4 lg:rounded-2xl'>
             <div className='relative'>
               {!imageError ? (
                 <img
@@ -118,7 +118,7 @@ function NotificationItem({
     if (type === "new_comment") {
       return (
         <Link to={`/blog${articleLink}`}>
-          <li className='items-startq flex min-h-[5rem] gap-4 border bg-white dark:bg-darkBg dark:border-[#3a3a3a] p-2 shadow-sm md:p-4 lg:rounded-2xl'>
+          <li className='items-startq flex min-h-[5rem] gap-4 border bg-white dark:bg-[#262626] dark:border-[#3a3a3a] p-2 shadow-sm md:p-4 lg:rounded-2xl'>
             <div className='relative'>
               {!imageError ? (
                 <img
