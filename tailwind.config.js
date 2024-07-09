@@ -16,6 +16,8 @@ export default {
         spectral: ["Spectral", "sans-serif"],
         inter: ["Inter", "system-ui", "Arial"],
         inter_tight: ["Inter Tight", "system-ui", "Arial"],
+        kurale: ["Kurale", "serif"],
+        kreon: ["Kreon", "serif"],
       },
     },
   },

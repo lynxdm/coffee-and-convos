@@ -42,23 +42,23 @@ function Home() {
       <>
         <Navbar />
         <main>
-          <section className='relative grid h-fit min-h-[80vh] place-items-center px-12 md:mb-20 lg:mb-0 lg:px-32'>
-            <div className='absolute left-0 top-0 -z-10 aspect-[1] w-[87%] md:w-[55%] md:max-w-[30rem] lg:bottom-0 lg:aspect-[16/13] lg:w-[51%] lg:max-w-full'>
+          <section className='relative grid h-fit place-items-center px-12 md:mb-20 lg:mb-0 lg:px-32'>
+            <div className='absolute left-0 top-0 -z-10 aspect-[2/1.5] w-full md:w-[55%] md:max-w-[30rem] lg:bottom-0 lg:aspect-[16/13] lg:w-[51%] lg:max-w-full'>
               <img
                 src={heroImg}
                 alt='hero image'
-                className='aspect-[1] object-cover md:max-w-[30rem] lg:aspect-[16/13] lg:max-w-full'
+                className='aspect-[2/1.5] object-cover md:max-w-[30rem] lg:aspect-[16/13] lg:max-w-full'
               />
             </div>
-            <article className='lg:mt-31 mb-16 mt-32 flex flex-col items-center gap-7 min-[400px]:mt-48 md:ml-[10rem] md:mt-28 md:flex-row md:gap-4 lg:mb-0 lg:ml-[2rem] lg:gap-24 xl:ml-[10rem]'>
-              <div className='relative aspect-square size-[14rem] before:absolute before:top-[5%] before:h-[90%] before:w-0 before:-translate-x-[1000%] before:border before:border-black md:size-[16rem] lg:size-[18rem] xl:size-[28rem] dark:before:border-[#3a3a3a]'>
+            <article className='lg:mt-31 mt-32 mb-12  flex flex-col items-center gap-7  md:ml-[10rem] md:mt-28 md:flex-row md:gap-4 lg:mb-0 lg:ml-[2rem] lg:gap-24 xl:ml-[10rem]'>
+              <div className='relative aspect-square size-[14rem] before:absolute before:top-[5%] before:h-[90%] before:w-0 before:-translate-x-[1000%] before:border before:border-black dark:before:border-[#3a3a3a] md:size-[16rem] lg:size-[18rem] xl:size-[28rem]'>
                 <img
                   src={authorHero}
                   className='aspect-square'
                   alt='A photo of the author, Adefunke'
                 />
               </div>
-              <div className='flex flex-col gap-2 *:text-left *:uppercase md:items-end md:*:max-w-[12rem] md:*:text-left lg:*:w-full lg:*:max-w-full lg:*:text-left'>
+              <div className='flex flex-col ml-6 md:ml-0 gap-2 *:text-left *:uppercase md:items-end md:*:max-w-[12rem] md:*:text-left lg:*:w-full lg:*:max-w-full lg:*:text-left'>
                 <h1 className='relative w-fit self-auto text-2xl font-bold before:absolute before:top-[50%] before:h-0 before:w-[10rem] before:-translate-x-[110%] before:-translate-y-[100%] before:border before:border-primary dark:before:border-[#3a3a3a] md:self-end lg:self-auto xl:text-4xl'>
                   Hello!
                 </h1>
@@ -100,7 +100,7 @@ function Home() {
                 SEE ALL
               </Link>
             </div>
-            <article className='grid gap-12 md:gap-10 md:grid-cols-2 xl:grid-cols-3'>
+            <article className='grid gap-12 md:grid-cols-2 md:gap-10 xl:grid-cols-3'>
               {articles.map((article) => {
                 return (
                   <Articlecard {...article} key={article.id} type='articles' />

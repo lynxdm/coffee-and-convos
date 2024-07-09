@@ -65,7 +65,7 @@ function Navbar({ page, bg }) {
       >
         <Link
           to={"/"}
-          className={`text-lg font-semibold lg:text-2xl ${currentPage !== "" && "dark:text-darkPrimary"}`}
+          className={`text-xl font-semibold font-kreon lg:text-2xl ${currentPage !== "" && "dark:text-darkPrimary"}`}
         >
           Coffee & Convos
         </Link>

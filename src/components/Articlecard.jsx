@@ -51,7 +51,7 @@ function Articlecard({ title, cover, date, id, type }) {
           )}
         </li>
         <li className='px-3 py-4 pb-2 md:min-h-24 lg:min-h-28 lg:px-5'>
-          <h3 className='text-2xl font-bold lg:font-semibold'>
+          <h3 className='text-2xl font-semibold font-kreon'>
             {title}
           </h3>
         </li>
