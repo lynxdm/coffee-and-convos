@@ -43,14 +43,14 @@ function Home() {
         <Navbar />
         <main>
           <section className='relative grid h-fit place-items-center px-12 md:mb-20 lg:mb-0 lg:px-32'>
-            <div className='absolute left-0 top-0 -z-10 aspect-[2/1.5] w-full md:w-[55%] md:max-w-[30rem] lg:bottom-0 lg:aspect-[16/13] lg:w-[51%] lg:max-w-full'>
+            <div className='absolute left-0 top-0 -z-10 aspect-[2/1.5] w-full md:aspect-[1/1.1] md:w-[50%] md:max-w-[30rem] lg:bottom-0 lg:aspect-[16/13] lg:w-[51%] lg:max-w-full'>
               <img
                 src={heroImg}
                 alt='hero image'
-                className='aspect-[2/1.5] object-cover md:max-w-[30rem] lg:aspect-[16/13] lg:max-w-full'
+                className='aspect-[2/1.5] w-full object-cover md:aspect-[1/1.1] lg:aspect-[16/13] lg:max-w-full'
               />
             </div>
-            <article className='lg:mt-31 mt-32 mb-12  flex flex-col items-center gap-7  md:ml-[10rem] md:mt-28 md:flex-row md:gap-4 lg:mb-0 lg:ml-[2rem] lg:gap-24 xl:ml-[10rem]'>
+            <article className='lg:mt-31 mb-12 mt-32 flex flex-col items-center gap-7 md:ml-[5rem] md:mt-28 md:flex-row md:gap-12 lg:mb-0 lg:ml-[9rem] lg:gap-12 xl:ml-[10rem] xl:gap-24'>
               <div className='relative aspect-square size-[14rem] before:absolute before:top-[5%] before:h-[90%] before:w-0 before:-translate-x-[1000%] before:border before:border-black dark:before:border-[#3a3a3a] md:size-[16rem] lg:size-[18rem] xl:size-[28rem]'>
                 <img
                   src={authorHero}
@@ -58,14 +58,14 @@ function Home() {
                   alt='A photo of the author, Adefunke'
                 />
               </div>
-              <div className='flex flex-col ml-6 md:ml-0 gap-2 *:text-left *:uppercase md:items-end md:*:max-w-[12rem] md:*:text-left lg:*:w-full lg:*:max-w-full lg:*:text-left'>
-                <h1 className='relative w-fit self-auto text-2xl font-bold before:absolute before:top-[50%] before:h-0 before:w-[10rem] before:-translate-x-[110%] before:-translate-y-[100%] before:border before:border-primary dark:before:border-[#3a3a3a] md:self-end lg:self-auto xl:text-4xl'>
+              <div className='ml-6 flex flex-col gap-2 *:text-left *:uppercase md:ml-0 md:*:max-w-[12rem] xl:*:max-w-full md:*:text-left lg:*:w-full lg:*:max-w-[18rem] lg:*:text-left'>
+                <h1 className='relative w-fit self-auto text-2xl font-bold before:absolute before:top-[50%] before:h-0 before:w-[10rem] before:-translate-x-[110%] before:-translate-y-[100%] before:border before:border-primary dark:before:border-[#3a3a3a] md:before:w-[5rem] xl:before:w-[10rem] xl:text-4xl'>
                   Hello!
                 </h1>
                 <h1 className='text-2xl font-bold lg:ml-0 xl:text-4xl'>
                   I am Adefunke,
                 </h1>
-                <p className='text-right text-base font-semibold md:text-end lg:ml-0 lg:text-left xl:text-xl'>
+                <p className='text-right text-base font-semibold lg:ml-0 lg:text-left xl:text-xl'>
                   A creative, content & technical writer{" "}
                 </p>
                 <ul className='mt-5 hidden gap-5 lg:flex'>
