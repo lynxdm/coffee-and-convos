@@ -65,11 +65,11 @@ function Navbar({ page, bg }) {
       >
         <Link
           to={"/"}
-          className={`text-xl font-semibold font-kreon lg:text-2xl ${currentPage !== "" && "dark:text-darkPrimary"}`}
+          className={`font-kreon text-xl font-semibold lg:text-2xl ${currentPage !== "" && "dark:text-darkPrimary"}`}
         >
           Coffee & Convos
         </Link>
-        <ul className='flex items-center gap-6 dark:text-darkSecondary'>
+        <ul className='flex items-center gap-6 font-kreon dark:text-darkSecondary'>
           <li className='hidden lg:block'>
             <Link to={"/"} className={`${currentPage === "" && "font-bold"}`}>
               Home
@@ -115,7 +115,7 @@ function Navbar({ page, bg }) {
                 )}
               </button>
               <ul
-                className={`absolute right-0 top-12 z-50 flex w-[90vw] translate-x-[14%] flex-col gap-y-4 rounded-lg border bg-white px-2 py-4 shadow-md *:*:flex *:w-full *:cursor-pointer *:*:items-center *:*:gap-2 *:*:p-2 *:*:capitalize *:capitalize dark:border-[#2c2c2d] dark:bg-darkBg sm:w-80 sm:translate-x-0 lg:w-72 lg:rounded-xl ${
+                className={`absolute right-0 top-12 z-50 flex w-[90vw] translate-x-[14%] flex-col gap-y-4 rounded-lg border bg-white px-2 py-4 font-overpass shadow-md *:*:flex *:w-full *:cursor-pointer *:*:items-center *:*:gap-2 *:*:p-2 *:*:capitalize *:capitalize dark:border-[#2c2c2d] dark:bg-darkBg sm:w-80 sm:translate-x-0 lg:w-72 lg:rounded-xl ${
                   isMenuOpen ? "visible" : "invisible"
                 }`}
                 ref={userMenu}
@@ -193,7 +193,7 @@ function Navbar({ page, bg }) {
               </ul>
             </div>
             <button
-              className='lg:hidden'
+              className={`text-primary md:text-darkPrimary lg:hidden ${currentPage !== "" && "dark:text-darkPrimary"}`}
               ref={sidebarBtn}
               onClick={() => setIsSidebarOpen(true)}
             >
@@ -203,11 +203,11 @@ function Navbar({ page, bg }) {
         </ul>
       </nav>
       <aside
-        className={`shadow-x fixed right-0 top-0 z-40 h-[100vh] w-[75vw] max-w-[20rem] ${isSidebarOpen ? "translate-x-0" : "translate-x-full"} border-l border-gray-200 bg-white py-6 text-gray-700 transition-transform duration-300 dark:border-[#262626] dark:bg-darkBg dark:text-darkSecondary`}
+        className={`shadow-x fixed right-0 top-0 z-40 h-[100vh] w-[75vw] max-w-[20rem] ${isSidebarOpen ? "translate-x-0" : "translate-x-full"} bg-[#ffffff6a] py-6 font-kreon text-primary backdrop-blur-lg transition-transform duration-300 dark:bg-[#000000bd] dark:text-darkSecondary`}
         ref={sidebarRef}
       >
         <button
-          className='float-right mr-6 rounded-full p-1 text-gray-700 dark:text-darkPrimary'
+          className='float-right mr-6 rounded-full p-1 text-primary dark:text-darkPrimary'
           onClick={() => setIsSidebarOpen(false)}
         >
           <FaXmark className='size-6' />
@@ -216,19 +216,19 @@ function Navbar({ page, bg }) {
           <div className='flex flex-col gap-6 text-xl font-semibold capitalize *:px-4 *:py-5 hover:*:bg-gray-200 dark:hover:*:bg-[#262626]'>
             <Link
               to={"/"}
-              className={` ${currentPage === "" && "border-l-[6px] border-[#f88c9b] bg-[#febdbd6e] dark:border-[#f39fa9] dark:bg-[#b78a8a19]"}`}
+              className={` ${currentPage === "" && "bg-[#00000066] dark:bg-[#ffffff19]"}`}
             >
               Home
             </Link>
             <Link
               to={"/about"}
-              className={` ${currentPage === "about" && "border-l-[6px] border-[#f88c9b] bg-[#febdbd6e] dark:border-[#f39fa9] dark:bg-[#b78a8a19]"}`}
+              className={` ${currentPage === "about" && "bg-[#00000066] dark:bg-[#ffffff19]"}`}
             >
               About
             </Link>
             <Link
               to={"/blog"}
-              className={` ${currentPage === "blog" && "border-l-[6px] border-[#f88c9b] bg-[#febdbd6e] dark:border-[#f39fa9] dark:bg-[#b78a8a19]"} `}
+              className={` ${currentPage === "blog" && "bg-[#00000066] dark:bg-[#ffffff19]"} `}
             >
               Blog
             </Link>

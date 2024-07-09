@@ -22,7 +22,7 @@ function Notifications() {
         <h1 className='mb-5 pt-4 text-center text-2xl font-semibold'>
           All Notifications
         </h1>
-        <nav className='mx-auto flex w-fit justify-center rounded-3xl border bg-gray-200 *:rounded-3xl *:border-gray-300 *:px-10 *:py-1.5 dark:border-[#3a3a3a] dark:bg-darkBg lg:*:text-lg'>
+        <nav className='mx-auto flex w-fit justify-center rounded-3xl border bg-gray-200 *:rounded-3xl *:border-gray-300 *:px-10 *:py-1.5 dark:border-[#111112] dark:bg-[#111112] lg:*:text-lg'>
           <Link
             to={"/notifications"}
             className={`${currentPath === "notifications" ? "bg-white text-primary dark:bg-[#262626] dark:text-darkPrimary" : "text-[#666667]"}`}

@@ -27,7 +27,7 @@ function Footer() {
   return (
     <footer className='relative mt-12 flex flex-col items-center gap-8 bg-[#fdadb8] bg-cover px-6 pb-8 pt-14 text-[#342f23] dark:bg-[#c26d78] dark:text-[#18140d] lg:px-20'>
       <div className='flex flex-col items-center gap-6'>
-        <Link to={"/"} className='text-lg font-semibold'>
+        <Link to={"/"} className='text-xl font-kreon font-semibold'>
           Coffee & Convos
         </Link>
         <ul className='flex items-center gap-8 *:text-sm *:uppercase'>
@@ -74,7 +74,7 @@ function Footer() {
           </li>
         </ul>
       </div>
-      <div className='w-full border-t-2 border-[#342f23] pt-8'>
+      <div className='w-full border-t-2 font-kreon border-[#342f23] pt-8'>
         <p className='text-center'>
           Copyright &copy; {new Date().getFullYear()} Thebetawriter. All rights
           reserved

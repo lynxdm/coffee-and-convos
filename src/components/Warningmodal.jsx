@@ -25,7 +25,7 @@ function Warningmodal({
           <p> {content}</p>
           <div className='mt-3 flex gap-4 *:rounded-md *:px-3 lg:*:px-4 *:py-2 *:font-semibold text-sm lg:text-base'>
             <button
-              className='bg-red-600 dark:text-black text-white hover:bg-red-700'
+              className='bg-red-700 dark:text-black text-white'
             onClick={deleteaction}
             >
               {delBtn}

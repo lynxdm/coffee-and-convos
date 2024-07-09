@@ -29,7 +29,7 @@ function NotificationItem({
     if (type === "like") {
       return (
         <Link to={`/blog${articleLink}`}>
-          <li className='flex min-h-[5rem] items-start gap-4 border bg-white p-2 shadow-sm dark:border-[#3a3a3a] dark:bg-[#262626] md:p-4 lg:rounded-2xl'>
+          <li className='flex min-h-[5rem] items-start gap-4 border-y bg-white p-2 shadow-sm dark:border-[#262626] dark:bg-[#262626] md:p-4 lg:rounded-2xl lg:border'>
             <div className='relative'>
               {!imageError ? (
                 <img
@@ -41,7 +41,7 @@ function NotificationItem({
               ) : (
                 <ReactNiceAvatar className='size-8 lg:size-12' {...config} />
               )}
-              <FaHeart className='absolute right-0 top-0 size-5 translate-x-[25%] text-red-500 lg:size-6' />
+              <FaHeart className='absolute right-0 top-0 size-5 translate-x-[25%] text-red-500 lg:size-6 dark:text-red-600' />
             </div>
             <div className='flex flex-col gap-1 md:w-full'>
               <div className='justify flex items-center justify-between gap-6 text-[0.9rem] lg:text-[1rem]'>
@@ -70,7 +70,7 @@ function NotificationItem({
     if (type === "reply") {
       return (
         <Link to={`/blog${articleLink}`}>
-          <li className='flex min-h-[5rem] items-start gap-4 border bg-white p-2 shadow-sm dark:border-[#3a3a3a] dark:bg-[#262626] md:p-4 lg:rounded-2xl'>
+          <li className='flex min-h-[5rem] items-start gap-4 border-y lg:border bg-white p-2 shadow-sm dark:border-[#262626] dark:bg-[#262626] md:p-4 lg:rounded-2xl'>
             <div className='relative'>
               {!imageError ? (
                 <img
@@ -82,7 +82,7 @@ function NotificationItem({
               ) : (
                 <ReactNiceAvatar className='size-8 lg:size-12' {...config} />
               )}
-              <FaReply className='absolute right-0 top-0 size-5 translate-x-[25%] text-purple-500 lg:size-6' />
+              <FaReply className='absolute right-0 top-0 size-5 translate-x-[25%] text-purple-500 dark:text-purple-600 lg:size-6' />
             </div>
             <div className='flex flex-col gap-2 md:w-full'>
               <div className='justify flex items-center justify-between gap-4 text-sm lg:text-base'>
@@ -118,7 +118,7 @@ function NotificationItem({
     if (type === "new_comment") {
       return (
         <Link to={`/blog${articleLink}`}>
-          <li className='items-startq flex min-h-[5rem] gap-4 border bg-white dark:bg-[#262626] dark:border-[#3a3a3a] p-2 shadow-sm md:p-4 lg:rounded-2xl'>
+          <li className='items-startq flex min-h-[5rem] gap-4 border-y bg-white p-2 shadow-sm dark:border-[#262626] dark:bg-[#262626] md:p-4 lg:rounded-2xl lg:border'>
             <div className='relative'>
               {!imageError ? (
                 <img
@@ -130,7 +130,7 @@ function NotificationItem({
               ) : (
                 <ReactNiceAvatar className='size-8 lg:size-12' {...config} />
               )}
-              <FaComment className='absolute right-0 top-0 size-5 translate-x-[25%] text-blue-300 lg:size-6' />
+              <FaComment className='absolute right-0 top-0 size-5 translate-x-[25%] text-blue-300 dark:text-blue-500 lg:size-6' />
             </div>
             <div className='flex flex-col gap-4 md:w-full'>
               <div className='justify flex gap-2 text-sm md:justify-between lg:text-base'>

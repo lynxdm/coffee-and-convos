@@ -20,7 +20,7 @@ function NewNotifications() {
 
   if (readNotifications) {
     return (
-      <ul className='mx-auto my-14 flex max-w-[50rem] flex-col gap-2'>
+      <ul className='mx-auto my-14 flex max-w-[50rem] flex-col gap-3'>
         {readNotifications.map((notification, index) => {
           return (
             <NotificationItem {...notification} key={notification.timestamp} />

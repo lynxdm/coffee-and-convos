@@ -47,7 +47,7 @@ function Home() {
               <img
                 src={heroImg}
                 alt='hero image'
-                className='aspect-[2/1.5] w-full object-cover md:aspect-[1/1.1] lg:aspect-[16/13] lg:max-w-full'
+                className='aspect-[2/1.5] h-[18rem] md:h-[26rem] xl:h-[38rem] lg:h-[28rem] w-full object-cover md:aspect-[1/1.1] lg:aspect-[16/13] lg:max-w-full'
               />
             </div>
             <article className='lg:mt-31 mb-12 mt-32 flex flex-col items-center gap-7 md:ml-[5rem] md:mt-28 md:flex-row md:gap-12 lg:mb-0 lg:ml-[9rem] lg:gap-12 xl:ml-[10rem] xl:gap-24'>

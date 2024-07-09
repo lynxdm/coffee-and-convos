@@ -317,7 +317,7 @@ function CommentItem({
         )}
         <div className='w-full rounded-md border border-gray-300 p-2 dark:border-[#3a3a3a]'>
           <div className='flex w-full justify-between'>
-            <div className='mb-2 flex items-start gap-2 text-[0.9rem] text-gray-600 dark:text-darkSecondary'>
+            <div className='mb-2 font-kurale flex items-center gap-2 text-[0.9rem] text-gray-600 dark:text-darkSecondary'>
               <p className='font-bold'>
                 {displayName}{" "}
                 {email === admin.email && (

@@ -19,7 +19,7 @@ function NewNotifications() {
 
   if (newNotifications) {
     return (
-      <ul className='mx-auto my-14 flex max-w-[50rem] flex-col gap-2'>
+      <ul className='mx-auto my-14 flex max-w-[50rem] flex-col gap-3'>
         {newNotifications.map((notification, index) => {
           return (
             <NotificationItem
