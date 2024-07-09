@@ -111,7 +111,9 @@ function Navbar({ page, bg }) {
                     <ReactNiceAvatar className='size-6 lg:size-8' {...config} />
                   )
                 ) : (
-                  <FaUserCircle className='size-6' />
+                  <FaUserCircle
+                    className={`text-primary size-6 md:text-darkPrimary lg:hidden ${currentPage !== "" && "dark:text-darkPrimary"}`}
+                  />
                 )}
               </button>
               <ul
@@ -203,7 +205,7 @@ function Navbar({ page, bg }) {
         </ul>
       </nav>
       <aside
-        className={`shadow-x fixed right-0 top-0 z-40 h-[100vh] w-[75vw] max-w-[20rem] ${isSidebarOpen ? "translate-x-0" : "translate-x-full"} bg-[#ffffff6a] py-6 font-kreon text-primary backdrop-blur-lg transition-transform duration-300 dark:bg-[#000000bd] dark:text-darkSecondary`}
+        className={`shadow-x fixed right-0 top-0 z-40 h-[100vh] w-[75vw] max-w-[20rem] ${isSidebarOpen ? "translate-x-0" : "translate-x-full"} bg-[#ffffff6a] py-6 text-primary backdrop-blur-lg transition-transform duration-300 dark:bg-[#000000bd] dark:text-darkSecondary`}
         ref={sidebarRef}
       >
         <button
