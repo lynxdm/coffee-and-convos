@@ -127,7 +127,7 @@ function Article() {
           </div>
           <ReactMarkdown
             children={content}
-            className='prose-headings: prose-lg mx-auto max-w-[50rem] break-words md:prose-xl prose-headings:mb-4 prose-headings:mt-8 prose-headings:font-kreon font-overpass prose-headings:font-bold prose-h2:font-extrabold prose-p:my-4 prose-li:list-disc lg:prose-h2:text-4xl'
+            className='prose-lg mx-auto max-w-[50rem] break-words md:prose-xl prose-headings:mb-4 prose-headings:mt-8 prose-headings:font-kreon font-overpass prose-headings:font-bold prose-h2:font-extrabold prose-p:my-4 prose-li:list-disc lg:prose-h2:text-4xl'
           />
         </main>
         <CommentSection

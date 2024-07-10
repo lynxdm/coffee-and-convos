@@ -140,7 +140,7 @@ function New() {
       <nav className='relative flex min-h-[5vh] items-center justify-between bg-[#f5f5f5] px-2 py-2 dark:bg-[black] lg:px-32'>
         <div className='flex min-w-[60vw] items-center justify-between'>
           <div className='hidden items-center gap-5 lg:flex'>
-            <Link to={"/"} className='text-2xl font-semibold'>
+            <Link to={"/"} className='text-2xl font-kreon font-semibold'>
               Coffee & Convos
             </Link>
             <p className='text-lg font-semibold underline'>Markdown Editor</p>
@@ -177,9 +177,9 @@ function New() {
           <FaXmark className='size-6' />
         </button>
       </nav>
-      <main className='min-h-[110vh] bg-[#f5f5f5] dark:bg-[rgb(0,0,0)] lg:px-32'>
+      <main className='flex min-h-[100vh] flex-col gap-4 bg-[#f5f5f5] dark:bg-[rgb(0,0,0)] lg:px-32'>
         <section
-          className={`h-[40rem] overflow-y-hidden border border-gray-300 bg-white dark:bg-darkBg dark:border-[#181818] lg:rounded-md xl:w-[57rem] ${(articleDraft.content.length > 200 || currentPath === "preview") && "overflow-y-scroll"} relative`}
+          className={` min-h-[30rem] h-[82vh] overflow-y-hidden border border-gray-300 bg-white dark:bg-darkBg dark:border-[#181818] lg:rounded-md xl:w-[57rem] ${(articleDraft.content.length > 200 || currentPath === "preview") && "overflow-y-scroll"} relative`}
         >
           {errorComponent.show && (
             <div className='m-0 grid items-center bg-red-100 px-10 py-4 pb-5 font-bold text-red-700'>
@@ -198,7 +198,7 @@ function New() {
             ]}
           />
         </section>
-        <div className='my-5 flex items-center gap-2 px-3 pb-4 *:rounded-md *:px-4 *:py-[0.4rem]'>
+        <div className='flex items-center gap-2 px-3 pb-4 *:rounded-md *:px-4 *:py-[0.4rem]'>
           {isLoading.show ? (
             <div className='flex gap-2 bg-blue-700 font-semibold text-white'>
               <ScaleLoader

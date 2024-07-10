@@ -156,7 +156,7 @@ function Editor() {
       onSubmit={(e) => e.preventDefault()}
     >
       {coverIsLoading ? (
-        <div className='mx-3 flex items-center gap-2 lg:mx-16'>
+        <div className='mx-4 flex items-center gap-2 lg:mx-16'>
           <ScaleLoader
             color='rgba(29, 78, 216, 1)'
             height={12}
@@ -166,7 +166,7 @@ function Editor() {
           <p>Uploading...</p>
         </div>
       ) : articleDraft.coverImg ? (
-        <div className='mx-3 flex flex-col gap-3 lg:mx-16 lg:flex-row lg:items-center lg:gap-8'>
+        <div className='mx-4 flex flex-col gap-3 lg:mx-16 lg:flex-row lg:items-center lg:gap-8'>
           <div>
             <img
               src={articleDraft.coverImg}
@@ -174,7 +174,7 @@ function Editor() {
               className='max-h-[7rem] rounded object-contain lg:max-h-[9rem]'
             />
           </div>
-          <div className='flex gap-2 *:rounded-md *:px-3 *:py-[0.4rem] *:font-semibold'>
+          <div className='flex gap-2 *:rounded-md *:px-4 *:py-[0.4rem] *:font-semibold'>
             <label
               htmlFor='change-cover-img'
               className='w-fit cursor-pointer border-2 border-gray-300'
@@ -201,7 +201,7 @@ function Editor() {
       ) : (
         <label
           htmlFor='cover-img'
-          className='mx-3 w-fit cursor-pointer rounded-md border-2 border-gray-300 px-3 py-[0.4rem] font-semibold dark:border-[#3a3a3a] lg:mx-16'
+          className='mx-4 w-fit cursor-pointer rounded-md border-2 border-gray-300 px-3 py-[0.4rem] font-semibold dark:border-[#3a3a3a] lg:mx-16'
           onInput={uploadCoverImage}
         >
           Add a cover image
@@ -221,9 +221,9 @@ function Editor() {
         onChange={handleChange}
         ref={titleText}
         id='title'
-        className='resize-none px-3 font-inter text-4xl font-extrabold placeholder:font-extrabold placeholder:text-gray-600 focus:outline-none dark:bg-darkBg dark:text-white dark:placeholder:text-[#3a3a3a] lg:px-16 lg:text-5xl lg:placeholder:text-5xl'
+        className='resize-none px-4 font-kreon text-4xl font-extrabold placeholder:font-extrabold placeholder:text-gray-600 focus:outline-none dark:bg-darkBg dark:text-white dark:placeholder:text-[#3a3a3a] lg:px-16 lg:text-5xl lg:placeholder:text-5xl'
       />
-      <div className='sticky top-0 flex w-full flex-wrap items-center gap-3 bg-[#f5f5f5] px-2 py-3 *:flex *:size-10 *:items-center *:justify-center *:rounded dark:bg-[black] lg:px-16'>
+      <div className='sticky top-0 flex w-full flex-wrap items-center gap-3 bg-[#f5f5f5] px-2 py-3 *:flex *:size-10 *:items-center *:justify-center *:rounded dark:bg-[#090909] lg:px-16'>
         <button
           type='button'
           className='font-mono text-2xl hover:bg-blue-100 hover:text-blue-700 dark:hover:bg-[#343434] dark:hover:text-darkPrimary'
@@ -390,7 +390,7 @@ function Editor() {
         value={articleDraft.content}
         placeholder='Article content here...'
         onChange={handleChange}
-        className='resize-none overflow-hidden px-3 font-mono text-lg leading-loose placeholder:text-gray-600 focus:outline-none dark:bg-darkBg dark:text-white dark:placeholder:text-[#3a3a3a] lg:px-16'
+        className='resize-none overflow-hidden px-4 font-mono text-lg leading-loose placeholder:text-gray-600 focus:outline-none dark:bg-darkBg dark:text-white dark:placeholder:text-[#3a3a3a] lg:px-16'
         ref={textAreaRef}
       ></textarea>
     </form>

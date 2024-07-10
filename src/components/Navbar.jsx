@@ -69,7 +69,7 @@ function Navbar({ page, bg }) {
         >
           Coffee & Convos
         </Link>
-        <ul className='flex items-center gap-6 font-kreon dark:text-darkSecondary'>
+        <ul className='flex items-center gap-6 dark:text-darkSecondary'>
           <li className='hidden lg:block'>
             <Link to={"/"} className={`${currentPage === "" && "font-bold"}`}>
               Home
