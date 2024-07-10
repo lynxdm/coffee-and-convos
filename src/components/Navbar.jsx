@@ -112,7 +112,7 @@ function Navbar({ page, bg }) {
                   )
                 ) : (
                   <FaUserCircle
-                    className={`text-primary size-6 md:text-darkPrimary ${currentPage !== "" && "dark:text-darkPrimary"}`}
+                    className={`text-primary size-6 dark:md:text-darkPrimary ${currentPage !== "" && "dark:text-darkPrimary"}`}
                   />
                 )}
               </button>
@@ -195,7 +195,7 @@ function Navbar({ page, bg }) {
               </ul>
             </div>
             <button
-              className={`text-primary md:text-darkPrimary lg:hidden ${currentPage !== "" && "dark:text-darkPrimary"}`}
+              className={`text-primary dark:md:text-darkPrimary lg:hidden ${currentPage !== "" && "dark:text-darkPrimary"}`}
               ref={sidebarBtn}
               onClick={() => setIsSidebarOpen(true)}
             >
