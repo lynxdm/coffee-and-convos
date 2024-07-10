@@ -384,7 +384,7 @@ function CommentItem({
                     <div className='flex items-center gap-20 rounded-md p-5 py-3 text-[0.8rem] font-semibold shadow-md'>
                       <p className=''>Login to interact with comment</p>
                       <button
-                        className='rounded-md bg-primary px-2 py-1 font-medium text-white'
+                        className='rounded-md  bg-primary px-2 py-1 font-medium text-white'
                         onClick={() => {
                           navigate("/login");
                           toast.dismiss(t);

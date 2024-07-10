@@ -112,7 +112,7 @@ function Navbar({ page, bg }) {
                   )
                 ) : (
                   <FaUserCircle
-                    className={`text-primary size-6 md:text-darkPrimary lg:hidden ${currentPage !== "" && "dark:text-darkPrimary"}`}
+                    className={`text-primary size-6 md:text-darkPrimary ${currentPage !== "" && "dark:text-darkPrimary"}`}
                   />
                 )}
               </button>
