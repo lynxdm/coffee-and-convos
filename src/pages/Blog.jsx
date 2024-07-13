@@ -6,7 +6,8 @@ import Navbar from "../components/Navbar";
 import useGetArticles from "../hooks/useGetArticles";
 import Articlecard from "../components/Articlecard";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
-import { PiMapPinSimpleBold } from "react-icons/pi";
+import { FiArrowUpRight } from "react-icons/fi";
+import { RxDrawingPinFilled } from "react-icons/rx";
 import ReactMarkdown from "react-markdown";
 import { useGlobalContext } from "../context";
 import { Link } from "react-router-dom";
@@ -47,7 +48,7 @@ function Blog() {
       <>
         <Navbar />
         <main className='px-6 lg:px-32'>
-          <section
+          {/* <section
             className={`mt-4 flex h-[40rem]  w-full items-end overflow-hidden bg-[#adadad] bg-cover bg-center bg-no-repeat text-white bg-blend-multiply rounded-lg`}
             style={{ backgroundImage: `url(${articles[0].cover.image})` }}
           >
@@ -76,6 +77,35 @@ function Blog() {
                 >
                   READ MORE
                 </Link>
+              </div>
+            </div>
+          </section> */}
+          <section className='mt-8 flex flex-col lg:flex-row items-center justify-between lg:gap-8 gap-4 pb-4 lg:pb-0 lg:border-2 border-b-2 border-primary'>
+            <img
+              src={articles[0].cover.image}
+              alt={articles[0].title + "cover image"}
+              className='aspect-[2/1.5] lg:w-[50%] object-cover'
+            />
+            <div className='flex flex-col px-3 lg:px-0 lg:gap-4 py-2 gap-4 border-primary'>
+              <Link
+                to={`/blog/${formatLink(articles[0].title)}-${articles[0].id}`}
+                className='flex items-start gap-3 lg:border-b border-primary lg:pb-3 pr-2 hover:text-gray-600'
+              >
+                <h2 className='font-kreon text-3xl lg:text-4xl font-extrabold max-w-[90%] lg:max-w-[92%]:'>
+                 {articles[0].title}
+                </h2>
+                <FiArrowUpRight className='size-6' />
+              </Link>
+              <ReactMarkdown
+                children={previewContent}
+                className='prose line-clamp-6 lg:line-clamp-5 pr-2 prose-headings:hidden prose-p:my-0 prose-img:hidden lg:leading-8 xl:max-w-[41rem]'
+              />
+              <div className='flex flex-col justify-center gap-1'>
+                <div className='flex items-start gap-1 text-pink-700'>
+                  <RxDrawingPinFilled className='lg:size-5' />
+                  <p className='self-end font-bold'>Pinned</p>
+                </div>
+                <p>{timeAgo(articles[0].date)}</p>
               </div>
             </div>
           </section>
