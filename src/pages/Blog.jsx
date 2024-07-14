@@ -57,7 +57,7 @@ function Blog() {
             <div className='flex flex-col gap-4 border-primary px-3 py-2 dark:border-[#3a3a3a] lg:gap-4 lg:px-0'>
               <Link
                 to={`/blog/${formatLink(articles[0].title)}-${articles[0].id}`}
-                className='dark:border-[#3a3a3a] hover:text-gray-600 flex items-start gap-3 border-primary pr-2 lg:border-b lg:pb-3'
+                className='dark:border-[#3a3a3a] hover:text-gray-600 dark:hover:text-gray-400 flex items-start gap-3 border-primary pr-2 lg:border-b lg:pb-3'
               >
                 <h2 className='lg:max-w-[92%]: max-w-[90%] font-kreon text-3xl font-extrabold lg:text-4xl'>
                   {articles[0].title}
