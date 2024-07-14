@@ -91,7 +91,7 @@ function CommentSection({ articleId, articleLink, articleTitle }) {
   return (
     <section
       className='mx-auto mt-8 max-w-[60rem] border-t px-3 pt-10 dark:border-darkSecondary md:px-8'
-      id='comment_section'
+      id='comments'
     >
       <h2 className='text-center text-2xl md:text-3xl font-kreon font-bold lg:text-4xl'>Comments</h2>
       <div className='mt-7 flex items-start gap-3'>

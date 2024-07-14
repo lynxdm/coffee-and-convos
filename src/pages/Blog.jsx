@@ -52,12 +52,12 @@ function Blog() {
             <img
               src={articles[0].cover.image}
               alt={articles[0].title + "cover image"}
-              className='aspect-[2/1.5] w-full max-w-[40rem] object-cover md:aspect-[2/1.2] lg:aspect-[1/1.1] min-[1200px]:aspect-[2/1.8] xl:aspect-[2/1.5] lg:w-[50%] lg:max-w-full'
+              className='aspect-[2/1.5] w-full max-w-[40rem] object-cover md:aspect-[2/1.2] lg:aspect-[1/1.1] lg:w-[50%] lg:max-w-full min-[1200px]:aspect-[2/1.8] xl:aspect-[2/1.5]'
             />
             <div className='flex flex-col gap-4 border-primary px-3 py-2 dark:border-[#3a3a3a] lg:gap-4 lg:px-0'>
               <Link
                 to={`/blog/${formatLink(articles[0].title)}-${articles[0].id}`}
-                className='dark:border-[#3a3a3a] hover:text-gray-600 dark:hover:text-gray-400 flex items-start gap-3 border-primary pr-2 lg:border-b lg:pb-3'
+                className='flex items-start gap-3 border-primary pr-2 hover:text-gray-600 dark:border-[#3a3a3a] dark:hover:text-gray-400 lg:border-b lg:pb-3'
               >
                 <h2 className='lg:max-w-[92%]: max-w-[90%] font-kreon text-3xl font-extrabold lg:text-4xl'>
                   {articles[0].title}

@@ -29,9 +29,12 @@ function Articlecard({ title, cover, date, id, type }) {
 
   if (content) {
     return (
-      <ul className='border-2 border-primary py-3 dark:border-[#3a3a3a]' key={id}>
-        <li className='dark:border-[#3a3a3a] dark:text-darkSecondary flex items-center justify-between border-b-2 border-primary px-2 pb-2'>
-          <p className='text-sm capitalize font-semibold'>{timeAgo(date)}</p>
+      <ul
+        className='border-2 border-primary py-3 dark:border-[#3a3a3a]'
+        key={id}
+      >
+        <li className='flex items-center justify-between border-b-2 border-primary px-2 pb-2 dark:border-[#3a3a3a] dark:text-darkSecondary'>
+          <p className='text-sm font-semibold capitalize'>{timeAgo(date)}</p>
           {type === "articles" ? (
             <Link
               to={`/blog/${formatLink(title)}-${id}`}
@@ -50,10 +53,13 @@ function Articlecard({ title, cover, date, id, type }) {
             </button>
           )}
         </li>
-        <li className='px-3 py-4 pb-2 md:min-h-24 lg:min-h-28 lg:px-5'>
-          <h3 className='text-2xl font-semibold font-kreon'>
-            {title}
-          </h3>
+        <li>
+          <Link
+            to={`/blog/${formatLink(title)}-${id}`}
+            className='block px-3 py-4 pb-2 hover:text-gray-600 dark:hover:text-gray-400 md:min-h-24 lg:min-h-28 lg:px-5'
+          >
+            <h3 className='font-kreon text-2xl font-semibold'>{title}</h3>
+          </Link>
         </li>
         <li className='border-y border-primary dark:border-[#3a3a3a]'>
           <img
