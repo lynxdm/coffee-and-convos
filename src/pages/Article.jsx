@@ -2,7 +2,16 @@ import React, { useEffect, useRef, useState } from "react";
 import { FaXmark } from "react-icons/fa6";
 import { useLocation, useNavigate } from "react-router-dom";
 import { db, storage } from "../utilis/firebase";
-import { deleteDoc, doc, getDoc } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import { useGlobalContext } from "../context";
 import ReactMarkdown from "react-markdown";
 import Loader from "../components/Loader";
@@ -12,6 +21,7 @@ import { deleteObject, ref } from "firebase/storage";
 import Warningmodal from "../components/Warningmodal";
 import CommentSection from "../components/CommentSection.jsx";
 import useMenu from "../hooks/useMenu.jsx";
+import { update } from "firebase/database";
 
 function Article() {
   const navigate = useNavigate();
@@ -23,7 +33,7 @@ function Article() {
 
   const manageMenuRef = useRef(null);
   const manageBtnRef = useRef(null);
-  const [ isMenuOpen, setIsMenuOpen ] = useMenu(manageBtnRef, manageMenuRef);
+  const [isMenuOpen, setIsMenuOpen] = useMenu(manageBtnRef, manageMenuRef);
 
   let path = pathname.split("-");
   const id = path[path.length - 1];
@@ -69,6 +79,27 @@ function Article() {
     navigate("/");
   };
 
+  const unpinArticles = async () => {
+    const articlesRef = collection(db, "articles");
+    const q = query(articlesRef, where("pinned", "==", true));
+    const snapshot = await getDocs(q);
+    if (snapshot.empty) return;
+    snapshot.forEach((doc) => {
+      const docRef = doc.ref;
+      updateDoc(docRef, {
+        pinned: false,
+      });
+    });
+  };
+
+  const pinArticle = async () => {
+    await unpinArticles();
+    let articleRef = doc(db, "articles", id);
+    updateDoc(articleRef, {
+      pinned: true,
+    });
+  };
+
   if (isLoading) {
     return <Loader />;
   }
@@ -81,7 +112,7 @@ function Article() {
           <h1 className='mx-auto mb-4 max-w-[50rem] text-center font-kreon text-3xl font-bold leading-10 lg:mb-8 lg:text-6xl lg:leading-[5rem]'>
             {article.title}
           </h1>
-          <div className='mx-auto flex max-w-[60rem] items-center justify-between dark:text-darkSecondary font-kurale'>
+          <div className='mx-auto flex max-w-[60rem] items-center justify-between font-kurale dark:text-darkSecondary'>
             <p className='capitalize'>{timeAgo(article.date)}</p>
             <div className='flex items-center gap-4'>
               <button className='underline underline-offset-2'>
@@ -105,12 +136,17 @@ function Article() {
                       >
                         Edit Article
                       </button>
-                      {/* <div className='h-0 border-t py-0'></div> */}
                       <button
                         className='py-2 hover:bg-gray-200 dark:hover:bg-[#262626]'
                         onClick={() => setIsModalWarningOpen(true)}
                       >
                         Delete Article
+                      </button>
+                      <button
+                        className='py-2 hover:bg-gray-200 dark:hover:bg-[#262626]'
+                        onClick={pinArticle}
+                      >
+                        Pin Article
                       </button>
                     </div>
                   )}
@@ -127,7 +163,7 @@ function Article() {
           </div>
           <ReactMarkdown
             children={content}
-            className='prose-lg mx-auto max-w-[50rem] break-words md:prose-xl prose-headings:mb-4 prose-headings:mt-8 prose-headings:font-kreon font-overpass prose-headings:font-bold prose-h2:font-extrabold prose-p:my-4 prose-li:list-disc lg:prose-h2:text-4xl'
+            className='prose-lg mx-auto max-w-[50rem] break-words font-overpass md:prose-xl prose-headings:mb-4 prose-headings:mt-8 prose-headings:font-kreon prose-headings:font-bold prose-h2:font-extrabold prose-p:my-4 prose-li:list-disc lg:prose-h2:text-4xl'
           />
         </main>
         <CommentSection
