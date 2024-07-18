@@ -30,6 +30,7 @@ function Article() {
   const [content, setContent] = useState("");
   const [article, setArticle] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isPinned, setIsPinned] = useState(false);
 
   const manageMenuRef = useRef(null);
   const manageBtnRef = useRef(null);
@@ -45,6 +46,7 @@ function Article() {
     if (docSnap) {
       setArticle(docSnap.data());
       setIsLoading(false);
+      if (docSnap.data().pinned) setIsPinned(true);
     } else {
       console.log("an error occurred");
     }
@@ -72,6 +74,7 @@ function Article() {
   };
 
   const [isModalWarningOpen, setIsModalWarningOpen] = useState(false);
+  const [modalType, setModalType] = useState("");
 
   const deleteArticle = () => {
     deleteDoc(doc(db, "articles", id));
@@ -98,6 +101,8 @@ function Article() {
     updateDoc(articleRef, {
       pinned: true,
     });
+    setIsModalWarningOpen(false);
+    setIsPinned(true);
   };
 
   if (isLoading) {
@@ -138,16 +143,34 @@ function Article() {
                       </button>
                       <button
                         className='py-2 hover:bg-gray-200 dark:hover:bg-[#262626]'
-                        onClick={() => setIsModalWarningOpen(true)}
+                        onClick={() => {
+                          setModalType("delete");
+                          setIsModalWarningOpen(true);
+                        }}
                       >
                         Delete Article
                       </button>
-                      <button
-                        className='py-2 hover:bg-gray-200 dark:hover:bg-[#262626]'
-                        onClick={pinArticle}
-                      >
-                        Pin Article
-                      </button>
+                      {!isPinned ? (
+                        <button
+                          className='py-2 hover:bg-gray-200 dark:hover:bg-[#262626]'
+                          onClick={() => {
+                            setModalType("pin");
+                            setIsModalWarningOpen(true);
+                          }}
+                        >
+                          Pin Article
+                        </button>
+                      ) : (
+                        <button
+                          className='py-2 hover:bg-gray-200 dark:hover:bg-[#262626]'
+                          onClick={() => {
+                            unpinArticles();
+                            setIsPinned(false);
+                          }}
+                        >
+                          Unpin Article
+                        </button>
+                      )}
                     </div>
                   )}
                 </div>
@@ -172,16 +195,29 @@ function Article() {
           articleTitle={article.title}
         />
         <Footer />
-        {isModalWarningOpen && (
-          <Warningmodal
-            deleteaction={deleteArticle}
-            delBtn={"Delete"}
-            setIsModalWarningOpen={setIsModalWarningOpen}
-            content={"Are you sure you want to delete this post?"}
-            header={"You're about to delete a published article"}
-            backBtn={"Cancel"}
-          />
-        )}
+        {isModalWarningOpen &&
+          (modalType === "delete" ? (
+            <Warningmodal
+              deleteaction={deleteArticle}
+              delBtn={"Delete"}
+              setIsModalWarningOpen={setIsModalWarningOpen}
+              content={"Are you sure you want to delete this post?"}
+              header={"You're about to delete a published article"}
+              backBtn={"Cancel"}
+            />
+          ) : (
+            <Warningmodal
+              deleteaction={pinArticle}
+              delBtn={"Pin"}
+              setIsModalWarningOpen={setIsModalWarningOpen}
+              content={
+                "Note that any previously pinned articles will be unpinned."
+              }
+              header={"You're about to pin this article to your blog"}
+              backBtn={"Cancel"}
+              safe={true}
+            />
+          ))}
       </>
     );
   }
