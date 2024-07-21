@@ -17,14 +17,17 @@ import Drafts from "./pages/Drafts";
 import NewNotifications from "./pages/NewNotifications";
 import ReadNotifications from "./pages/ReadNotifications";
 import { Toaster } from "sonner";
+import { useGlobalContext } from "./context";
 
 function App() {
+  const { theme } = useGlobalContext();
+
   return (
     <Router>
-      <Toaster position='top-right' />
+      <Toaster position='top-right' richColors theme={theme} />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path="/blog" element= {<Blog/>}/>
+        <Route path='/blog' element={<Blog />} />
         <Route path='/about' element={<About />} />
         <Route path='/notifications' element={<Notifications />}>
           <Route path='' element={<NewNotifications />} />

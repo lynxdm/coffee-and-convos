@@ -14,9 +14,10 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { FaChevronLeft } from "react-icons/fa6";
 import useNotification from "../hooks/useNotification";
 import { v4 } from "uuid";
+import { toast } from "sonner";
 
 function SignUp() {
-  const [signInWithGoogle] = useOutletContext();
+  const [signInWithGoogle, getErrorMessage] = useOutletContext();
   const [isUsingEmail, setIsUsingEmail] = useState(false);
   const { createUserNotification } = useNotification();
 
@@ -67,16 +68,6 @@ function SignUp() {
           });
         })
         .catch((error) => {
-          // setCoverIsLoading(false);
-          // setArticleDraft({
-          //   ...articleDraft,
-          //   coverImg: "",
-          //   coverImgPath: "",
-          // });
-          // setErrorComponent({
-          //   show: true,
-          //   content: "There was a problem uploading the image:",
-          // });
           console.log(error);
         });
     }
@@ -106,6 +97,10 @@ function SignUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!userInfo.photoURL) {
+      toast.error("No profile picture");
+      return;
+    }
 
     createUserWithEmailAndPassword(auth, userInfo.email, userInfo.password)
       .then((userCredential) => {
@@ -117,9 +112,12 @@ function SignUp() {
         createUserNotification(user);
         setUserInfo({});
         navigate("/");
-        console.log(user);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        let errorMsg = getErrorMessage(error.code);
+        toast.error(errorMsg);
+      });
   };
 
   return (
@@ -196,7 +194,6 @@ function SignUp() {
                       id='profile_photo'
                       name='profile_photo'
                       onInput={uploadProfileImage}
-                      required
                     />
                   </label>
                 ) : (

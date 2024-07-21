@@ -51,7 +51,7 @@ function CommentItem({
   const manageCommentBtn = useRef(null);
   const manageCommentMenu = useRef(null);
 
-  const [ isMenuOpen, setIsMenuOpen ] = useMenu(
+  const [isMenuOpen, setIsMenuOpen] = useMenu(
     manageCommentBtn,
     manageCommentMenu,
   );
@@ -317,7 +317,7 @@ function CommentItem({
         )}
         <div className='w-full rounded-md border border-gray-300 p-2 dark:border-[#3a3a3a]'>
           <div className='flex w-full justify-between'>
-            <div className='mb-2 font-kurale flex items-center gap-2 text-[0.9rem] text-gray-600 dark:text-darkSecondary'>
+            <div className='mb-2 flex items-center gap-2 font-kurale text-[0.9rem] text-gray-600 dark:text-darkSecondary'>
               <p className='font-bold'>
                 {displayName}{" "}
                 {email === admin.email && (
@@ -380,20 +380,15 @@ function CommentItem({
               className={`${isLiked ? "bg-[#d71c1c18]" : "hover:bg-gray-100 dark:hover:bg-[#262626]"}`}
               onClick={() => {
                 if (!user.email) {
-                  toast.custom((t) => (
-                    <div className='flex items-center gap-20 rounded-md p-5 py-3 text-[0.8rem] font-semibold shadow-md'>
-                      <p className=''>Login to interact with comment</p>
-                      <button
-                        className='rounded-md  bg-primary px-2 py-1 font-medium text-white'
-                        onClick={() => {
-                          navigate("/login");
-                          toast.dismiss(t);
-                        }}
-                      >
-                        Login
-                      </button>
-                    </div>
-                  ));
+                  toast.error("Login to interact with comment", {
+                    action: {
+                      label: "Login",
+                      onClick: () => {
+                        navigate("/login");
+                        toast.dismiss();
+                      },
+                    },
+                  });
                   return;
                 }
                 if (!isLiked) {
@@ -414,20 +409,15 @@ function CommentItem({
             <button
               onClick={() => {
                 if (!user.email) {
-                  toast.custom((t) => (
-                    <div className='flex items-center gap-20 rounded-md p-5 py-3 text-[0.8rem] font-semibold shadow-md'>
-                      <p className=''>Login to interact with comment</p>
-                      <button
-                        className='rounded-md bg-primary px-2 py-1 font-medium text-white'
-                        onClick={() => {
-                          navigate("/login");
-                          toast.dismiss(t);
-                        }}
-                      >
-                        Login
-                      </button>
-                    </div>
-                  ));
+                  toast.error("Login to interact with comment", {
+                    action: {
+                      label: "Login",
+                      onClick: () => {
+                        navigate("/login");
+                        toast.dismiss();
+                      },
+                    },
+                  });
                   return;
                 }
                 setIsReplyOpen(true);

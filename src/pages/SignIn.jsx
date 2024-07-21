@@ -5,11 +5,12 @@ import { auth, provider } from "../utilis/firebase";
 import { BiLogoGmail } from "react-icons/bi";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { FaChevronLeft } from "react-icons/fa6";
+import { toast } from "sonner";
 import useNotification from "../hooks/useNotification";
 
 function SignIn() {
   let navigate = useNavigate();
-  const [signInWithGoogle] = useOutletContext();
+  const [signInWithGoogle, getErrorMessage] = useOutletContext();
   const [isUsingEmail, setIsUsingEmail] = useState(false);
   const { createUserNotification } = useNotification();
 
@@ -43,7 +44,11 @@ function SignIn() {
         navigate("/");
         console.log(user);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        let errorMsg = getErrorMessage(error.code);
+        toast.error(errorMsg);
+      });
   };
 
   return (
