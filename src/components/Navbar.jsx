@@ -18,6 +18,7 @@ import { useGlobalContext } from "../context";
 import useMenu from "../hooks/useMenu";
 import { genConfig } from "react-nice-avatar";
 import ReactNiceAvatar from "react-nice-avatar";
+import { toast } from "sonner";
 
 function Navbar({ page, bg }) {
   const {
@@ -38,7 +39,6 @@ function Navbar({ page, bg }) {
   const sidebarRef = useRef(null);
   const sidebarBtn = useRef(null);
 
-  //  const [isSidebarOpen, setIsSidebarOpen] = useMenu(sidebarBtn, sidebarRef)
   const [isSidebarOpen, setIsSidebarOpen] = useMenu(sidebarBtn, sidebarRef);
 
   const navigate = useNavigate();
@@ -176,8 +176,17 @@ function Navbar({ page, bg }) {
                     <button
                       type='button'
                       onClick={() => {
-                        signUserOut();
-                        navigate("/login");
+                        toast.warning("Are you sure you want to log out?", {
+                          action: {
+                            label: "Logout",
+                            onClick: () =>{
+                              signUserOut();
+                              navigate("/login");
+                              toast.dismiss()
+                            }
+                          },
+                          duration: 6000,
+                        })
                       }}
                     >
                       <TbLogout2 className='size-5' />
