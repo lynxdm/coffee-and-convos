@@ -74,12 +74,17 @@ function Article() {
   };
 
   const [isModalWarningOpen, setIsModalWarningOpen] = useState(false);
-  const [modalType, setModalType] = useState("");
+  const [warningStatement, setWarningStatement] = useState({
+    delBtn: "",
+    content: "",
+    header: "",
+    action: () => {},
+  });
 
   const deleteArticle = () => {
     deleteDoc(doc(db, "articles", id));
     deleteObject(ref(storage, `articles/${id}`));
-    navigate("/");
+    navigate("/blog");
   };
 
   const unpinArticles = async () => {
@@ -144,7 +149,14 @@ function Article() {
                       <button
                         className='py-2 hover:bg-gray-200 dark:hover:bg-[#262626]'
                         onClick={() => {
-                          setModalType("delete");
+                          setWarningStatement({
+                            delBtn: "Delete",
+                            content:
+                              "Are you sure you want to delete this post?",
+                            header:
+                              "You're about to delete a published article",
+                            action: deleteArticle,
+                          });
                           setIsModalWarningOpen(true);
                         }}
                       >
@@ -154,7 +166,15 @@ function Article() {
                         <button
                           className='py-2 hover:bg-gray-200 dark:hover:bg-[#262626]'
                           onClick={() => {
-                            setModalType("pin");
+                            // setModalType("pin");
+                            setWarningStatement({
+                              delBtn: "Pin",
+                              content:
+                                "Note that any previously pinned articles will be unpinned.",
+                              header:
+                                "You're about to pin this article to your blog",
+                              action: pinArticle,
+                            });
                             setIsModalWarningOpen(true);
                           }}
                         >
@@ -164,8 +184,18 @@ function Article() {
                         <button
                           className='py-2 hover:bg-gray-200 dark:hover:bg-[#262626]'
                           onClick={() => {
-                            unpinArticles();
-                            setIsPinned(false);
+                            setWarningStatement({
+                              delBtn: "Unpin",
+                              content:
+                                "Are you sure you want to unpin this article?",
+                              header: "You're about to unpin this article",
+                              action: () => {
+                                unpinArticles();
+                                setIsPinned(false);
+                                setIsModalWarningOpen(false);
+                              },
+                            });
+                            setIsModalWarningOpen(true);
                           }}
                         >
                           Unpin Article
@@ -195,29 +225,16 @@ function Article() {
           articleTitle={article.title}
         />
         <Footer />
-        {isModalWarningOpen &&
-          (modalType === "delete" ? (
-            <Warningmodal
-              deleteaction={deleteArticle}
-              delBtn={"Delete"}
-              setIsModalWarningOpen={setIsModalWarningOpen}
-              content={"Are you sure you want to delete this post?"}
-              header={"You're about to delete a published article"}
-              backBtn={"Cancel"}
-            />
-          ) : (
-            <Warningmodal
-              deleteaction={pinArticle}
-              delBtn={"Pin"}
-              setIsModalWarningOpen={setIsModalWarningOpen}
-              content={
-                "Note that any previously pinned articles will be unpinned."
-              }
-              header={"You're about to pin this article to your blog"}
-              backBtn={"Cancel"}
-              safe={true}
-            />
-          ))}
+        {isModalWarningOpen && (
+          <Warningmodal
+            deleteaction={warningStatement.action}
+            delBtn={warningStatement.delBtn}
+            setIsModalWarningOpen={setIsModalWarningOpen}
+            content={warningStatement.content}
+            header={warningStatement.header}
+            backBtn={"Cancel"}
+          />
+        )}
       </>
     );
   }
