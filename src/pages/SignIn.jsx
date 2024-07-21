@@ -82,7 +82,10 @@ function SignIn() {
           </div>
           <p className='mx-auto mt-6'>
             No account?{" "}
-            <Link className='font-extrabold text-blue-700' to={"signup"}>
+            <Link
+              className='font-extrabold text-blue-700 dark:text-[#5b5bca]'
+              to={"signup"}
+            >
               Create one
             </Link>
           </p>
@@ -94,7 +97,7 @@ function SignIn() {
           </div>
           <div className='h-[20rem] w-[20rem] rounded-3xl border-2 border-primary p-6 dark:border-[#3a3a3a] lg:w-[30rem]'>
             <button
-              className='float-right flex items-center gap-1 font-bold text-blue-800 dark:text-blue-700'
+              className='float-right flex items-center gap-1 font-bold text-blue-800 dark:text-[#5b5bca]'
               onClick={() => setIsUsingEmail(false)}
             >
               <FaChevronLeft className='size-3' />

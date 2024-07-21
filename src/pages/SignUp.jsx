@@ -158,7 +158,10 @@ function SignUp() {
           </div>
           <p className='mx-auto mt-6'>
             Already have an account?{" "}
-            <Link className='font-extrabold text-blue-700' to={"/login"}>
+            <Link
+              className='font-extrabold text-blue-700 dark:text-[#5b5bca]'
+              to={"/login"}
+            >
               Sign in
             </Link>
           </p>
@@ -170,7 +173,7 @@ function SignUp() {
           </h2>
           <div className='w-[21rem] rounded-3xl border-2 border-primary p-5 dark:border-[#3a3a3a] lg:w-[30rem] lg:p-6'>
             <button
-              className='float-right flex items-center gap-1 font-bold text-blue-800'
+              className='float-right flex items-center gap-1 font-bold text-blue-800 dark:text-[#5b5bca]'
               onClick={() => setIsUsingEmail(false)}
             >
               <FaChevronLeft className='size-2 lg:size-3' />
